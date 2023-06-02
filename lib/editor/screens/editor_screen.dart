@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ojt_test_2/editor/widgets/task_menu/task_menu.dart';
 import 'package:ojt_test_2/enums/menu.dart';
 import 'package:ojt_test_2/config/palette.dart';
 import 'package:ojt_test_2/common/templates/layout_template.dart';
@@ -45,21 +46,22 @@ class _EditorScreenState extends State<EditorScreen> {
         ),
         contentWidget: Row(
           children: [
+            // --------------------------- JOB TREE --------------------------- //
             if (isJobTreeVisible)
               Container(
                 width: 200,
                 color: Palette.mint.withOpacity(0.7),
               ),
-            Container(
-              width: 160,
-              color: Palette.mint.withOpacity(0.3),
-            ),
+            // --------------------------- TASK MENU --------------------------- //
+            const TaskMenu(),
+            // --------------------------- EDITOR --------------------------- //
             Expanded(
               child: Container(
                 width: 200,
                 color: Palette.white,
               ),
             ),
+            // --------------------------- TASK PROPERTY WINDOW --------------------------- //
             Container(
               width: 300,
               color: Palette.mint.withOpacity(0.6),
