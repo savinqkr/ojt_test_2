@@ -9,7 +9,7 @@ class TaskMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 160,
+      width: 200,
       color: Palette.mint.withOpacity(0.3),
       child: const Column(children: [
         SizedBox(

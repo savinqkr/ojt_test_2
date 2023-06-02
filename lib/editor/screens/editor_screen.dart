@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ojt_test_2/editor/widgets/editor/editor.dart';
 import 'package:ojt_test_2/editor/widgets/task_menu/task_menu.dart';
+import 'package:ojt_test_2/editor/widgets/task_property_window/task_property_window.dart';
 import 'package:ojt_test_2/enums/menu.dart';
 import 'package:ojt_test_2/config/palette.dart';
 import 'package:ojt_test_2/common/templates/layout_template.dart';
@@ -58,10 +59,7 @@ class _EditorScreenState extends State<EditorScreen> {
             // --------------------------- EDITOR --------------------------- //
             const Expanded(child: Editor()),
             // --------------------------- TASK PROPERTY WINDOW --------------------------- //
-            Container(
-              width: 300,
-              color: Palette.mint.withOpacity(0.6),
-            ),
+            const SingleChildScrollView(child: TaskPropertyWindow()),
           ],
         ),
       ),
