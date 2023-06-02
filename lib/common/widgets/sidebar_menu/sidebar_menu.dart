@@ -57,17 +57,21 @@ class SidebarMenu extends StatelessWidget {
               ),
             ],
           ),
-          const Column(
+          Column(
             children: [
               SidebarMenuButton(
+                menuName: MenuTypes.preparing,
+                isSelected: currentMenu == MenuTypes.preparing,
+              ),
+              SidebarMenuButton(
                 menuName: MenuTypes.notice,
-                isSelected: false,
+                isSelected: currentMenu == MenuTypes.notice,
               ),
               SidebarMenuButton(
                 menuName: MenuTypes.help,
-                isSelected: false,
+                isSelected: currentMenu == MenuTypes.help,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
             ],

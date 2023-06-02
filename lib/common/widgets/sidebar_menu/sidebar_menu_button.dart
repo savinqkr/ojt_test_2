@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_material_symbols/flutter_material_symbols.dart';
+import 'package:ojt_test_2/common/screens/preparing_screen.dart';
 import 'package:ojt_test_2/enums/menu.dart';
 import 'package:ojt_test_2/config/palette.dart';
 
@@ -9,7 +10,6 @@ import 'package:ojt_test_2/planner/screens/planner_screen.dart';
 import 'package:ojt_test_2/monitor/screens/monitor_screen.dart';
 import 'package:ojt_test_2/focusview/screens/focusview_screen.dart';
 import 'package:ojt_test_2/prediction/screens/prediction_screen.dart';
-
 import 'package:ojt_test_2/management_tools/screens/management_tools_screen.dart';
 import 'package:ojt_test_2/approval/screens/approval_screen.dart';
 import 'package:ojt_test_2/notice/screens/notice_screen.dart';
@@ -126,9 +126,10 @@ class SidebarMenuButton extends StatelessWidget {
               Radius.circular(11.0),
             ),
           ),
-          child: const Icon(
+          child: Icon(
             MaterialSymbols.notifications,
             size: 18,
+            color: isSelected ? Palette.mint : Palette.black,
           ),
         );
       case MenuTypes.help:
@@ -141,9 +142,26 @@ class SidebarMenuButton extends StatelessWidget {
               Radius.circular(11.0),
             ),
           ),
-          child: const Icon(
+          child: Icon(
             MaterialSymbols.question_mark,
             size: 18,
+            color: isSelected ? Palette.mint : Palette.black,
+          ),
+        );
+      case MenuTypes.preparing:
+        return Container(
+          width: 22,
+          height: 22,
+          decoration: const BoxDecoration(
+            color: Color.fromRGBO(233, 233, 233, 1),
+            borderRadius: BorderRadius.all(
+              Radius.circular(11.0),
+            ),
+          ),
+          child: Icon(
+            MaterialSymbols.circle,
+            size: 18,
+            color: isSelected ? Palette.mint : Palette.black,
           ),
         );
       default:
@@ -175,6 +193,8 @@ class SidebarMenuButton extends StatelessWidget {
         return NoticeScreen.route;
       case MenuTypes.help:
         return HelpScreen.route;
+      case MenuTypes.preparing:
+        return PreparingScreen.route;
       default:
         return HomeScreen.route;
     }
@@ -188,8 +208,26 @@ class SidebarMenuButton extends StatelessWidget {
         return const EditorScreen();
       case MenuTypes.planner:
         return const PlannerScreen();
+      case MenuTypes.monitor:
+        return const MonitorScreen();
+      case MenuTypes.focusView:
+        return const FocusviewScreen();
+      case MenuTypes.prediction:
+        return const PredictionScreen();
+      case MenuTypes.report:
+        return const ReportScreen();
+      case MenuTypes.managementTools:
+        return const ManagementToolsScreen();
+      case MenuTypes.approval:
+        return const ApprovalScreen();
+      case MenuTypes.notice:
+        return const NoticeScreen();
+      case MenuTypes.help:
+        return const HelpScreen();
+      case MenuTypes.preparing:
+        return const PreparingScreen();
       default:
-        return const HomeScreen();
+        return const PreparingScreen();
     }
   }
 }
