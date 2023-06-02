@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 
 class LayoutTemplate extends StatelessWidget {
-  const LayoutTemplate({super.key});
+  final Widget menuWidget;
+  final Widget contentWidget;
+
+  const LayoutTemplate(
+      {super.key, required this.menuWidget, required this.contentWidget});
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Row(
+      children: [menuWidget, Expanded(child: contentWidget)],
+    );
   }
 }

@@ -4,11 +4,11 @@ import 'package:ojt_test_2/common/templates/layout_template.dart';
 import 'package:ojt_test_2/common/widgets/sidebar_menu/sidebar_menu.dart';
 import 'package:ojt_test_2/enums/menu.dart';
 
-class EditorScreen extends StatelessWidget {
-  static const String route = '/editor';
-  static const MenuTypes menuType = MenuTypes.editor;
+class MonitorScreen extends StatelessWidget {
+  static const String route = '/monitor';
+  static const MenuTypes menuType = MenuTypes.monitor;
 
-  const EditorScreen({super.key});
+  const MonitorScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +27,8 @@ class EditorScreen extends StatelessWidget {
       body: LayoutTemplate(
         menuWidget: const SidebarMenu(currentMenu: menuType),
         contentWidget: Container(
-          color: Colors.lightBlueAccent,
-          child: const Center(child: Text("EDITOR")),
+          color: const Color.fromARGB(255, 70, 187, 255),
+          child: const Center(child: Text("MONITOR")),
         ),
       ),
     );

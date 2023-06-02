@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ojt_test_2/common/templates/layout_template.dart';
 import 'package:ojt_test_2/common/widgets/sidebar_menu/sidebar_menu.dart';
 import 'package:ojt_test_2/enums/menu.dart';
 
@@ -23,16 +24,12 @@ class HomeScreen extends StatelessWidget {
           centerTitle: true,
         ),
       ),
-      body: Row(
-        children: [
-          const SidebarMenu(currentMenu: menuType),
-          Expanded(
-            child: Container(
-              color: Colors.blueGrey,
-              child: const Center(child: Text("home")),
-            ),
-          ),
-        ],
+      body: LayoutTemplate(
+        menuWidget: const SidebarMenu(currentMenu: menuType),
+        contentWidget: Container(
+          color: const Color.fromARGB(255, 255, 188, 64),
+          child: const Center(child: Text("HOME")),
+        ),
       ),
     );
   }

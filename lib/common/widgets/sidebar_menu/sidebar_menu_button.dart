@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_material_symbols/flutter_material_symbols.dart';
-import 'package:ojt_test_2/config/palette.dart';
-import 'package:ojt_test_2/editor/screens/editor_screen.dart';
 import 'package:ojt_test_2/enums/menu.dart';
+import 'package:ojt_test_2/config/palette.dart';
+
 import 'package:ojt_test_2/home/screens/home_screen.dart';
+import 'package:ojt_test_2/editor/screens/editor_screen.dart';
 import 'package:ojt_test_2/planner/screens/planner_screen.dart';
+import 'package:ojt_test_2/monitor/screens/monitor_screen.dart';
+import 'package:ojt_test_2/focusview/screens/focusview_screen.dart';
+import 'package:ojt_test_2/prediction/screens/prediction_screen.dart';
+
+import 'package:ojt_test_2/management_tools/screens/management_tools_screen.dart';
+import 'package:ojt_test_2/approval/screens/approval_screen.dart';
+import 'package:ojt_test_2/notice/screens/notice_screen.dart';
+import 'package:ojt_test_2/help/screens/help_screen.dart';
+import 'package:ojt_test_2/report/screens/report_screen.dart';
 
 class SidebarMenuButton extends StatelessWidget {
   final MenuTypes menuName;
@@ -22,6 +32,8 @@ class SidebarMenuButton extends StatelessWidget {
             getMenuIcon(menuName, isSelected), // Replace with the desired icon
         onPressed: () {
           Navigator.pushNamed(context, getRoute(menuName));
+          // ----------------------------- animation 제거안됨
+          // Navigator.pushReplacementNamed(context, getRoute(menuName));
           // ---------------------------- URL 변화 없음
           // Navigator.push(
           //   context,
@@ -147,6 +159,22 @@ class SidebarMenuButton extends StatelessWidget {
         return EditorScreen.route;
       case MenuTypes.planner:
         return PlannerScreen.route;
+      case MenuTypes.monitor:
+        return MonitorScreen.route;
+      case MenuTypes.focusView:
+        return FocusviewScreen.route;
+      case MenuTypes.prediction:
+        return PredictionScreen.route;
+      case MenuTypes.report:
+        return ReportScreen.route;
+      case MenuTypes.managementTools:
+        return ManagementToolsScreen.route;
+      case MenuTypes.approval:
+        return ApprovalScreen.route;
+      case MenuTypes.notice:
+        return NoticeScreen.route;
+      case MenuTypes.help:
+        return HelpScreen.route;
       default:
         return HomeScreen.route;
     }
