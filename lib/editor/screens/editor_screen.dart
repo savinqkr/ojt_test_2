@@ -1,15 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ojt_test_2/enums/menu.dart';
+import 'package:ojt_test_2/config/palette.dart';
 import 'package:ojt_test_2/common/templates/layout_template.dart';
 import 'package:ojt_test_2/common/widgets/sidebar_menu/sidebar_menu.dart';
-import 'package:ojt_test_2/config/palette.dart';
-import 'package:ojt_test_2/enums/menu.dart';
 
-class EditorScreen extends StatelessWidget {
+class EditorScreen extends StatefulWidget {
   static const String route = '/editor';
   static const MenuTypes menuType = MenuTypes.editor;
 
   const EditorScreen({super.key});
+
+  @override
+  State<EditorScreen> createState() => _EditorScreenState();
+}
+
+class _EditorScreenState extends State<EditorScreen> {
+  bool isJobTreeVisible = true;
+
+  void setIsJobTreeVisible() {
+    setState(() {
+      isJobTreeVisible = !isJobTreeVisible;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,29 +39,34 @@ class EditorScreen extends StatelessWidget {
         ),
       ),
       body: LayoutTemplate(
-          menuWidget: const SidebarMenu(currentMenu: menuType),
-          contentWidget: Row(
-            children: [
+        menuWidget: SidebarMenu(
+          currentMenu: EditorScreen.menuType,
+          setIsJobTreeVisible: setIsJobTreeVisible,
+        ),
+        contentWidget: Row(
+          children: [
+            if (isJobTreeVisible)
               Container(
                 width: 200,
                 color: Palette.mint.withOpacity(0.7),
               ),
-              Container(
-                width: 160,
-                color: Palette.mint.withOpacity(0.3),
+            Container(
+              width: 160,
+              color: Palette.mint.withOpacity(0.3),
+            ),
+            Expanded(
+              child: Container(
+                width: 200,
+                color: Palette.white,
               ),
-              Expanded(
-                child: Container(
-                  width: 200,
-                  color: Palette.white,
-                ),
-              ),
-              Container(
-                width: 300,
-                color: Palette.mint.withOpacity(0.6),
-              ),
-            ],
-          )),
+            ),
+            Container(
+              width: 300,
+              color: Palette.mint.withOpacity(0.6),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

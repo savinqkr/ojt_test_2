@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:ojt_test_2/common/widgets/sidebar_menu/sidebar_menu_button.dart';
 import 'package:ojt_test_2/enums/menu.dart';
+import 'package:ojt_test_2/common/widgets/sidebar_menu/sidebar_menu_button.dart';
 
 class SidebarMenu extends StatelessWidget {
   final MenuTypes currentMenu;
+  final Function? setIsJobTreeVisible;
 
-  const SidebarMenu({super.key, required this.currentMenu});
+  const SidebarMenu({
+    super.key,
+    required this.currentMenu,
+    this.setIsJobTreeVisible,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +31,7 @@ class SidebarMenu extends StatelessWidget {
               SidebarMenuButton(
                 menuName: MenuTypes.editor,
                 isSelected: currentMenu == MenuTypes.editor,
+                setIsJobTreeVisible: setIsJobTreeVisible,
               ),
               SidebarMenuButton(
                 menuName: MenuTypes.planner,

@@ -3,7 +3,6 @@ import 'package:flutter_material_symbols/flutter_material_symbols.dart';
 import 'package:ojt_test_2/common/screens/preparing_screen.dart';
 import 'package:ojt_test_2/enums/menu.dart';
 import 'package:ojt_test_2/config/palette.dart';
-
 import 'package:ojt_test_2/home/screens/home_screen.dart';
 import 'package:ojt_test_2/editor/screens/editor_screen.dart';
 import 'package:ojt_test_2/planner/screens/planner_screen.dart';
@@ -19,9 +18,14 @@ import 'package:ojt_test_2/report/screens/report_screen.dart';
 class SidebarMenuButton extends StatelessWidget {
   final MenuTypes menuName;
   final bool isSelected;
+  final Function? setIsJobTreeVisible;
 
-  const SidebarMenuButton(
-      {super.key, required this.menuName, required this.isSelected});
+  const SidebarMenuButton({
+    super.key,
+    required this.menuName,
+    required this.isSelected,
+    this.setIsJobTreeVisible,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +35,11 @@ class SidebarMenuButton extends StatelessWidget {
         icon:
             getMenuIcon(menuName, isSelected), // Replace with the desired icon
         onPressed: () {
-          Navigator.pushNamed(context, getRoute(menuName));
+          if (setIsJobTreeVisible != null && menuName == MenuTypes.editor) {
+            setIsJobTreeVisible!();
+          } else {
+            Navigator.pushNamed(context, getRoute(menuName));
+          }
           // ----------------------------- animation 제거안됨
           // Navigator.pushReplacementNamed(context, getRoute(menuName));
           // ---------------------------- URL 변화 없음
