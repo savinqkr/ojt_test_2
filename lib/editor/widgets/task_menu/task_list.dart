@@ -7,7 +7,7 @@ class TaskList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 120,
-      height: 800,
+      height: 500,
       color: Colors.white,
     );
   }
