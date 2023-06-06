@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ojt_test_2/common/models/taskList.dart';
+import 'package:ojt_test_2/config/palette.dart';
 
 class SearchBarWidget extends StatefulWidget {
   const SearchBarWidget({super.key});
@@ -41,12 +42,14 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Column(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(3.0),
-            child: TextField(
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 250),
+      decoration: const BoxDecoration(color: Palette.white),
+      height: isSearchActive ? 250 : 60,
+      child: Expanded(
+        child: Column(
+          children: <Widget>[
+            TextField(
               onSubmitted: (value) {
                 _searchController.clear();
                 setState(() {
@@ -66,19 +69,19 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
                 prefixIcon: Icon(Icons.search),
               ),
             ),
-          ),
-          if (isSearchActive)
-            Expanded(
-              child: ListView.builder(
-                itemCount: filteredList.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(filteredList[index].name),
-                  );
-                },
+            if (isSearchActive)
+              Expanded(
+                child: ListView.builder(
+                  itemCount: filteredList.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text(filteredList[index].name),
+                    );
+                  },
+                ),
               ),
-            ),
-        ],
+          ],
+        ),
       ),
     );
   }

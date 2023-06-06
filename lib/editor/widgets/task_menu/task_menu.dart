@@ -10,15 +10,12 @@ class TaskMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 200,
-      color: Palette.mint.withOpacity(0.3),
+      color: Palette.white,
       child: const Column(children: [
         SizedBox(
-          height: 20,
+          height: 10,
         ),
         SearchBarWidget(),
-        SizedBox(
-          height: 20,
-        ),
         TaskList(),
       ]),
     );
