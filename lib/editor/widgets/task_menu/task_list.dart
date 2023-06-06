@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ojt_test_2/editor/widgets/task_menu/widgets/accordion_page.dart';
 
 class TaskList extends StatelessWidget {
   const TaskList({super.key});
@@ -6,9 +7,10 @@ class TaskList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 120,
+      width: double.infinity,
       height: 500,
       color: Colors.white,
+      child: AccordionPage(),
     );
   }
 }
