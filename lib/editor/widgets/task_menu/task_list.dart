@@ -6,11 +6,13 @@ class TaskList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 500,
-      color: Colors.white,
-      child: AccordionPage(),
+    return Expanded(
+      child: Container(
+        width: double.infinity,
+        height: 70,
+        color: Colors.white,
+        child: AccordionPage(),
+      ),
     );
   }
 }

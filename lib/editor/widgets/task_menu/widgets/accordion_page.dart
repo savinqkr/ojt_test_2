@@ -29,7 +29,7 @@ class AccordionPage extends StatelessWidget {
         children: taskLists
             .map(
               (taskListEntry) => AccordionSection(
-                isOpen: false,
+                isOpen: true,
                 rightIcon: const Icon(MaterialSymbols.expand_more,
                     color: Palette.black),
                 contentBorderColor: Palette.white,

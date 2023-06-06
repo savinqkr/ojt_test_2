@@ -23,7 +23,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
     filteredList.addAll(itemList);
   }
 
-// 검색어 입력 시 검색 결과 반환
+// ----------------검색어 입력 시 검색 결과 반환 함수
   void filterSearchResults(String query) {
     List<ItemData> tempItemList = List.from(itemList);
     if (query.isNotEmpty) {
@@ -31,11 +31,13 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
         return item.name.toLowerCase().contains(query.toLowerCase());
       }).toList();
       setState(() {
-        filteredList = tempList; // 검색 결과로 filteredList를 갱신
+        // 검색 결과로 filteredList를 갱신
+        filteredList = tempList;
       });
     } else {
       setState(() {
-        filteredList = itemList; // 검색어가 없는 경우 filteredList를 초기 아이템 목록으로 설정
+        // 검색어가 없는 경우 filteredList를 초기 아이템 목록으로 설정
+        filteredList = itemList;
       });
     }
   }
@@ -45,43 +47,46 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 250),
       decoration: const BoxDecoration(color: Palette.white),
-      height: isSearchActive ? 250 : 60,
-      child: Expanded(
-        child: Column(
-          children: <Widget>[
-            TextField(
-              onSubmitted: (value) {
-                _searchController.clear();
-                setState(() {
-                  isSearchActive = false;
-                });
-              },
-              controller: _searchController,
-              onChanged: (value) {
-                setState(() {
-                  filterSearchResults(value);
-                  isSearchActive =
-                      value.isNotEmpty; // 검색어 입력 여부에 따라 검색 창 활성화 상태 변경
-                });
-              },
-              decoration: const InputDecoration(
-                labelText: "검색어를 입력하세요.",
-                prefixIcon: Icon(Icons.search),
+      height: isSearchActive ? 200 : 60,
+      child: Column(
+        children: <Widget>[
+          // ---------------- * search bar section *
+          TextField(
+            onSubmitted: (value) {
+              _searchController.clear();
+              setState(() {
+                isSearchActive = false;
+              });
+            },
+            controller: _searchController,
+            onChanged: (value) {
+              setState(() {
+                filterSearchResults(value);
+                isSearchActive =
+                    value.isNotEmpty; // 검색어 입력 여부에 따라 검색 창 활성화 상태 변경
+              });
+            },
+            decoration: const InputDecoration(
+              labelStyle: TextStyle(fontSize: 12),
+              labelText: "검색어를 입력하세요.",
+              prefixIcon: Icon(Icons.search),
+            ),
+          ),
+
+          // ---------------- * search list view section *
+          // ---------------- 검색창 활성화 여부에 따라서 나타나고 사라짐
+          if (isSearchActive)
+            Expanded(
+              child: ListView.builder(
+                itemCount: filteredList.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(filteredList[index].name),
+                  );
+                },
               ),
             ),
-            if (isSearchActive)
-              Expanded(
-                child: ListView.builder(
-                  itemCount: filteredList.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Text(filteredList[index].name),
-                    );
-                  },
-                ),
-              ),
-          ],
-        ),
+        ],
       ),
     );
   }
