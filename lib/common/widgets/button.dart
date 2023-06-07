@@ -7,6 +7,7 @@ class Button extends StatefulWidget {
   final double textSize;
   final Color textColor;
   final Color buttonColor;
+  final Function? onClick;
 
   const Button({
     super.key,
@@ -16,6 +17,7 @@ class Button extends StatefulWidget {
     required this.textSize,
     required this.textColor,
     required this.buttonColor,
+    this.onClick,
   });
 
   @override
@@ -25,21 +27,26 @@ class Button extends StatefulWidget {
 class _ButtonState extends State<Button> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: widget.width,
-      height: widget.height,
-      decoration: BoxDecoration(
-        color: widget.buttonColor,
-        borderRadius: const BorderRadius.all(Radius.circular(3.0)),
-      ),
-      child: Center(
-          child: Text(
-        widget.text,
-        style: TextStyle(
-          color: widget.textColor,
-          fontSize: widget.textSize,
+    return GestureDetector(
+      onTap: () {
+        widget.onClick != null ? widget.onClick!() : print('buton clicked..!!');
+      },
+      child: Container(
+        width: widget.width,
+        height: widget.height,
+        decoration: BoxDecoration(
+          color: widget.buttonColor,
+          borderRadius: const BorderRadius.all(Radius.circular(3.0)),
         ),
-      )),
+        child: Center(
+            child: Text(
+          widget.text,
+          style: TextStyle(
+            color: widget.textColor,
+            fontSize: widget.textSize,
+          ),
+        )),
+      ),
     );
   }
 }

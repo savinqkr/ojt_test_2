@@ -21,6 +21,13 @@ class BasicInfoForm extends StatelessWidget {
     TextEditingController startDate = TextEditingController();
     TextEditingController endDate = TextEditingController();
 
+    void onClick() {
+      print('taskname : $taskname.text');
+      print('schedule : $schedule.text');
+      print('startDate : $startDate.text');
+      print('endDate : $endDate.text');
+    }
+
     return Container(
       width: 300,
       padding: const EdgeInsets.all(20),
@@ -122,6 +129,7 @@ class BasicInfoForm extends StatelessWidget {
                 textColor: Palette.white,
                 textSize: 12,
                 buttonColor: Palette.mint.withOpacity(0.75),
+                onClick: onClick,
               ),
             ],
           ),
