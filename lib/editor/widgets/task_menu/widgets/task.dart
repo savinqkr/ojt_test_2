@@ -16,11 +16,13 @@ class Task extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 70,
+      height: 70,
       margin: const EdgeInsets.all(3),
-      padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          border: Border.all(color: Palette.grey, width: 1)),
+        borderRadius: BorderRadius.circular(5),
+        border: Border.all(color: Palette.grey, width: 1),
+      ),
       child: Column(
         children: [
           IconButton(

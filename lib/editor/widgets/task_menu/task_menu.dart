@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ojt_test_2/config/palette.dart';
 import 'package:ojt_test_2/editor/widgets/task_menu/search_bar.dart';
 import 'package:ojt_test_2/editor/widgets/task_menu/task_list.dart';
-import 'package:ojt_test_2/editor/widgets/task_menu/widgets/favorite_tap.dart';
+import 'package:ojt_test_2/editor/widgets/task_menu/widgets/favorite_tap_test.dart';
 
 class TaskMenu extends StatefulWidget {
   const TaskMenu({super.key});
@@ -24,23 +24,15 @@ class _TaskMenuState extends State<TaskMenu> {
           const SizedBox(
             height: 10,
           ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Expanded(child: SearchBarWidget()),
-              IconButton(
-                // 즐겨찾기 버튼
-                color: _isFavorite ? Palette.mint : Palette.yellow,
-                onPressed: () {
-                  setState(() {
-                    _isFavorite = !_isFavorite;
-                  });
-                },
-                icon: const Icon(Icons.star),
-              ),
-            ],
+          SearchBarWidget(
+            isFavorite: _isFavorite,
+            onFavoriteChanged: (value) {
+              setState(() {
+                _isFavorite = value;
+              });
+            },
           ),
-          _isFavorite ? const FavoriteTap() : const TaskList(),
+          _isFavorite ? FavoriteTap() : const TaskList(),
         ],
       ),
     );

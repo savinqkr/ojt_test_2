@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:ojt_test_2/common/models/taskList.dart';
 import 'package:ojt_test_2/config/palette.dart';
+import 'package:ojt_test_2/editor/widgets/task_menu/widgets/accordion_form.dart';
 
 class SearchBarWidget extends StatefulWidget {
-  const SearchBarWidget({super.key});
+  final ValueChanged<bool> onFavoriteChanged;
+  final bool isFavorite;
+
+  const SearchBarWidget({
+    Key? key,
+    required this.isFavorite,
+    required this.onFavoriteChanged,
+  }) : super(key: key);
 
   @override
   _SearchBarWidgetState createState() => _SearchBarWidgetState();
@@ -17,10 +25,13 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
 
   bool isSearchActive = false; // 검색 창 활성화 여부
 
+  bool _isFavorite = false;
+
   @override
   void initState() {
     super.initState();
     filteredList.addAll(itemList);
+    _isFavorite = widget.isFavorite;
   }
 
 // ---------------- * 검색어 입력 시 검색 결과 반환 함수 *
@@ -48,44 +59,68 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 250),
       decoration: const BoxDecoration(color: Palette.white),
-      height: isSearchActive ? 200 : 60,
+      height: isSearchActive ? 300 : 60,
       child: Column(
-        children: <Widget>[
-          // ---------------- * search bar section *
-          TextField(
-            onSubmitted: (value) {
-              _searchController.clear();
-              setState(() {
-                isSearchActive = false;
-              });
-            },
-            controller: _searchController,
-            onChanged: (value) {
-              setState(() {
-                filterSearchResults(value);
-                isSearchActive =
-                    value.isNotEmpty; // 검색어 입력 여부에 따라 검색 창 활성화 상태 변경
-              });
-            },
-            decoration: const InputDecoration(
-              labelStyle: TextStyle(fontSize: 12),
-              labelText: "검색어를 입력하세요.",
-              prefixIcon: Icon(Icons.search),
-            ),
-          ),
+        children: [
+          Row(
+            children: [
+              // ---------------- * search bar section *
+              Expanded(
+                child: TextField(
+                  onSubmitted: (value) {
+                    _searchController.clear();
+                    setState(() {
+                      isSearchActive = false;
+                    });
+                  },
+                  controller: _searchController,
+                  onChanged: (value) {
+                    setState(() {
+                      filterSearchResults(value);
+                      isSearchActive =
+                          value.isNotEmpty; // 검색어 입력 여부에 따라 검색 창 활성화 상태 변경
+                    });
+                  },
+                  decoration: const InputDecoration(
+                    labelStyle: TextStyle(fontSize: 12),
+                    labelText: "검색어를 입력하세요.",
+                    prefixIcon: Icon(Icons.search),
+                  ),
+                ),
+              ),
 
+              // --------------* 즐겨찾기 버튼 *
+              IconButton(
+                color: _isFavorite ? Palette.mint : Palette.yellow,
+                onPressed: () {
+                  setState(() {
+                    _isFavorite = !_isFavorite;
+                  });
+                  widget.onFavoriteChanged(_isFavorite); // 값 변경을 콜백으로 전달
+                },
+                icon: const Icon(Icons.star),
+              ),
+            ],
+          ),
           // ---------------- * search list view section *
           // ---------------- 검색창 활성화 여부에 따라서 나타나고 사라짐
           if (isSearchActive)
-            Expanded(
-              child: ListView.builder(
-                itemCount: filteredList.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(filteredList[index].name),
-                  );
-                },
-              ),
+            // Expanded(
+            //   child: ListView.builder(
+            //     itemCount: filteredList.length,
+            //     itemBuilder: (context, index) {
+            //       return ListTile(
+            //         title: Text(filteredList[index].name),
+            //       );
+            //     },
+            //   ),
+            // ),
+            AccordionForm(
+              maxOpenSections: 1,
+              headerName: '',
+              targetList: filteredList,
+              paddingListTop: 5,
+              headerPadding: const EdgeInsets.all(0),
             ),
         ],
       ),

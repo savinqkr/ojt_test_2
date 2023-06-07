@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ojt_test_2/editor/widgets/task_menu/widgets/accordion_page.dart';
+import 'package:ojt_test_2/editor/widgets/task_menu/widgets/task_accordion_page.dart';
 
 class TaskList extends StatelessWidget {
   const TaskList({super.key});
@@ -11,7 +11,7 @@ class TaskList extends StatelessWidget {
         width: double.infinity,
         height: 70,
         color: Colors.white,
-        child: AccordionPage(),
+        child: TaskAccordionPage(),
       ),
     );
   }

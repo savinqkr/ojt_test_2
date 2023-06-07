@@ -8,10 +8,8 @@ import 'package:ojt_test_2/editor/widgets/task_menu/widgets/task.dart';
 // 아코디언 리스트들을 묶는 페이지
 // accordion package 사용
 
-class AccordionPage extends StatelessWidget {
-  AccordionPage({Key? key}) : super(key: key);
-
-  bool accordionState = false;
+class TaskAccordionPage extends StatelessWidget {
+  const TaskAccordionPage({Key? key}) : super(key: key);
 
   @override
   build(context) => Accordion(
