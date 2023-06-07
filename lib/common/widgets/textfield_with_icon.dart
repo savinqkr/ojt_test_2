@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ojt_test_2/config/palette.dart';
 
 class TextFieldWithIcon extends StatefulWidget {
+  final String textfieldType;
   final String label;
   final Icon icon;
   final TextEditingController controller;
@@ -12,6 +13,7 @@ class TextFieldWithIcon extends StatefulWidget {
     required this.label,
     required this.controller,
     required this.icon,
+    required this.textfieldType,
   });
 
   @override
@@ -19,12 +21,12 @@ class TextFieldWithIcon extends StatefulWidget {
 }
 
 class _TextFieldWithIconState extends State<TextFieldWithIcon> {
-  void _showPopup(BuildContext context) {
+  void _showPopup(BuildContext context, String textfieldType) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Popup'),
+          title: Text(textfieldType),
           content: const Text('This is a custom dialog.'),
           actions: [
             TextButton(
@@ -74,7 +76,8 @@ class _TextFieldWithIconState extends State<TextFieldWithIcon> {
                 ),
                 suffixIcon: GestureDetector(
                   onTap: () {
-                    _showPopup(context); // Show the dialog
+                    _showPopup(
+                        context, widget.textfieldType); // Show the dialog
                   },
                   child: widget.icon,
                 ),
