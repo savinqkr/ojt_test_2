@@ -15,47 +15,40 @@ class TextFieldBasic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        print(label);
-      },
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 4),
-            child: Text(
-              label,
-              style:
-                  GoogleFonts.nanumGothic(fontSize: 12, color: Palette.black),
-            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 4),
+          child: Text(
+            label,
+            style: GoogleFonts.nanumGothic(fontSize: 12, color: Palette.black),
           ),
-          const SizedBox(height: 4),
-          Container(
-            height: multiLines == true ? 240 : 32,
-            decoration: BoxDecoration(
-              color: Colors.grey[200],
-              borderRadius: const BorderRadius.all(Radius.circular(4.0)),
-            ),
-            child: TextField(
-              controller: controller,
-              style:
-                  GoogleFonts.nanumGothic(fontSize: 14, color: Palette.black),
-              cursorColor: Palette.mint,
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.all(8.0),
-                filled: true,
-                fillColor: Colors.grey[200],
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(4.0),
-                  borderSide: BorderSide.none,
-                ),
+        ),
+        const SizedBox(height: 4),
+        Container(
+          height: multiLines == true ? 240 : 32,
+          decoration: BoxDecoration(
+            color: Colors.grey[200],
+            borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+          ),
+          child: TextField(
+            controller: controller,
+            style: GoogleFonts.nanumGothic(fontSize: 14, color: Palette.black),
+            cursorColor: Palette.mint,
+            decoration: InputDecoration(
+              contentPadding: const EdgeInsets.all(8.0),
+              filled: true,
+              fillColor: Colors.grey[200],
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(4.0),
+                borderSide: BorderSide.none,
               ),
-              maxLines: multiLines == true ? null : 1,
             ),
+            maxLines: multiLines == true ? null : 1,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

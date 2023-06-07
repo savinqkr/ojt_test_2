@@ -64,11 +64,14 @@ class _EditorScreenState extends State<EditorScreen> {
             // --------------------------- TASK MENU --------------------------- //
             const TaskMenu(),
             // --------------------------- EDITOR --------------------------- //
-            Expanded(
-              child: Editor(
-                isPropertyWindowVisible: isPropertyWindowVisible,
-                setIsPropertyWindowVisible: setIsPropertyWindowVisible,
-              ),
+            // Expanded(
+            //   child: Editor(
+            //     isPropertyWindowVisible: isPropertyWindowVisible,
+            //     setIsPropertyWindowVisible: setIsPropertyWindowVisible,
+            //   ),
+            // ),
+            const Expanded(
+              child: Editor(),
             ),
             // -------------------- TASK PROPERTY WINDOW -------------------- //
             if (isPropertyWindowVisible)
