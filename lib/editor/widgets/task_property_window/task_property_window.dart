@@ -7,8 +7,6 @@ import 'package:ojt_test_2/editor/widgets/task_property_window/forms/description
 import 'package:ojt_test_2/editor/widgets/task_property_window/forms/detailed_info_form.dart';
 import 'package:ojt_test_2/editor/widgets/task_property_window/forms/error_manage_form.dart';
 
-// https://blog.logrocket.com/flutter-tabbar-a-complete-tutorial-with-examples/
-
 class TaskPropertyWindow extends StatelessWidget {
   const TaskPropertyWindow({super.key});
 
