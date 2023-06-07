@@ -23,7 +23,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
     filteredList.addAll(itemList);
   }
 
-// ----------------검색어 입력 시 검색 결과 반환 함수
+// ---------------- * 검색어 입력 시 검색 결과 반환 함수 *
   void filterSearchResults(String query) {
     List<ItemData> tempItemList = List.from(itemList);
     if (query.isNotEmpty) {
@@ -42,6 +42,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
     }
   }
 
+// -------------------------------- * 구현 section *
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
@@ -91,6 +92,3 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
     );
   }
 }
-
-
-// ** 임시로 작성한 코드입니다. ** //
