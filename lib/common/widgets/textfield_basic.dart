@@ -5,9 +5,13 @@ import 'package:ojt_test_2/config/palette.dart';
 class TextFieldBasic extends StatelessWidget {
   final String label;
   final TextEditingController controller;
+  final bool? multiLines;
 
   const TextFieldBasic(
-      {super.key, required this.label, required this.controller});
+      {super.key,
+      required this.label,
+      required this.controller,
+      this.multiLines});
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +31,12 @@ class TextFieldBasic extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 4),
-          SizedBox(
-            height: 32,
+          Container(
+            height: multiLines == true ? 240 : 32,
+            decoration: BoxDecoration(
+              color: Colors.grey[200],
+              borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+            ),
             child: TextField(
               controller: controller,
               style:
@@ -43,6 +51,7 @@ class TextFieldBasic extends StatelessWidget {
                   borderSide: BorderSide.none,
                 ),
               ),
+              maxLines: multiLines == true ? null : 1,
             ),
           ),
         ],

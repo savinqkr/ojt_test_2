@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_material_symbols/flutter_material_symbols.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ojt_test_2/common/widgets/button.dart';
+import 'package:ojt_test_2/common/widgets/textfield_basic.dart';
+import 'package:ojt_test_2/common/widgets/textfield_with_icon.dart';
 import 'package:ojt_test_2/config/palette.dart';
 
 class AdvancedInfoForm extends StatelessWidget {
@@ -7,20 +11,58 @@ class AdvancedInfoForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController precedingProgram = TextEditingController();
+    TextEditingController preferences = TextEditingController();
+
     return Container(
       width: 300,
       padding: const EdgeInsets.all(20),
       decoration: const BoxDecoration(color: Palette.white),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "TASK NAME",
-            style: GoogleFonts.nanumGothic(fontSize: 16, color: Palette.black),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "TASK NAME",
+                style:
+                    GoogleFonts.nanumGothic(fontSize: 16, color: Palette.black),
+              ),
+              const SizedBox(height: 32),
+              TextFieldWithIcon(
+                textfieldType: '선행프로그램',
+                label: '선행프로그램',
+                controller: precedingProgram,
+                // icon: const Icon(Icons.search)),
+                icon: const Icon(
+                  MaterialSymbols.more_horiz,
+                  size: 24,
+                  color: Palette.black,
+                ),
+              ),
+              const SizedBox(height: 12),
+              TextFieldBasic(
+                label: '환경설정',
+                controller: preferences,
+                multiLines: true,
+              ),
+            ],
           ),
-          const SizedBox(height: 16),
-          const Text("고급정보"),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Button(
+                width: 80,
+                height: 24,
+                text: '저장',
+                textColor: Palette.white,
+                textSize: 12,
+                buttonColor: Palette.mint.withOpacity(0.75),
+              ),
+            ],
+          ),
         ],
       ),
     );

@@ -37,9 +37,9 @@ class BasicInfoForm extends StatelessWidget {
                 style:
                     GoogleFonts.nanumGothic(fontSize: 16, color: Palette.black),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 32),
               TextFieldBasic(label: '태스크명', controller: taskname),
-              const SizedBox(height: 8),
+              const SizedBox(height: 12),
               TextFieldWithIcon(
                 textfieldType: '스케줄',
                 label: '스케줄',
@@ -51,7 +51,7 @@ class BasicInfoForm extends StatelessWidget {
                   color: Palette.black,
                 ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 12),
               Column(
                 children: [
                   Row(
@@ -89,21 +89,18 @@ class BasicInfoForm extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 12),
               const TableAddRemove(
                 tableType: '작업캘린더',
                 label: '작업캘린더',
                 columnList: [
-                  {
-                    'text': '번호',
-                    'width': 50,
-                  },
+                  {'text': '번호', 'width': 50},
                   {'text': '작업캘린더명', 'width': 140},
                   {'text': '제외', 'width': 50},
                 ],
                 data: [],
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 12),
               const TableAddRemove(
                 tableType: '스케줄시간',
                 label: '스케줄시간',
