@@ -8,14 +8,15 @@ class Button extends StatefulWidget {
   final Color textColor;
   final Color buttonColor;
 
-  const Button(
-      {super.key,
-      required this.width,
-      required this.height,
-      required this.text,
-      required this.textSize,
-      required this.textColor,
-      required this.buttonColor});
+  const Button({
+    super.key,
+    required this.width,
+    required this.height,
+    required this.text,
+    required this.textSize,
+    required this.textColor,
+    required this.buttonColor,
+  });
 
   @override
   State<Button> createState() => _ButtonState();
