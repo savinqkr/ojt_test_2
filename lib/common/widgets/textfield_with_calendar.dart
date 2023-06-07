@@ -24,6 +24,12 @@ class TextFieldWithCalendar extends StatefulWidget {
 class _TextFieldWithCalendarState extends State<TextFieldWithCalendar> {
   late DateTime selectedDate;
 
+  @override
+  void initState() {
+    super.initState();
+    selectedDate = DateTime.now();
+  }
+
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
@@ -32,10 +38,10 @@ class _TextFieldWithCalendarState extends State<TextFieldWithCalendar> {
       lastDate: DateTime(2100),
     );
 
-    if (pickedDate != selectedDate) {
+    if (pickedDate != null) {
       setState(() {
-        selectedDate = pickedDate!;
-        widget.controller.text = DateFormat.yMd().format(selectedDate);
+        selectedDate = pickedDate;
+        widget.controller.text = DateFormat('yyyy-MM-dd').format(selectedDate);
       });
     }
   }
@@ -59,11 +65,12 @@ class _TextFieldWithCalendarState extends State<TextFieldWithCalendar> {
           ),
           const SizedBox(height: 4),
           SizedBox(
+            width: 120,
             height: 32,
             child: TextField(
               controller: widget.controller,
               style:
-                  GoogleFonts.nanumGothic(fontSize: 14, color: Palette.black),
+                  GoogleFonts.nanumGothic(fontSize: 12, color: Palette.black),
               cursorColor: Palette.mint,
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.all(8.0),

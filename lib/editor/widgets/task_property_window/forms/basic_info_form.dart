@@ -1,7 +1,10 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_material_symbols/flutter_material_symbols.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ojt_test_2/common/widgets/button.dart';
+import 'package:ojt_test_2/common/widgets/checkbox_with_label.dart';
 import 'package:ojt_test_2/common/widgets/textfield_basic.dart';
 import 'package:ojt_test_2/common/widgets/textfield_with_calendar.dart';
 import 'package:ojt_test_2/common/widgets/textfield_with_icon.dart';
@@ -14,8 +17,8 @@ class BasicInfoForm extends StatelessWidget {
   Widget build(BuildContext context) {
     TextEditingController taskname = TextEditingController();
     TextEditingController schedule = TextEditingController();
-    TextEditingController startdate = TextEditingController();
-    TextEditingController enddate = TextEditingController();
+    TextEditingController startDate = TextEditingController();
+    TextEditingController endDate = TextEditingController();
 
     return Container(
       width: 300,
@@ -47,16 +50,43 @@ class BasicInfoForm extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 8),
-              TextFieldWithCalendar(
-                label: '시작일',
-                controller: startdate,
-                // icon: const Icon(Icons.search)),
-                icon: const Icon(
-                  MaterialSymbols.calendar_month,
-                  size: 20,
-                  color: Palette.black,
-                ),
-              )
+              Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextFieldWithCalendar(
+                        label: '시작일',
+                        controller: startDate,
+                        // icon: const Icon(Icons.search)),
+                        icon: const Icon(
+                          MaterialSymbols.calendar_month,
+                          size: 20,
+                          color: Palette.black,
+                        ),
+                      ),
+                      const Text('~'),
+                      TextFieldWithCalendar(
+                        label: '종료일',
+                        controller: endDate,
+                        // icon: const Icon(Icons.search)),
+                        icon: const Icon(
+                          MaterialSymbols.calendar_month,
+                          size: 20,
+                          color: Palette.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 4),
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      CheckBoxWithLabel(label: '작업일기준', height: 32),
+                    ],
+                  ),
+                ],
+              ),
             ],
           ),
           Row(
