@@ -27,15 +27,29 @@ class _TextFieldWithCalendarState extends State<TextFieldWithCalendar> {
   @override
   void initState() {
     super.initState();
-    selectedDate = DateTime.now();
+    selectedDate = widget.controller.text.isNotEmpty
+        ? DateFormat('yyyy-MM-dd').parse(widget.controller.text)
+        : DateTime.now();
   }
 
   Future<void> _selectDate(BuildContext context) async {
+    final ThemeData theme = Theme.of(context);
     final DateTime? pickedDate = await showDatePicker(
       context: context,
-      initialDate: DateTime.now(),
+      initialDate: selectedDate,
       firstDate: DateTime(2000),
       lastDate: DateTime(2100),
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: theme.copyWith(
+            colorScheme: theme.colorScheme.copyWith(
+              primary: Palette
+                  .mint, // Change the background color to your desired color
+            ),
+          ),
+          child: child!,
+        );
+      },
     );
 
     if (pickedDate != null) {
@@ -67,26 +81,44 @@ class _TextFieldWithCalendarState extends State<TextFieldWithCalendar> {
           SizedBox(
             width: 120,
             height: 32,
-            child: TextField(
-              controller: widget.controller,
-              style:
-                  GoogleFonts.nanumGothic(fontSize: 12, color: Palette.black),
-              cursorColor: Palette.mint,
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.all(8.0),
-                filled: true,
-                fillColor: Colors.grey[200],
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(4.0),
-                  borderSide: BorderSide.none,
+            child: Stack(
+              children: [
+                TextField(
+                  controller: widget.controller,
+                  enabled: false,
+                  style: GoogleFonts.nanumGothic(
+                      fontSize: 12, color: Palette.black),
+                  cursorColor: Palette.mint,
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.all(8.0),
+                    filled: true,
+                    fillColor: Colors.grey[200],
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4.0),
+                      borderSide: BorderSide.none,
+                    ),
+                    // suffixIcon: GestureDetector(
+                    //   onTap: () {
+                    //     _selectDate(context);
+                    //   },
+                    //   child: widget.icon,
+                    // ),
+                  ),
                 ),
-                suffixIcon: GestureDetector(
-                  onTap: () {
-                    _selectDate(context);
-                  },
-                  child: widget.icon,
+                Positioned(
+                  top: -4,
+                  right: 0,
+                  child: InkWell(
+                    onTap: () {
+                      _selectDate(context);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: widget.icon,
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
           ),
         ],

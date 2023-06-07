@@ -20,10 +20,17 @@ class EditorScreen extends StatefulWidget {
 
 class _EditorScreenState extends State<EditorScreen> {
   bool isJobTreeVisible = true;
+  bool isPropertyWindowVisible = true;
 
   void setIsJobTreeVisible() {
     setState(() {
       isJobTreeVisible = !isJobTreeVisible;
+    });
+  }
+
+  void setIsPropertyWindowVisible() {
+    setState(() {
+      isPropertyWindowVisible = !isPropertyWindowVisible;
     });
   }
 
@@ -57,9 +64,18 @@ class _EditorScreenState extends State<EditorScreen> {
             // --------------------------- TASK MENU --------------------------- //
             const TaskMenu(),
             // --------------------------- EDITOR --------------------------- //
-            const Expanded(child: Editor()),
-            // --------------------------- TASK PROPERTY WINDOW --------------------------- //
-            const SingleChildScrollView(child: TaskPropertyWindow()),
+            // Expanded(
+            //   child: Editor(
+            //     isPropertyWindowVisible: isPropertyWindowVisible,
+            //     setIsPropertyWindowVisible: setIsPropertyWindowVisible,
+            //   ),
+            // ),
+            const Expanded(
+              child: Editor(),
+            ),
+            // -------------------- TASK PROPERTY WINDOW -------------------- //
+            if (isPropertyWindowVisible)
+              const SingleChildScrollView(child: TaskPropertyWindow()),
           ],
         ),
       ),

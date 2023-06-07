@@ -5,48 +5,50 @@ import 'package:ojt_test_2/config/palette.dart';
 class TextFieldBasic extends StatelessWidget {
   final String label;
   final TextEditingController controller;
+  final bool? multiLines;
 
   const TextFieldBasic(
-      {super.key, required this.label, required this.controller});
+      {super.key,
+      required this.label,
+      required this.controller,
+      this.multiLines});
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        print(label);
-      },
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 4),
-            child: Text(
-              label,
-              style:
-                  GoogleFonts.nanumGothic(fontSize: 12, color: Palette.black),
-            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 4),
+          child: Text(
+            label,
+            style: GoogleFonts.nanumGothic(fontSize: 12, color: Palette.black),
           ),
-          const SizedBox(height: 4),
-          SizedBox(
-            height: 32,
-            child: TextField(
-              controller: controller,
-              style:
-                  GoogleFonts.nanumGothic(fontSize: 14, color: Palette.black),
-              cursorColor: Palette.mint,
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.all(8.0),
-                filled: true,
-                fillColor: Colors.grey[200],
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(4.0),
-                  borderSide: BorderSide.none,
-                ),
+        ),
+        const SizedBox(height: 4),
+        Container(
+          height: multiLines == true ? 240 : 32,
+          decoration: BoxDecoration(
+            color: Colors.grey[200],
+            borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+          ),
+          child: TextField(
+            controller: controller,
+            style: GoogleFonts.nanumGothic(fontSize: 14, color: Palette.black),
+            cursorColor: Palette.mint,
+            decoration: InputDecoration(
+              contentPadding: const EdgeInsets.all(8.0),
+              filled: true,
+              fillColor: Colors.grey[200],
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(4.0),
+                borderSide: BorderSide.none,
               ),
             ),
+            maxLines: multiLines == true ? null : 1,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

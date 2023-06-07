@@ -5,6 +5,7 @@ import 'package:flutter_material_symbols/flutter_material_symbols.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ojt_test_2/common/widgets/button.dart';
 import 'package:ojt_test_2/common/widgets/checkbox_with_label.dart';
+import 'package:ojt_test_2/common/widgets/table_with_buttons/table_add_remove.dart';
 import 'package:ojt_test_2/common/widgets/textfield_basic.dart';
 import 'package:ojt_test_2/common/widgets/textfield_with_calendar.dart';
 import 'package:ojt_test_2/common/widgets/textfield_with_icon.dart';
@@ -19,6 +20,13 @@ class BasicInfoForm extends StatelessWidget {
     TextEditingController schedule = TextEditingController();
     TextEditingController startDate = TextEditingController();
     TextEditingController endDate = TextEditingController();
+
+    void onClick() {
+      print('taskname : $taskname.text');
+      print('schedule : $schedule.text');
+      print('startDate : $startDate.text');
+      print('endDate : $endDate.text');
+    }
 
     return Container(
       width: 300,
@@ -36,10 +44,11 @@ class BasicInfoForm extends StatelessWidget {
                 style:
                     GoogleFonts.nanumGothic(fontSize: 16, color: Palette.black),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 32),
               TextFieldBasic(label: '태스크명', controller: taskname),
-              const SizedBox(height: 8),
+              const SizedBox(height: 12),
               TextFieldWithIcon(
+                textfieldType: '스케줄',
                 label: '스케줄',
                 controller: schedule,
                 // icon: const Icon(Icons.search)),
@@ -49,7 +58,7 @@ class BasicInfoForm extends StatelessWidget {
                   color: Palette.black,
                 ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 12),
               Column(
                 children: [
                   Row(
@@ -87,6 +96,27 @@ class BasicInfoForm extends StatelessWidget {
                   ),
                 ],
               ),
+              const SizedBox(height: 12),
+              const TableAddRemove(
+                tableType: '작업캘린더',
+                label: '작업캘린더',
+                columnList: [
+                  {'text': '번호', 'width': 50},
+                  {'text': '작업캘린더명', 'width': 140},
+                  {'text': '제외', 'width': 50},
+                ],
+                data: [],
+              ),
+              const SizedBox(height: 12),
+              const TableAddRemove(
+                tableType: '스케줄시간',
+                label: '스케줄시간',
+                columnList: [
+                  {'text': '번호', 'width': 60},
+                  {'text': '시간', 'width': 180},
+                ],
+                data: [],
+              ),
             ],
           ),
           Row(
@@ -99,6 +129,7 @@ class BasicInfoForm extends StatelessWidget {
                 textColor: Palette.white,
                 textSize: 12,
                 buttonColor: Palette.mint.withOpacity(0.75),
+                onClick: onClick,
               ),
             ],
           ),
