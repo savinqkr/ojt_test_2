@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/data/custom_component_data.dart';
 
 mixin CustomStatePolicy implements PolicySet {
-  bool isGridVisible = true;
+  bool isGridVisible = true; // Grid 설정
 
   List<String> bodies = [
     'starter',
