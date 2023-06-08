@@ -102,8 +102,9 @@ mixin MyComponentWidgetsPolicy
               tooltip: 'Add parent',
               size: 30,
               onPressed: () {
-                isReadyToAddParent = true;
-                componentData.updateComponent();
+                // isReadyToAddParent = true;
+                // componentData.updateComponent();
+                print('Add parent');
               },
               iconColor: Palette.darkGrey,
               iconSize: 20.0,
@@ -114,8 +115,7 @@ mixin MyComponentWidgetsPolicy
               tooltip: 'Remove parent',
               size: 30,
               onPressed: () {
-                isReadyToAddParent = true;
-                componentData.updateComponent();
+                print('Remove parent');
               },
               iconColor: Palette.darkGrey,
               iconSize: 20.0,
