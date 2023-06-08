@@ -28,6 +28,7 @@ class _TaskMenuState extends State<TaskMenu> {
             height: 10,
           ),
           SearchBarWidget(
+            myPolicySet: widget.myPolicySet,
             isFavorite: _isFavorite,
             onFavoriteChanged: (value) {
               setState(() {
@@ -36,7 +37,7 @@ class _TaskMenuState extends State<TaskMenu> {
             },
           ),
           _isFavorite
-              ? const FavoriteTap()
+              ? FavoriteTap(myPolicySet: widget.myPolicySet)
               : TaskList(myPolicySet: widget.myPolicySet),
         ],
       ),
