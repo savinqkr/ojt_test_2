@@ -32,7 +32,7 @@ class _TaskMenuState extends State<TaskMenu> {
               });
             },
           ),
-          _isFavorite ? FavoriteTap() : const TaskList(),
+          _isFavorite ? const FavoriteTap() : const TaskList(),
         ],
       ),
     );
