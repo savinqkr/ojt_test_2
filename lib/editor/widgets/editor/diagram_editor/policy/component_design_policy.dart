@@ -14,6 +14,7 @@ import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/component/oval_c
 import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/component/rect_component.dart';
 import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/component/rhomboid_component.dart';
 import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/component/round_rect_component.dart';
+import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/component/task_component.dart';
 
 mixin MyComponentDesignPolicy implements ComponentDesignPolicy {
   @override
@@ -51,9 +52,28 @@ mixin MyComponentDesignPolicy implements ComponentDesignPolicy {
         return NoCornerRectBody(componentData: componentData);
       // case 'junction':
       //   return OvalBody(componentData: componentData);
-      default:
-        return BeanBody(componentData: componentData);
+      // default:
+      //   return BeanBody(componentData: componentData);
       // break;
+      // ----------------------------------------------------------------- //
+      case 'starter':
+        return TaskComponentBody(componentData: componentData);
+      case 'schedule':
+        return TaskComponentBody(componentData: componentData);
+      case 'runProgram':
+        return TaskComponentBody(componentData: componentData);
+      case 'jobStatus':
+        return TaskComponentBody(componentData: componentData);
+      case 'executeJob':
+        return TaskComponentBody(componentData: componentData);
+      case 'and':
+        return TaskComponentBody(componentData: componentData);
+      case 'or':
+        return TaskComponentBody(componentData: componentData);
+      case 'sleep':
+        return TaskComponentBody(componentData: componentData);
+      default:
+        return TaskComponentBody(componentData: componentData);
     }
   }
 }

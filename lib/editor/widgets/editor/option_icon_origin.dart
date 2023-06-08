@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-class OptionIcon extends StatelessWidget {
+class OptionIconOrigin extends StatelessWidget {
+  final Color color;
   final double size;
   final BoxShape shape;
   final String tooltip;
@@ -9,8 +10,9 @@ class OptionIcon extends StatelessWidget {
   final double iconSize;
   final Function onPressed;
 
-  const OptionIcon({
+  const OptionIconOrigin({
     super.key,
+    required this.color,
     required this.size,
     required this.shape,
     required this.tooltip,
@@ -26,6 +28,7 @@ class OptionIcon extends StatelessWidget {
       width: size,
       height: size,
       decoration: BoxDecoration(
+        color: color,
         shape: shape,
       ),
       child: IconButton(

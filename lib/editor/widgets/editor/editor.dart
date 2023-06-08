@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ojt_test_2/config/palette.dart';
 import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/policy/minimap_policy.dart';
 import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/policy/my_policy_set.dart';
-import 'package:ojt_test_2/editor/widgets/editor/menu.dart';
+import 'package:ojt_test_2/editor/widgets/task_menu/task_menu.dart';
 
 class Editor extends StatefulWidget {
   // final bool isPropertyWindowVisible;
@@ -85,7 +85,9 @@ class _EditorState extends State<Editor> {
     return SafeArea(
       child: Stack(
         children: [
+          // -------------------------------- 배경색상 -------------------------------- //
           Container(color: Palette.mint.withOpacity(0.15)),
+          // ------------------------------ Diagram Editor -------------------------------- //
           Positioned(
             child: Padding(
               padding: const EdgeInsets.all(16),
@@ -94,53 +96,50 @@ class _EditorState extends State<Editor> {
               ),
             ),
           ),
-          Positioned(
-            bottom: 10,
-            left: 20,
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Container(
-                  color: Palette.white,
-                  width: 200,
-                  height: 32,
-                  child: const Text('canvas widgets')),
-            ),
+          // ------------------------------ Task Menu -------------------------------- //
+          Column(
+            children: [
+              Expanded(
+                child: TaskMenu(myPolicySet: myPolicySet),
+              ),
+            ],
           ),
-          Positioned(
-            top: 0,
-            left: 0,
-            bottom: 0,
-            child: Row(
-              children: [
-                Visibility(
-                  visible: isMenuVisible,
-                  child: Container(
-                    color: Colors.grey.withOpacity(0.7),
-                    width: 120,
-                    height: 320,
-                    child: DraggableMenu(myPolicySet: myPolicySet),
-                  ),
-                ),
-                RotatedBox(
-                  quarterTurns: 1,
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        isMenuVisible = !isMenuVisible;
-                      });
-                    },
-                    child: Container(
-                      color: Colors.grey[300],
-                      child: Padding(
-                        padding: const EdgeInsets.all(4),
-                        child: Text(isMenuVisible ? 'hide menu' : 'show menu'),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+          // ----------- 기존 컴포넌트 메뉴 ( 삭제 예정 ) ----------- //
+          // Positioned(
+          //   top: 0,
+          //   left: 200,
+          //   bottom: 0,
+          //   child: Row(
+          //     children: [
+          //       Visibility(
+          //         visible: isMenuVisible,
+          //         child: Container(
+          //           color: Colors.grey.withOpacity(0.7),
+          //           width: 120,
+          //           height: 320,
+          //           child: DraggableMenu(myPolicySet: myPolicySet),
+          //         ),
+          //       ),
+          //       RotatedBox(
+          //         quarterTurns: 1,
+          //         child: GestureDetector(
+          //           onTap: () {
+          //             setState(() {
+          //               isMenuVisible = !isMenuVisible;
+          //             });
+          //           },
+          //           child: Container(
+          //             color: Colors.grey[300],
+          //             child: Padding(
+          //               padding: const EdgeInsets.all(4),
+          //               child: Text(isMenuVisible ? 'hide menu' : 'show menu'),
+          //             ),
+          //           ),
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
         ],
       ),
     );

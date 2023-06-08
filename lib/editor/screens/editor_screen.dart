@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ojt_test_2/editor/widgets/editor/editor.dart';
-import 'package:ojt_test_2/editor/widgets/task_menu/task_menu.dart';
+import 'package:ojt_test_2/editor/widgets/task_menu/job_tree_page.dart';
 import 'package:ojt_test_2/editor/widgets/task_property_window/task_property_window.dart';
 import 'package:ojt_test_2/enums/menu.dart';
 import 'package:ojt_test_2/config/palette.dart';
@@ -59,23 +59,90 @@ class _EditorScreenState extends State<EditorScreen> {
             if (isJobTreeVisible)
               Container(
                 width: 200,
-                color: Palette.mint.withOpacity(0.7),
+                color: Palette.white,
+                child: const MyTreeView(),
               ),
-            // --------------------------- TASK MENU --------------------------- //
-            const TaskMenu(),
-            // --------------------------- EDITOR --------------------------- //
-            // Expanded(
-            //   child: Editor(
-            //     isPropertyWindowVisible: isPropertyWindowVisible,
-            //     setIsPropertyWindowVisible: setIsPropertyWindowVisible,
-            //   ),
+            Expanded(
+              child: Column(
+                children: [
+                  // ------------------------ TABS ----------------------------- //
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                            height: 30,
+                            color: Palette.mint.withOpacity(0.7),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Container(
+                                  height: 24,
+                                  width: 120,
+                                  color: Colors.white,
+                                  child: const Center(child: Text('TAB')),
+                                ),
+                                const SizedBox(width: 5),
+                                Container(
+                                  height: 24,
+                                  width: 120,
+                                  color: Colors.white,
+                                  child: const Center(child: Text('TAB')),
+                                ),
+                                const SizedBox(width: 5),
+                                Container(
+                                  height: 24,
+                                  width: 120,
+                                  color: Colors.white,
+                                  child: const Center(child: Text('TAB')),
+                                ),
+                              ],
+                            )),
+                      ),
+                    ],
+                  ),
+                  Expanded(
+                    child: Container(
+                      color: Palette.white,
+                      child: Row(
+                        children: [
+                          // ----------------- TASK MENU ----------------- //
+                          // const Column(
+                          //   children: [
+                          //     Expanded(
+                          //       child: TaskMenu(),
+                          //     ),
+                          //   ],
+                          // ),
+                          // ----------------- EDITOR ----------------- //
+                          const Expanded(child: Editor()),
+                          // ----------------- TASK PROPERTY WNIDOW ----------------- //
+                          if (isPropertyWindowVisible)
+                            const Column(
+                              children: [
+                                Expanded(
+                                  child: SingleChildScrollView(
+                                    child: TaskPropertyWindow(),
+                                  ),
+                                ),
+                              ],
+                            ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
+
+            // // --------------------------- TASK MENU --------------------------- //
+            // const TaskMenu(),
+            // // --------------------------- EDITOR --------------------------- //
+            // const Expanded(
+            //   child: Editor(),
             // ),
-            const Expanded(
-              child: Editor(),
-            ),
-            // -------------------- TASK PROPERTY WINDOW -------------------- //
-            if (isPropertyWindowVisible)
-              const SingleChildScrollView(child: TaskPropertyWindow()),
+            // // -------------------- TASK PROPERTY WINDOW -------------------- //
+            // if (isPropertyWindowVisible)
+            //   const SingleChildScrollView(child: TaskPropertyWindow()),
           ],
         ),
       ),

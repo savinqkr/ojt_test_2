@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_material_symbols/flutter_material_symbols.dart';
 import 'package:ojt_test_2/common/models/taskList.dart';
 import 'package:ojt_test_2/config/palette.dart';
+import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/policy/my_policy_set.dart';
 import 'package:ojt_test_2/editor/widgets/task_menu/widgets/accordion_form.dart';
 
+// 검색창과 검색 결과 뷰 위젯
+
 class SearchBarWidget extends StatefulWidget {
+  final MyPolicySet myPolicySet;
   final ValueChanged<bool> onFavoriteChanged;
   final bool isFavorite;
 
+// 외부에서 isFavorite를 아이콘 버튼 클릭할 마다 true, false로 변경해 결과를 가져옴
   const SearchBarWidget({
     Key? key,
     required this.isFavorite,
     required this.onFavoriteChanged,
+    required this.myPolicySet,
   }) : super(key: key);
 
   @override
@@ -21,9 +28,10 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
   final TextEditingController _searchController = TextEditingController();
 
   List<ItemData> itemList = AllTaskList.itemList;
+
   List<ItemData> filteredList = [];
 
-  bool isSearchActive = false; // 검색 창 활성화 여부
+  bool isSearchActive = false;
 
   bool _isFavorite = false;
 
@@ -34,7 +42,8 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
     _isFavorite = widget.isFavorite;
   }
 
-// ---------------- * 검색어 입력 시 검색 결과 반환 함수 *
+// -------------- * 검색어 입력 시 검색 결과 반환 함수 * ------------------
+
   void filterSearchResults(String query) {
     List<ItemData> tempItemList = List.from(itemList);
     if (query.isNotEmpty) {
@@ -53,19 +62,23 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
     }
   }
 
-// -------------------------------- * 구현 section *
+// -------------------------- * 구현 section * -------------------------------
+
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 250),
       decoration: const BoxDecoration(color: Palette.white),
-      height: isSearchActive ? 300 : 60,
+      height: isSearchActive ? 250 : 60,
       child: Column(
         children: [
           Row(
             children: [
-              // ---------------- * search bar section *
+              const SizedBox(
+                width: 20,
+              ),
               Expanded(
+                // ---------------- * 검색창 * --------------------
                 child: TextField(
                   onSubmitted: (value) {
                     _searchController.clear();
@@ -81,15 +94,19 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
                           value.isNotEmpty; // 검색어 입력 여부에 따라 검색 창 활성화 상태 변경
                     });
                   },
+                  enabled: true,
                   decoration: const InputDecoration(
-                    labelStyle: TextStyle(fontSize: 12),
-                    labelText: "검색어를 입력하세요.",
-                    prefixIcon: Icon(Icons.search),
+                    hintStyle: TextStyle(fontSize: 11),
+                    hintText: "검색어를 입력하세요.",
+                    suffixIcon: Padding(
+                      padding: EdgeInsets.only(left: 1),
+                      child: Icon(MaterialSymbols.search),
+                    ),
                   ),
                 ),
               ),
 
-              // --------------* 즐겨찾기 버튼 *
+              // ---------------- * 즐겨찾기 버튼 * -------------------
               IconButton(
                 color: _isFavorite ? Palette.mint : Palette.yellow,
                 onPressed: () {
@@ -98,24 +115,16 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
                   });
                   widget.onFavoriteChanged(_isFavorite); // 값 변경을 콜백으로 전달
                 },
-                icon: const Icon(Icons.star),
+                icon: const Icon(
+                    Icons.star), // 디자인에 사용했던 아이콘과 이름은 같지만 모양이 달라서 대체함
               ),
             ],
           ),
-          // ---------------- * search list view section *
-          // ---------------- 검색창 활성화 여부에 따라서 나타나고 사라짐
+          // ------------------ * 검색 결과 뷰 * -----------------------
+          // ------------------ 검색창 활성화 여부에 따라서 나타나고 사라짐
           if (isSearchActive)
-            // Expanded(
-            //   child: ListView.builder(
-            //     itemCount: filteredList.length,
-            //     itemBuilder: (context, index) {
-            //       return ListTile(
-            //         title: Text(filteredList[index].name),
-            //       );
-            //     },
-            //   ),
-            // ),
             AccordionForm(
+              myPolicySet: widget.myPolicySet,
               maxOpenSections: 1,
               headerName: '',
               targetList: filteredList,

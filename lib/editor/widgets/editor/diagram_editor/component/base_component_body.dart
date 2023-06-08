@@ -1,6 +1,8 @@
 import 'package:diagram_editor/diagram_editor.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_material_symbols/flutter_material_symbols.dart';
 import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/data/custom_component_data.dart';
+import 'package:ojt_test_2/editor/widgets/task_menu/widgets/task.dart';
 
 class BaseComponentBody extends StatelessWidget {
   final ComponentData componentData;
@@ -17,18 +19,49 @@ class BaseComponentBody extends StatelessWidget {
     return GestureDetector(
       child: CustomPaint(
         painter: componentPainter,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4),
-          child: Column(
-            children: [
-              Text('ID : ${componentData.id.substring(0, 4)}'),
-              Text(componentData.parentId == null
-                  ? '-'
-                  : 'parent : ${componentData.parentId?.substring(0, 4)}'),
-            ],
+        child: SizedBox(
+          width: 70,
+          height: 70,
+          child: Center(
+            child: Task(
+              icon: getTaskIcon(componentData.type),
+              name: componentData.type.toString(),
+            ),
           ),
         ),
+
+        // child: Container(
+        //   width: 70,
+        //   height: 70,
+        //   color: Palette.mint.withOpacity(0.5),
+        //   child: Center(
+        //     child: Text(componentData.type.toString()),
+        //   ),
+        // ),
       ),
     );
+  }
+
+  Icon getTaskIcon(String? taskType) {
+    switch (taskType) {
+      case 'starter':
+        return const Icon(MaterialSymbols.where_to_vote);
+      case 'schedule':
+        return const Icon(MaterialSymbols.calendar_month);
+      case 'runProgram':
+        return const Icon(MaterialSymbols.terminal);
+      case 'jobStatus':
+        return const Icon(MaterialSymbols.hourglass_empty);
+      case 'executeJob':
+        return const Icon(MaterialSymbols.play_arrow_filled);
+      case 'and':
+        return const Icon(MaterialSymbols.adjust);
+      case 'or':
+        return const Icon(MaterialSymbols.lens);
+      case 'sleep':
+        return const Icon(MaterialSymbols.dark_mode);
+      default:
+        return const Icon(MaterialSymbols.terminal);
+    }
   }
 }
