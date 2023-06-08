@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_material_symbols/flutter_material_symbols.dart';
 import 'package:ojt_test_2/common/models/taskList.dart';
 import 'package:ojt_test_2/config/palette.dart';
+import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/policy/my_policy_set.dart';
 import 'package:ojt_test_2/editor/widgets/task_menu/widgets/accordion_form.dart';
 
 // 검색창과 검색 결과 뷰 위젯
 
 class SearchBarWidget extends StatefulWidget {
+  final MyPolicySet myPolicySet;
   final ValueChanged<bool> onFavoriteChanged;
   final bool isFavorite;
 
@@ -15,6 +17,7 @@ class SearchBarWidget extends StatefulWidget {
     Key? key,
     required this.isFavorite,
     required this.onFavoriteChanged,
+    required this.myPolicySet,
   }) : super(key: key);
 
   @override
@@ -121,6 +124,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
           // ------------------ 검색창 활성화 여부에 따라서 나타나고 사라짐
           if (isSearchActive)
             AccordionForm(
+              myPolicySet: widget.myPolicySet,
               maxOpenSections: 1,
               headerName: '',
               targetList: filteredList,
