@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ojt_test_2/editor/widgets/editor/editor.dart';
+import 'package:ojt_test_2/editor/widgets/task_menu/job_tree_page.dart';
 import 'package:ojt_test_2/editor/widgets/task_property_window/task_property_window.dart';
 import 'package:ojt_test_2/enums/menu.dart';
 import 'package:ojt_test_2/config/palette.dart';
@@ -58,7 +59,8 @@ class _EditorScreenState extends State<EditorScreen> {
             if (isJobTreeVisible)
               Container(
                 width: 200,
-                color: Palette.mint.withOpacity(0.7),
+                color: Palette.white,
+                child: const MyTreeView(),
               ),
             Expanded(
               child: Column(
