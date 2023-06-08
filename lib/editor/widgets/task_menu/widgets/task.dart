@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:ojt_test_2/config/palette.dart';
 
-// * icon, name을 받아서 task를 생성함 *
+// * icon, name을 받아서 task 하나를 생성함 *
 
 class Task extends StatelessWidget {
   final IconData? icon;
-  final String text;
+  final String name;
 
   const Task({
     Key? key,
     required this.icon,
-    required this.text,
+    required this.name,
   }) : super(key: key);
 
   @override
@@ -27,17 +27,14 @@ class Task extends StatelessWidget {
         children: [
           IconButton(
             onPressed: () {
-              print('component click!');
+              print(name);
             },
             icon: Icon(icon),
             iconSize: 33,
             color: const Color(0xff999999),
           ),
-          // const SizedBox(
-          //   height: 3,
-          // ),
           Text(
-            text,
+            name,
             style: const TextStyle(fontSize: 10),
           ),
         ],
