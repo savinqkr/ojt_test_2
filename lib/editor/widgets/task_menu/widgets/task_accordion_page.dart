@@ -78,7 +78,7 @@ class _TaskAccordionPageState extends State<TaskAccordionPage> {
                       var tasks = [...widget.myPolicySet.bodies];
                       var componentData = getComponentData(item.name);
                       return Padding(
-                        padding: const EdgeInsets.all(0),
+                        padding: const EdgeInsets.all(4),
                         // child: Task(
                         //   icon: item.icon,
                         //   name: item.name,
@@ -98,8 +98,8 @@ class _TaskAccordionPageState extends State<TaskAccordionPage> {
 
   ComponentData getComponentData(String componentType) {
     return ComponentData(
-      size: const Size(80, 80),
-      minSize: const Size(80, 80),
+      size: const Size(70, 70),
+      minSize: const Size(70, 70),
       data: MyComponentData(
         color: Colors.white,
         borderColor: Colors.black,

@@ -51,7 +51,7 @@ class AccordionForm extends StatelessWidget {
                 children: List.generate(
                   targetList.length,
                   (index) => Task(
-                      icon: targetList[index].icon,
+                      iconData: targetList[index].icon,
                       name: targetList[index].name),
                 ),
               ),
