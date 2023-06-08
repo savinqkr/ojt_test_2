@@ -1,14 +1,21 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:accordion/accordion.dart';
+import 'package:diagram_editor/diagram_editor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_material_symbols/flutter_material_symbols.dart';
 import 'package:ojt_test_2/common/models/taskList.dart';
 import 'package:ojt_test_2/config/palette.dart';
-import 'package:ojt_test_2/editor/widgets/task_menu/widgets/task.dart';
+import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/data/custom_component_data.dart';
+import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/policy/my_policy_set.dart';
 
 // 같은 주제의 task끼리 accordion으로 묶어서 보여주는 위젯
 
 class TaskAccordionPage extends StatefulWidget {
-  const TaskAccordionPage({Key? key}) : super(key: key);
+  final MyPolicySet myPolicySet;
+
+  const TaskAccordionPage({Key? key, required this.myPolicySet})
+      : super(key: key);
 
   @override
   State<TaskAccordionPage> createState() => _TaskAccordionPageState();
@@ -66,15 +73,69 @@ class _TaskAccordionPageState extends State<TaskAccordionPage> {
                   ),
                 ),
                 content: Wrap(
-                  children: taskListEntry.values.first.map((item) {
-                    return Task(
-                      icon: item.icon,
-                      name: item.name,
-                    );
-                  }).toList(),
+                  children: taskListEntry.values.first.map(
+                    (item) {
+                      var tasks = [...widget.myPolicySet.bodies];
+                      var componentData = getComponentData(item.name);
+                      return Padding(
+                        padding: const EdgeInsets.all(0),
+                        // child: Task(
+                        //   icon: item.icon,
+                        //   name: item.name,
+                        // ),
+                        child: DraggableComponent(
+                          myPolicySet: widget.myPolicySet,
+                          componentData: componentData,
+                        ),
+                      );
+                    },
+                  ).toList(),
                 ),
               ),
             )
             .toList(),
       );
+
+  ComponentData getComponentData(String componentType) {
+    return ComponentData(
+      size: const Size(80, 80),
+      minSize: const Size(80, 80),
+      data: MyComponentData(
+        color: Colors.white,
+        borderColor: Colors.black,
+        borderWidth: 1.5,
+      ),
+      type: componentType,
+    );
+  }
+}
+
+class DraggableComponent extends StatelessWidget {
+  final MyPolicySet myPolicySet;
+  final ComponentData componentData;
+
+  const DraggableComponent({
+    super.key,
+    required this.myPolicySet,
+    required this.componentData,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Draggable<ComponentData>(
+      affinity: Axis.horizontal,
+      ignoringFeedbackSemantics: true,
+      data: componentData,
+      childWhenDragging: myPolicySet.showComponentBody(componentData),
+      feedback: Material(
+        color: Colors.transparent,
+        child: SizedBox(
+          width: componentData.size.width,
+          height: componentData.size.height,
+          child: myPolicySet.showComponentBody(componentData),
+        ),
+      ),
+      child: myPolicySet.showComponentBody(componentData),
+    );
+  }
 }

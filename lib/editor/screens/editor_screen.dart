@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ojt_test_2/editor/widgets/editor/editor.dart';
-import 'package:ojt_test_2/editor/widgets/task_menu/task_menu.dart';
 import 'package:ojt_test_2/editor/widgets/task_property_window/task_property_window.dart';
 import 'package:ojt_test_2/enums/menu.dart';
 import 'package:ojt_test_2/config/palette.dart';
@@ -105,13 +104,13 @@ class _EditorScreenState extends State<EditorScreen> {
                       child: Row(
                         children: [
                           // ----------------- TASK MENU ----------------- //
-                          const Column(
-                            children: [
-                              Expanded(
-                                child: TaskMenu(),
-                              ),
-                            ],
-                          ),
+                          // const Column(
+                          //   children: [
+                          //     Expanded(
+                          //       child: TaskMenu(),
+                          //     ),
+                          //   ],
+                          // ),
                           // ----------------- EDITOR ----------------- //
                           const Expanded(child: Editor()),
                           // ----------------- TASK PROPERTY WNIDOW ----------------- //
