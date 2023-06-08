@@ -23,30 +23,6 @@ class AllTaskList {
   ];
 }
 
-//---------------- 아코디언으로 묶이는 task list들 -----------------
-
-class TaskList1 {
-  static final List<ItemData> itemList = [
-    ItemData(name: "schedule", icon: MaterialSymbols.calendar_month),
-    ItemData(name: "starter", icon: MaterialSymbols.where_to_vote),
-  ];
-}
-
-class TaskList2 {
-  static final List<ItemData> itemList = [
-    ItemData(name: "and", icon: MaterialSymbols.terminal),
-    ItemData(name: "or", icon: MaterialSymbols.terminal),
-    ItemData(name: "sleep", icon: MaterialSymbols.dark_mode),
-  ];
-}
-
-class TaskList3 {
-  static final List<ItemData> itemList = [
-    ItemData(name: "jobStatus", icon: MaterialSymbols.hourglass_empty),
-    ItemData(name: "executeJob", icon: MaterialSymbols.play_arrow_filled),
-  ];
-}
-
 // ----------------- 즐겨찾기에 등록된 task list -------------------
 class FavoriteTaskList {
   static final List<ItemData> itemList = [
@@ -79,6 +55,7 @@ List<Map<String, List<ItemData>>> taskLists = [
   },
   {
     'task list 4': [
+      // 해당 영역 스크롤 테스트 목적 리스트, 후에 삭제 예정
       ItemData(name: "jobStatus", icon: MaterialSymbols.hourglass_empty),
       ItemData(name: "executeJob", icon: MaterialSymbols.play_arrow_filled),
       ItemData(name: "jobStatus", icon: MaterialSymbols.hourglass_empty),

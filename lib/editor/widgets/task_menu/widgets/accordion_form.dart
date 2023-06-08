@@ -11,16 +11,16 @@ class AccordionForm extends StatelessWidget {
   final String headerName;
   final List<ItemData> targetList;
   final IconData? icon;
-  final double paddingListTop;
-  final EdgeInsets headerPadding;
+  final double? paddingListTop;
+  final EdgeInsets? headerPadding;
 
   const AccordionForm({
     Key? key,
     required this.maxOpenSections,
     required this.headerName,
     required this.targetList,
-    required this.paddingListTop,
-    required this.headerPadding,
+    this.paddingListTop,
+    this.headerPadding,
     this.icon,
   }) : super(key: key);
 
@@ -34,12 +34,12 @@ class AccordionForm extends StatelessWidget {
           headerPadding:
               const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
           headerBorderRadius: 3,
-          paddingListTop: paddingListTop,
-
-          scaleWhenAnimating: false, // scale 애니메이션 제거
+          paddingListTop: paddingListTop!,
           openAndCloseAnimation: true,
 
-          // taskLists의 데이터로 accordion 생성
+          scaleWhenAnimating: false, // scale 애니메이션 제거
+
+          // targetLists의 데이터로 accordion 생성
           children: [
             AccordionSection(
               isOpen: true,
@@ -52,7 +52,7 @@ class AccordionForm extends StatelessWidget {
                   targetList.length,
                   (index) => Task(
                       icon: targetList[index].icon,
-                      text: targetList[index].name),
+                      name: targetList[index].name),
                 ),
               ),
             ),
