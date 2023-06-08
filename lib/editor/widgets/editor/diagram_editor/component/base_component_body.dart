@@ -22,8 +22,8 @@ class BaseComponentBody extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 4),
           child: Column(
             children: [
-              Text('ID : ${componentData.id.substring(0, 4)}'),
-              Text('Type : ${componentData.type}'),
+              // Text('ID : ${componentData.id.substring(0, 4)}'),
+              Text('${componentData.type}'),
               Container(
                 child: getTaskIcon(componentData.type),
               ),

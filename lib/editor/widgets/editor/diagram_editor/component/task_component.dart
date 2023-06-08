@@ -24,7 +24,7 @@ class TaskPainter extends CustomPainter {
   final Color color;
   final Color borderColor;
   final double borderWidth;
-  Size componentSize = const Size(100, 100);
+  Size componentSize = const Size(80, 80);
 
   TaskPainter({
     this.color = Colors.grey,

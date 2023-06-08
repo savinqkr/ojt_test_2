@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/policy/my_policy_set.dart';
 import 'package:ojt_test_2/editor/widgets/task_menu/widgets/task_accordion_page.dart';
 
 class TaskList extends StatelessWidget {
-  const TaskList({super.key});
+  final MyPolicySet myPolicySet;
+
+  const TaskList({super.key, required this.myPolicySet});
 
   @override
   Widget build(BuildContext context) {
@@ -11,20 +14,8 @@ class TaskList extends StatelessWidget {
         width: double.infinity,
         height: 70,
         color: Colors.white,
-        child: TaskAccordionPage(),
+        child: TaskAccordionPage(myPolicySet: myPolicySet),
       ),
     );
   }
 }
-
-// ** 임시로 작성한 코드입니다. ** //
-/* 
- - 아코디언 컴포넌트
- - 태스크 컴포넌트
-
- 이렇게 두가지를 만들어서
- 아코디언 컴포넌트 안에 태스크 컴포넌트를 넣어 사용하면 좋을것 같습니다 : )
-
- 더 좋은 방법이 있다면 적용해주세요~!
- 
- */

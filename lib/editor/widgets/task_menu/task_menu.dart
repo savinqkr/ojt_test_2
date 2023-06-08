@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:ojt_test_2/config/palette.dart';
+import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/policy/my_policy_set.dart';
 import 'package:ojt_test_2/editor/widgets/task_menu/search_bar.dart';
 import 'package:ojt_test_2/editor/widgets/task_menu/task_list.dart';
 import 'package:ojt_test_2/editor/widgets/task_menu/widgets/favorite_tap_test.dart';
 
 class TaskMenu extends StatefulWidget {
-  const TaskMenu({super.key});
+  final MyPolicySet myPolicySet;
+
+  const TaskMenu({super.key, required this.myPolicySet});
 
   @override
   State<TaskMenu> createState() => _TaskMenuState();
@@ -32,7 +35,9 @@ class _TaskMenuState extends State<TaskMenu> {
               });
             },
           ),
-          _isFavorite ? const FavoriteTap() : const TaskList(),
+          _isFavorite
+              ? const FavoriteTap()
+              : TaskList(myPolicySet: widget.myPolicySet),
         ],
       ),
     );
