@@ -1,5 +1,6 @@
 import 'package:diagram_editor/diagram_editor.dart';
 import 'package:flutter/material.dart';
+import 'package:ojt_test_2/config/palette.dart';
 import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/component/base_component_body.dart';
 
 class TaskComponentBody extends StatelessWidget {
@@ -24,11 +25,11 @@ class TaskPainter extends CustomPainter {
   final Color color;
   final Color borderColor;
   final double borderWidth;
-  Size componentSize = const Size(80, 80);
+  Size componentSize = const Size(70, 70);
 
   TaskPainter({
-    this.color = Colors.grey,
-    this.borderColor = Colors.black,
+    this.color = Palette.white,
+    this.borderColor = const Color.fromARGB(255, 95, 95, 95),
     this.borderWidth = 1.0,
   });
 
@@ -37,7 +38,7 @@ class TaskPainter extends CustomPainter {
     var paint = Paint()
       ..color = color
       ..style = PaintingStyle.fill;
-    componentSize = size;
+    componentSize = const Size(70, 70);
 
     Path path = componentPath();
 
@@ -46,7 +47,7 @@ class TaskPainter extends CustomPainter {
     if (borderWidth > 0) {
       paint
         ..style = PaintingStyle.stroke
-        ..color = borderColor
+        ..color = const Color.fromARGB(255, 95, 95, 95)
         ..strokeWidth = borderWidth;
 
       canvas.drawPath(path, paint);
@@ -73,7 +74,7 @@ class TaskPainter extends CustomPainter {
           componentSize.width,
           componentSize.height,
         ),
-        const Radius.circular(16),
+        const Radius.circular(5),
       ),
     );
 

@@ -69,7 +69,7 @@ class _EditorScreenState extends State<EditorScreen> {
                       Expanded(
                         child: Container(
                             height: 30,
-                            color: Colors.red,
+                            color: Palette.mint.withOpacity(0.7),
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [

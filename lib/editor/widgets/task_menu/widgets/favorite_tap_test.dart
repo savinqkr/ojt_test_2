@@ -30,7 +30,7 @@ class FavoriteTap extends StatelessWidget {
               children: List.generate(
                 FavoriteTaskList.itemList.length,
                 (index) => Task(
-                    icon: FavoriteTaskList.itemList[index].icon,
+                    iconData: FavoriteTaskList.itemList[index].icon,
                     name: FavoriteTaskList.itemList[index].name),
               ),
             ),
