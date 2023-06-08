@@ -54,7 +54,6 @@ mixin MyComponentWidgetsPolicy
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             OptionIcon(
-              color: Palette.darkGrey,
               iconData: Icons.delete_forever,
               tooltip: 'delete',
               size: 30,
@@ -62,7 +61,63 @@ mixin MyComponentWidgetsPolicy
                 canvasWriter.model.removeComponent(componentData.id);
                 selectedComponentId = null;
               },
-              iconColor: Palette.white,
+              iconColor: Palette.darkGrey,
+              iconSize: 20.0,
+              shape: BoxShape.circle,
+            ),
+            OptionIcon(
+              iconData: Icons.edit,
+              tooltip: 'edit',
+              size: 30,
+              onPressed: () => showEditComponentDialog(context, componentData),
+              iconColor: Palette.darkGrey,
+              iconSize: 20.0,
+              shape: BoxShape.circle,
+            ),
+            OptionIcon(
+              // iconData: Icons.arrow_right_alt,
+              iconData: Icons.link,
+              tooltip: 'connect',
+              size: 30,
+              onPressed: () {
+                isReadyToConnect = true;
+                componentData.updateComponent();
+              },
+              iconColor: Palette.darkGrey,
+              iconSize: 20.0,
+              shape: BoxShape.circle,
+            ),
+            OptionIcon(
+              iconData: Icons.link_off,
+              tooltip: 'remove links',
+              size: 30,
+              onPressed: () => canvasWriter.model
+                  .removeComponentConnections(componentData.id),
+              iconColor: Palette.darkGrey,
+              iconSize: 20.0,
+              shape: BoxShape.circle,
+            ),
+            OptionIcon(
+              iconData: Icons.person_add,
+              tooltip: 'Add parent',
+              size: 30,
+              onPressed: () {
+                isReadyToAddParent = true;
+                componentData.updateComponent();
+              },
+              iconColor: Palette.darkGrey,
+              iconSize: 20.0,
+              shape: BoxShape.circle,
+            ),
+            OptionIcon(
+              iconData: Icons.person_remove,
+              tooltip: 'Remove parent',
+              size: 30,
+              onPressed: () {
+                isReadyToAddParent = true;
+                componentData.updateComponent();
+              },
+              iconColor: Palette.darkGrey,
               iconSize: 20.0,
               shape: BoxShape.circle,
             ),
