@@ -8,4 +8,8 @@ class Palette {
   static const Color red = Color.fromRGBO(255, 75, 75, 1);
   static const Color yellow = Color.fromRGBO(236, 207, 105, 1);
   static const Color darkGrey = Color.fromRGBO(65, 65, 65, 1);
+
+  static const Color error = Color.fromRGBO(175, 36, 36, 1);
+  static const Color ok = Color.fromRGBO(37, 77, 187, 1);
+  static const Color all = Color.fromRGBO(39, 141, 39, 1);
 }
