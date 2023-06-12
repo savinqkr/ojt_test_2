@@ -14,8 +14,8 @@ import 'package:ojt_test_2/config/palette.dart';
 import 'package:ojt_test_2/enums/task.dart';
 import 'package:ojt_test_2/getX/task_propterty_controller.dart';
 
-class BasicInfoForm extends StatelessWidget {
-  const BasicInfoForm({super.key});
+class SettingExceptionsForm extends StatelessWidget {
+  const SettingExceptionsForm({super.key});
 
   @override
   Widget build(BuildContext context) {
