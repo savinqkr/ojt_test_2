@@ -1,5 +1,3 @@
-// ignore_for_file: unused_local_variable
-
 import 'package:flutter/material.dart';
 import 'package:flutter_material_symbols/flutter_material_symbols.dart';
 import 'package:get/get.dart';
@@ -16,8 +14,8 @@ import 'package:ojt_test_2/editor/widgets/task_property_window/forms/schedule/ta
 import 'package:ojt_test_2/enums/task.dart';
 import 'package:ojt_test_2/getX/task_propterty_controller.dart';
 
-class IBasicInfoForm extends StatelessWidget {
-  const IBasicInfoForm({super.key});
+class ScheduleBasicInfo extends StatelessWidget {
+  const ScheduleBasicInfo({super.key});
 
   @override
   Widget build(BuildContext context) {

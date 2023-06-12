@@ -7,15 +7,18 @@ import 'package:ojt_test_2/config/palette.dart';
 class TableAddRemove extends StatefulWidget {
   final String tableType;
   final String label;
+  final Widget dialogContent;
   final List<dynamic> columnList;
   final List<dynamic> data;
 
-  const TableAddRemove(
-      {super.key,
-      required this.label,
-      required this.columnList,
-      required this.data,
-      required this.tableType});
+  const TableAddRemove({
+    super.key,
+    required this.label,
+    required this.columnList,
+    required this.data,
+    required this.tableType,
+    required this.dialogContent,
+  });
 
   @override
   State<TableAddRemove> createState() => _TableAddRemoveState();
@@ -42,7 +45,7 @@ class _TableAddRemoveState extends State<TableAddRemove> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(tableType),
-          content: const Text('This is a dialog.'),
+          content: widget.dialogContent,
           actions: <Widget>[
             TextButton(
               child: const Text('OK'),

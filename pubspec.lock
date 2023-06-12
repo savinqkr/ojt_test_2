@@ -17,6 +17,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.3.7"
+  arrow_path:
+    dependency: "direct main"
+    description:
+      name: arrow_path
+      sha256: "794651f27eca2e9b4749d307b1e7fb8254fb8343124cc24ee6497f3ceff94651"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.0"
   async:
     dependency: transitive
     description:
@@ -89,6 +97,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.1.6"
+  expandable_menu:
+    dependency: "direct main"
+    description:
+      name: expandable_menu
+      sha256: "0a56238179c7a177baabea1bac159547abb13c6b801179e53e4c9cf02057e032"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.5"
   fake_async:
     dependency: transitive
     description:
@@ -126,6 +142,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.3"
+  flutter_expandable_fab:
+    dependency: "direct main"
+    description:
+      name: flutter_expandable_fab
+      sha256: "43147571b147e80511d7f9bd143300f4b1b881e2beaf7f83f0eccb5d88a4112b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.8.1"
   flutter_fancy_tree_view:
     dependency: "direct main"
     description:
@@ -231,10 +255,10 @@ packages:
     dependency: transitive
     description:
       name: material_color_utilities
-      sha256: "9528f2f296073ff54cb9fee677df673ace1218163c3bc7628093e7eed5203d41"
+      sha256: d92141dc6fe1dad30722f9aa826c7fbc896d021d792f80678280601aff8cf724
       url: "https://pub.dev"
     source: hosted
-    version: "0.5.0"
+    version: "0.2.0"
   meta:
     dependency: transitive
     description:
@@ -347,6 +371,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.5"
+  resizable_widget:
+    dependency: "direct main"
+    description:
+      name: resizable_widget
+      sha256: db2919754b93f386b9b3fb15e9f48f6c9d6d41f00a24397629133c99df86606a
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.5"
   scroll_to_index:
     dependency: transitive
     description:
@@ -364,10 +396,10 @@ packages:
     dependency: transitive
     description:
       name: source_span
-      sha256: "53e943d4206a5e30df338fd4c6e7a077e02254531b138a15aec3bd143c1a8b3c"
+      sha256: dd904f795d4b4f3b870833847c461801f6750a9fa8e61ea5ac53f9422b31f250
       url: "https://pub.dev"
     source: hosted
-    version: "1.10.0"
+    version: "1.9.1"
   stack_trace:
     dependency: transitive
     description:
@@ -412,10 +444,10 @@ packages:
     dependency: transitive
     description:
       name: test_api
-      sha256: daadc9baabec998b062c9091525aa95786508b1c48e9c30f1f891b8bf6ff2e64
+      sha256: eb6ac1540b26de412b3403a163d919ba86f6a973fe6cc50ae3541b80092fdcfb
       url: "https://pub.dev"
     source: hosted
-    version: "0.5.2"
+    version: "0.5.1"
   typed_data:
     dependency: transitive
     description:
