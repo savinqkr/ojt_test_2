@@ -23,94 +23,16 @@ class _TabMenuPageState extends State<TabMenuPage> {
     // 일단 탭 메뉴 내부 데이터는 그대로 옮겨옴. 간략화 필요
     List<TabData> tabs = [
       TabData(
-        text: 'tab 2',
-        content: Container(
-          color: Palette.white,
-          child: Row(
-            children: [
-              // ----------------- EDITOR ----------------- //
-              const Expanded(child: Editor()),
-              // ----------------- TASK PROPERTY WINDOW ----------------- //
-              GetBuilder<TaskPropertyController>(
-                builder: (controller) {
-                  if (controller.isPropertyWindowVisible) {
-                    return const Column(
-                      children: [
-                        Expanded(
-                          child: SingleChildScrollView(
-                            child: TaskPropertyWindow(),
-                          ),
-                        ),
-                      ],
-                    );
-                  } else {
-                    return Container();
-                  }
-                },
-              ),
-            ],
-          ),
-        ),
+        text: 'tab 1',
+        content: const TabMenuContents(),
       ),
       TabData(
         text: 'tab 2',
-        content: Container(
-          color: Palette.white,
-          child: Row(
-            children: [
-              // ----------------- EDITOR ----------------- //
-              const Expanded(child: Editor()),
-              // ----------------- TASK PROPERTY WINDOW ----------------- //
-              GetBuilder<TaskPropertyController>(
-                builder: (controller) {
-                  if (controller.isPropertyWindowVisible) {
-                    return const Column(
-                      children: [
-                        Expanded(
-                          child: SingleChildScrollView(
-                            child: TaskPropertyWindow(),
-                          ),
-                        ),
-                      ],
-                    );
-                  } else {
-                    return Container();
-                  }
-                },
-              ),
-            ],
-          ),
-        ),
+        content: const TabMenuContents(),
       ),
       TabData(
         text: 'tab 3',
-        content: Container(
-          color: Palette.white,
-          child: Row(
-            children: [
-              // ----------------- EDITOR ----------------- //
-              const Expanded(child: Editor()),
-              // ----------------- TASK PROPERTY WINDOW ----------------- //
-              GetBuilder<TaskPropertyController>(
-                builder: (controller) {
-                  if (controller.isPropertyWindowVisible) {
-                    return const Column(
-                      children: [
-                        Expanded(
-                          child: SingleChildScrollView(
-                            child: TaskPropertyWindow(),
-                          ),
-                        ),
-                      ],
-                    );
-                  } else {
-                    return Container();
-                  }
-                },
-              ),
-            ],
-          ),
-        ),
+        content: const TabMenuContents(),
       ),
     ];
 
@@ -119,9 +41,12 @@ class _TabMenuPageState extends State<TabMenuPage> {
     TabbedView tabbedView = TabbedView(controller: controller);
   }
 
+// ---------------------- tab style section ----------------------
   @override
   Widget build(BuildContext context) {
-    TabbedView tabbedView = TabbedView(controller: controller);
+    TabbedView tabbedView = TabbedView(
+      controller: controller,
+    );
 
     TabbedViewThemeData themeData = TabbedViewThemeData();
     themeData.tabsArea.middleGap = 6;
@@ -130,21 +55,53 @@ class _TabMenuPageState extends State<TabMenuPage> {
         BorderRadius.only(topLeft: radius, topRight: radius);
 
     themeData.tab
-      ..padding = const EdgeInsets.fromLTRB(40, 7, 30, 7)
+      ..padding = const EdgeInsets.fromLTRB(45, 7, 30, 7)
       ..buttonsOffset = 8
       ..decoration = BoxDecoration(
           shape: BoxShape.rectangle,
-          color: const Color.fromRGBO(248, 248, 248, 1), // 탭 버튼 색상
+          color: Palette.grey.withAlpha(50), // 탭 버튼 색상
           borderRadius: borderRadius)
       ..selectedStatus.decoration = BoxDecoration(
-          color: const Color.fromRGBO(233, 233, 233, 1), // 탭 버튼 클릭 시 색상
-          borderRadius: borderRadius)
-      ..highlightedStatus.decoration = BoxDecoration(
-          color: const Color.fromRGBO(233, 233, 233, 0.5),
+          color: Palette.darkGrey.withAlpha(50), // 탭 버튼 클릭 시 색상
           borderRadius: borderRadius);
 
     Widget w = TabbedViewTheme(data: themeData, child: tabbedView);
 
     return Container(padding: const EdgeInsets.all(0), child: w);
+  }
+}
+
+// --------------------- tab content 속성에 들어갈 부분 ------------------------
+class TabMenuContents extends StatelessWidget {
+  const TabMenuContents({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        // ----------------- EDITOR ----------------- //
+        const Expanded(child: Editor()),
+        // ----------------- TASK PROPERTY WINDOW ----------------- //
+        GetBuilder<TaskPropertyController>(
+          builder: (controller) {
+            if (controller.isPropertyWindowVisible) {
+              return const Column(
+                children: [
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: TaskPropertyWindow(),
+                    ),
+                  ),
+                ],
+              );
+            } else {
+              return Container();
+            }
+          },
+        ),
+      ],
+    );
   }
 }

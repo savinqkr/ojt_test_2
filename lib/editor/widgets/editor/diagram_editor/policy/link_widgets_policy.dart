@@ -1,6 +1,6 @@
 import 'package:diagram_editor/diagram_editor.dart';
 import 'package:flutter/material.dart';
-import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/dialog/edit_link_dialog.dart';
+import 'package:ojt_test_2/config/palette.dart';
 import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/policy/custom_policy.dart';
 
 mixin MyLinkWidgetsPolicy implements LinkWidgetsPolicy, CustomStatePolicy {
@@ -56,22 +56,84 @@ mixin MyLinkWidgetsPolicy implements LinkWidgetsPolicy, CustomStatePolicy {
                 height: 32,
                 child: const Center(child: Icon(Icons.close, size: 20))),
           ),
+          // const SizedBox(width: 8),
+          // GestureDetector(
+          //   onTap: () {
+          //     showEditLinkDialog(
+          //       context,
+          //       linkData,
+          //     );
+          //   },
+          //   child: Container(
+          //       decoration: BoxDecoration(
+          //         color: Colors.grey.withOpacity(0.7),
+          //         shape: BoxShape.circle,
+          //       ),
+          //       width: 32,
+          //       height: 32,
+          //       child: const Center(child: Icon(Icons.edit, size: 20))),
+          // ),
           const SizedBox(width: 8),
           GestureDetector(
             onTap: () {
-              showEditLinkDialog(
-                context,
-                linkData,
-              );
+              linkData.linkStyle.color = Palette.ok;
+              linkData.updateLink();
             },
             child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.grey.withOpacity(0.7),
+                  color: Palette.ok.withOpacity(0.5),
                   shape: BoxShape.circle,
                 ),
                 width: 32,
                 height: 32,
-                child: const Center(child: Icon(Icons.edit, size: 20))),
+                child: const Center(
+                  child: Icon(Icons.check, size: 20),
+                  //     Text(
+                  //   'Ok',
+                  //   style: TextStyle(color: Palette.white),
+                  // ),
+                )),
+          ),
+          const SizedBox(width: 8),
+          GestureDetector(
+            onTap: () {
+              linkData.linkStyle.color = Palette.all;
+              linkData.updateLink();
+            },
+            child: Container(
+                decoration: BoxDecoration(
+                  color: Palette.all.withOpacity(0.5),
+                  shape: BoxShape.circle,
+                ),
+                width: 32,
+                height: 32,
+                child: const Center(child: Icon(Icons.all_inclusive, size: 20)
+                    //     Text(
+                    //   'All',
+                    //   style: TextStyle(color: Palette.white),
+                    // ),
+                    )),
+          ),
+          const SizedBox(width: 8),
+          GestureDetector(
+            onTap: () {
+              linkData.linkStyle.color = Palette.error;
+              linkData.updateLink();
+            },
+            child: Container(
+                decoration: BoxDecoration(
+                  color: Palette.error.withOpacity(0.5),
+                  shape: BoxShape.circle,
+                ),
+                width: 32,
+                height: 32,
+                child: const Center(
+                  child: Icon(Icons.priority_high, size: 20),
+                  //     Text(
+                  //   'Error',
+                  //   style: TextStyle(color: Palette.white, fontSize: 12),
+                  // ),
+                )),
           ),
         ],
       ),
