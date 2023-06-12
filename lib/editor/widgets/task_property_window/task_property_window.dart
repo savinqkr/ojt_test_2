@@ -3,11 +3,14 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ojt_test_2/config/palette.dart';
 import 'package:ojt_test_2/editor/widgets/task_property_window/forms/advanced_info_form.dart';
-import 'package:ojt_test_2/editor/widgets/task_property_window/forms/basic_info_form.dart';
-import 'package:ojt_test_2/editor/widgets/task_property_window/forms/description_form.dart';
+import 'package:ojt_test_2/editor/widgets/task_property_window/forms/and/and_basic_info.dart';
+import 'package:ojt_test_2/editor/widgets/task_property_window/forms/common/description.dart';
 import 'package:ojt_test_2/editor/widgets/task_property_window/forms/detailed_info_form.dart';
 import 'package:ojt_test_2/editor/widgets/task_property_window/forms/error_manage_form.dart';
+import 'package:ojt_test_2/editor/widgets/task_property_window/forms/schedule/schedule_basic_info.dart';
 import 'package:ojt_test_2/editor/widgets/task_property_window/forms/setting_exceptions_form.dart';
+import 'package:ojt_test_2/editor/widgets/task_property_window/forms/common/basic_info.dart';
+import 'package:ojt_test_2/editor/widgets/task_property_window/forms/sleep/sleep_basic_info.dart';
 import 'package:ojt_test_2/enums/task.dart';
 import 'package:ojt_test_2/getX/task_propterty_controller.dart';
 
@@ -124,20 +127,22 @@ class TaskPropertyWindow extends StatelessWidget {
       case TaskTypes.none:
         return [];
       case TaskTypes.starter:
-      case TaskTypes.and:
       case TaskTypes.or:
+        return [const BasicInfo(), const DescriptionForm()];
+      case TaskTypes.and:
+        return [const AndBasicInfo(), const DescriptionForm()];
       case TaskTypes.sleep:
-        return [const BasicInfoForm(), const DescriptionForm()];
+        return [const SleepBasicInfo(), const DescriptionForm()];
       case TaskTypes.schedule:
         return [
-          const BasicInfoForm(),
+          const ScheduleBasicInfo(),
           const DetailedInfoForm(),
           const SettingExceptionsForm(),
           const DescriptionForm()
         ];
       case TaskTypes.runProgram:
         return [
-          const BasicInfoForm(),
+          const BasicInfo(),
           const DetailedInfoForm(),
           const AdvancedInfoForm(),
           const ErrorManageForm(),
@@ -145,14 +150,14 @@ class TaskPropertyWindow extends StatelessWidget {
         ];
       case TaskTypes.executeJob:
         return [
-          const BasicInfoForm(),
+          const BasicInfo(),
           const DetailedInfoForm(),
           const ErrorManageForm(),
           const DescriptionForm()
         ];
       case TaskTypes.jobStatus:
         return [
-          const BasicInfoForm(),
+          const BasicInfo(),
           const ErrorManageForm(),
           const DescriptionForm()
         ];
