@@ -6,7 +6,7 @@ class TaskPropertyController extends GetxController {
   String taskId = '???';
   TaskTypes taskType = TaskTypes.none;
 
-  void setIsPropertyWindowVisible() {
+  void setIsPropertyWindowVisible(String selectedTaskId) {
     isPropertyWindowVisible = !isPropertyWindowVisible;
     update(); // GetX Controller update
   }

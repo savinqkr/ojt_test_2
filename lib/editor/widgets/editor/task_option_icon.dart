@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class OptionIcon extends StatelessWidget {
+class TaskOptionIcon extends StatelessWidget {
   final double size;
   final BoxShape shape;
   final String tooltip;
@@ -9,7 +9,7 @@ class OptionIcon extends StatelessWidget {
   final double iconSize;
   final Function onPressed;
 
-  const OptionIcon({
+  const TaskOptionIcon({
     super.key,
     required this.size,
     required this.shape,

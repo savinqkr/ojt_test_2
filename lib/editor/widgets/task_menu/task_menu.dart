@@ -21,7 +21,16 @@ class _TaskMenuState extends State<TaskMenu> {
   Widget build(BuildContext context) {
     return Container(
       width: 200,
-      color: Palette.white,
+      decoration: BoxDecoration(
+        color: Palette.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 2,
+            offset: const Offset(2, 2),
+          ),
+        ],
+      ),
       child: Column(
         children: [
           const SizedBox(
