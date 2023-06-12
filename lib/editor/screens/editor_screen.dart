@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:ojt_test_2/editor/widgets/editor/editor.dart';
+import 'package:ojt_test_2/editor/widgets/editor/tab_menu.dart';
 import 'package:ojt_test_2/editor/widgets/task_menu/job_tree_page.dart';
-import 'package:ojt_test_2/editor/widgets/task_property_window/task_property_window.dart';
 import 'package:ojt_test_2/enums/menu.dart';
 import 'package:ojt_test_2/config/palette.dart';
 import 'package:ojt_test_2/common/templates/layout_template.dart';
@@ -50,95 +49,54 @@ class _EditorScreenState extends State<EditorScreen> {
           currentMenu: EditorScreen.menuType,
           setIsJobTreeVisible: setIsJobTreeVisible,
         ),
-        contentWidget: Row(
-          children: [
-            // --------------------------- JOB TREE --------------------------- //
-            if (isJobTreeVisible)
-              Container(
-                width: 200,
-                color: Palette.white,
-                child: const MyTreeView(),
-              ),
-            Expanded(
-              child: Column(
-                children: [
-                  // ------------------------ TABS ----------------------------- //
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                            height: 30,
-                            color: Palette.mint.withOpacity(0.7),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Container(
-                                  height: 24,
-                                  width: 120,
-                                  color: Colors.white,
-                                  child: const Center(child: Text('TAB')),
-                                ),
-                                const SizedBox(width: 5),
-                                Container(
-                                  height: 24,
-                                  width: 120,
-                                  color: Colors.white,
-                                  child: const Center(child: Text('TAB')),
-                                ),
-                                const SizedBox(width: 5),
-                                Container(
-                                  height: 24,
-                                  width: 120,
-                                  color: Colors.white,
-                                  child: const Center(child: Text('TAB')),
-                                ),
-                              ],
-                            )),
-                      ),
-                    ],
-                  ),
-                  Expanded(
-                    child: Container(
-                      color: Palette.white,
-                      child: Row(
-                        children: [
-                          // ----------------- TASK MENU ----------------- //
-                          // const Column(
-                          //   children: [
-                          //     Expanded(
-                          //       child: TaskMenu(),
-                          //     ),
-                          //   ],
-                          // ),
-                          // ----------------- EDITOR ----------------- //
-                          const Expanded(child: Editor()),
-                          // ----------------- TASK PROPERTY WINDOW ----------------- //
-                          GetBuilder<TaskPropertyController>(
-                            builder: (controller) {
-                              if (controller.isPropertyWindowVisible) {
-                                return const Column(
-                                  children: [
-                                    Expanded(
-                                      child: SingleChildScrollView(
-                                        child: TaskPropertyWindow(),
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              } else {
-                                return Container();
-                              }
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
+        contentWidget: Row(children: [
+          // --------------------------- JOB TREE --------------------------- //
+          if (isJobTreeVisible)
+            Container(
+              width: 200,
+              color: Palette.white,
+              child: const MyTreeView(),
+            ),
+          // ---------------------------- TAB MENU ------------------------------ //
+          const Expanded(child: TabMenuPage()),
+        ]),
+        // Expanded(
+        //   child: Container(
+        //     color: Palette.white,
+        //     child: Row(
+        //       children: [
+        //         // ----------------- TASK MENU ----------------- //
+        //         // const Column(
+        //         //   children: [
+        //         //     Expanded(
+        //         //       child: TaskMenu(),
+        //         //     ),
+        //         //   ],
+        //         // ),
+        //         // ----------------- EDITOR ----------------- //
+        //         const Expanded(child: Editor()),
+        //         // ----------------- TASK PROPERTY WINDOW ----------------- //
+        //         GetBuilder<TaskPropertyController>(
+        //           builder: (controller) {
+        //             if (controller.isPropertyWindowVisible) {
+        //               return const Column(
+        //                 children: [
+        //                   Expanded(
+        //                     child: SingleChildScrollView(
+        //                       child: TaskPropertyWindow(),
+        //                     ),
+        //                   ),
+        //                 ],
+        //               );
+        //             } else {
+        //               return Container();
+        //             }
+        //           },
+        //         ),
+        //       ],
+        //     ),
+        //   ),
+        // ),
       ),
     );
   }

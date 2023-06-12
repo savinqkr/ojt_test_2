@@ -80,6 +80,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
               Expanded(
                 // ---------------- * 검색창 * --------------------
                 child: TextField(
+                  enabled: true,
                   onSubmitted: (value) {
                     _searchController.clear();
                     setState(() {
@@ -94,13 +95,16 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
                           value.isNotEmpty; // 검색어 입력 여부에 따라 검색 창 활성화 상태 변경
                     });
                   },
-                  enabled: true,
                   decoration: const InputDecoration(
-                    hintStyle: TextStyle(fontSize: 11),
+                    contentPadding: EdgeInsets.fromLTRB(5, 17, 0, 2),
+                    hintStyle: TextStyle(fontSize: 10),
                     hintText: "검색어를 입력하세요.",
                     suffixIcon: Padding(
-                      padding: EdgeInsets.only(left: 1),
-                      child: Icon(MaterialSymbols.search),
+                      padding: EdgeInsets.only(top: 7),
+                      child: Icon(
+                        MaterialSymbols.search,
+                        size: 20,
+                      ),
                     ),
                   ),
                 ),
@@ -108,6 +112,8 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
 
               // ---------------- * 즐겨찾기 버튼 * -------------------
               IconButton(
+                // enableFeedback: true,
+                padding: const EdgeInsets.only(top: 8),
                 color: _isFavorite ? Palette.mint : Palette.yellow,
                 onPressed: () {
                   setState(() {
