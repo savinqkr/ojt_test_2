@@ -8,7 +8,7 @@ import 'package:ojt_test_2/editor/widgets/editor/option_icon_origin.dart';
 import 'package:ojt_test_2/enums/task.dart';
 import 'package:ojt_test_2/getX/task_propterty_controller.dart';
 
-import '../../option_icon.dart';
+import '../../task_option_icon.dart';
 
 mixin MyComponentWidgetsPolicy
     implements ComponentWidgetsPolicy, CustomStatePolicy {
@@ -39,6 +39,8 @@ mixin MyComponentWidgetsPolicy
   }
 
   Widget componentWidgetOptions(ComponentData componentData, context) {
+    Get.put(TaskPropertyController());
+
     Offset componentPosition =
         canvasReader.state.toCanvasCoordinates(componentData.position);
     return Positioned(
@@ -56,7 +58,7 @@ mixin MyComponentWidgetsPolicy
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            OptionIcon(
+            TaskOptionIcon(
               iconData: Icons.delete_forever,
               tooltip: 'delete',
               size: 30,
@@ -68,24 +70,39 @@ mixin MyComponentWidgetsPolicy
               iconSize: 20.0,
               shape: BoxShape.circle,
             ),
-            OptionIcon(
-              iconData: Icons.edit,
-              tooltip: 'edit',
-              size: 30,
-              onPressed: () {
-                print('TASK ID : ${componentData.id}');
-                print('TASK TYPE : ${componentData.type}');
-                Get.find<TaskPropertyController>().setTaskId(componentData.id);
-                Get.find<TaskPropertyController>()
-                    .setTaskType(convertStringToEnum(componentData.type!));
-                Get.find<TaskPropertyController>().setIsPropertyWindowVisible();
-                // showEditComponentDialog(context, componentData);
-              },
-              iconColor: Palette.darkGrey,
-              iconSize: 20.0,
-              shape: BoxShape.circle,
-            ),
-            OptionIcon(
+            GetBuilder<TaskPropertyController>(builder: (controller) {
+              return TaskOptionIcon(
+                iconData: Icons.edit,
+                tooltip: 'edit',
+                size: 30,
+                onPressed: () {
+                  print('TASK ID : ${componentData.id}');
+                  print('TASK TYPE : ${componentData.type}');
+                  if (controller.isPropertyWindowVisible) {
+                    if (controller.taskId == componentData.id) {
+                      Get.find<TaskPropertyController>()
+                          .setIsPropertyWindowVisible(componentData.id);
+                    } else {
+                      Get.find<TaskPropertyController>()
+                          .setTaskId(componentData.id);
+                      Get.find<TaskPropertyController>().setTaskType(
+                          convertStringToEnum(componentData.type!));
+                    }
+                  } else {
+                    Get.find<TaskPropertyController>()
+                        .setIsPropertyWindowVisible(componentData.id);
+                    Get.find<TaskPropertyController>()
+                        .setTaskId(componentData.id);
+                    Get.find<TaskPropertyController>()
+                        .setTaskType(convertStringToEnum(componentData.type!));
+                  }
+                },
+                iconColor: Palette.darkGrey,
+                iconSize: 20.0,
+                shape: BoxShape.circle,
+              );
+            }),
+            TaskOptionIcon(
               // iconData: Icons.arrow_right_alt,
               iconData: Icons.link,
               tooltip: 'connect',
@@ -98,7 +115,7 @@ mixin MyComponentWidgetsPolicy
               iconSize: 20.0,
               shape: BoxShape.circle,
             ),
-            OptionIcon(
+            TaskOptionIcon(
               iconData: Icons.link_off,
               tooltip: 'remove links',
               size: 30,
@@ -108,7 +125,7 @@ mixin MyComponentWidgetsPolicy
               iconSize: 20.0,
               shape: BoxShape.circle,
             ),
-            OptionIcon(
+            TaskOptionIcon(
               iconData: Icons.person_add,
               tooltip: 'Add parent',
               size: 30,
@@ -121,7 +138,7 @@ mixin MyComponentWidgetsPolicy
               iconSize: 20.0,
               shape: BoxShape.circle,
             ),
-            OptionIcon(
+            TaskOptionIcon(
               iconData: Icons.person_remove,
               tooltip: 'Remove parent',
               size: 30,

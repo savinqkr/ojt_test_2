@@ -5,13 +5,15 @@ import 'package:ojt_test_2/config/palette.dart';
 class TextFieldBasic extends StatelessWidget {
   final String label;
   final TextEditingController controller;
+  final bool? required;
   final bool? multiLines;
 
   const TextFieldBasic(
       {super.key,
       required this.label,
       required this.controller,
-      this.multiLines});
+      this.multiLines,
+      this.required});
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +22,21 @@ class TextFieldBasic extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.only(left: 4),
-          child: Text(
-            label,
-            style: GoogleFonts.nanumGothic(fontSize: 12, color: Palette.black),
+          child: Row(
+            children: [
+              Text(
+                label,
+                style:
+                    GoogleFonts.nanumGothic(fontSize: 12, color: Palette.black),
+              ),
+              const SizedBox(width: 5),
+              if (required != null && required == true)
+                Text(
+                  '*',
+                  style:
+                      GoogleFonts.nanumGothic(fontSize: 12, color: Palette.red),
+                ),
+            ],
           ),
         ),
         const SizedBox(height: 4),
