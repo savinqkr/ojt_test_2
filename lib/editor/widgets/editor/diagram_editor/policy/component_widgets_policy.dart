@@ -1,9 +1,12 @@
 import 'package:diagram_editor/diagram_editor.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:ojt_test_2/config/palette.dart';
 import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/dialog/edit_component_dialog.dart';
 import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/policy/custom_policy.dart';
 import 'package:ojt_test_2/editor/widgets/editor/option_icon_origin.dart';
+import 'package:ojt_test_2/enums/task.dart';
+import 'package:ojt_test_2/getX/task_propterty_controller.dart';
 
 import '../../option_icon.dart';
 
@@ -69,7 +72,15 @@ mixin MyComponentWidgetsPolicy
               iconData: Icons.edit,
               tooltip: 'edit',
               size: 30,
-              onPressed: () => showEditComponentDialog(context, componentData),
+              onPressed: () {
+                print('TASK ID : ${componentData.id}');
+                print('TASK TYPE : ${componentData.type}');
+                Get.find<TaskPropertyController>().setTaskId(componentData.id);
+                Get.find<TaskPropertyController>()
+                    .setTaskType(convertStringToEnum(componentData.type!));
+                Get.find<TaskPropertyController>().setIsPropertyWindowVisible();
+                // showEditComponentDialog(context, componentData);
+              },
               iconColor: Palette.darkGrey,
               iconSize: 20.0,
               shape: BoxShape.circle,

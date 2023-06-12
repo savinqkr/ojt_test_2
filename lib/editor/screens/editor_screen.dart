@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ojt_test_2/editor/widgets/editor/editor.dart';
 import 'package:ojt_test_2/editor/widgets/task_menu/job_tree_page.dart';
@@ -7,6 +8,7 @@ import 'package:ojt_test_2/enums/menu.dart';
 import 'package:ojt_test_2/config/palette.dart';
 import 'package:ojt_test_2/common/templates/layout_template.dart';
 import 'package:ojt_test_2/common/widgets/sidebar_menu/sidebar_menu.dart';
+import 'package:ojt_test_2/getX/task_propterty_controller.dart';
 
 class EditorScreen extends StatefulWidget {
   static const String route = '/editor';
@@ -20,7 +22,6 @@ class EditorScreen extends StatefulWidget {
 
 class _EditorScreenState extends State<EditorScreen> {
   bool isJobTreeVisible = true;
-  bool isPropertyWindowVisible = true;
 
   void setIsJobTreeVisible() {
     setState(() {
@@ -28,14 +29,10 @@ class _EditorScreenState extends State<EditorScreen> {
     });
   }
 
-  void setIsPropertyWindowVisible() {
-    setState(() {
-      isPropertyWindowVisible = !isPropertyWindowVisible;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    Get.put(TaskPropertyController());
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(30.0),
@@ -115,17 +112,24 @@ class _EditorScreenState extends State<EditorScreen> {
                           // ),
                           // ----------------- EDITOR ----------------- //
                           const Expanded(child: Editor()),
-                          // ----------------- TASK PROPERTY WNIDOW ----------------- //
-                          if (isPropertyWindowVisible)
-                            const Column(
-                              children: [
-                                Expanded(
-                                  child: SingleChildScrollView(
-                                    child: TaskPropertyWindow(),
-                                  ),
-                                ),
-                              ],
-                            ),
+                          // ----------------- TASK PROPERTY WINDOW ----------------- //
+                          GetBuilder<TaskPropertyController>(
+                            builder: (controller) {
+                              if (controller.isPropertyWindowVisible) {
+                                return const Column(
+                                  children: [
+                                    Expanded(
+                                      child: SingleChildScrollView(
+                                        child: TaskPropertyWindow(),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              } else {
+                                return Container();
+                              }
+                            },
+                          ),
                         ],
                       ),
                     ),
@@ -133,16 +137,6 @@ class _EditorScreenState extends State<EditorScreen> {
                 ],
               ),
             )
-
-            // // --------------------------- TASK MENU --------------------------- //
-            // const TaskMenu(),
-            // // --------------------------- EDITOR --------------------------- //
-            // const Expanded(
-            //   child: Editor(),
-            // ),
-            // // -------------------- TASK PROPERTY WINDOW -------------------- //
-            // if (isPropertyWindowVisible)
-            //   const SingleChildScrollView(child: TaskPropertyWindow()),
           ],
         ),
       ),

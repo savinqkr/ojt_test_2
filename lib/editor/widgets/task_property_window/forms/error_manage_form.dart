@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ojt_test_2/common/widgets/button.dart';
 import 'package:ojt_test_2/common/widgets/checkbox_with_label.dart';
 import 'package:ojt_test_2/common/widgets/table_with_buttons/table_add_remove.dart';
 import 'package:ojt_test_2/common/widgets/textfield_basic.dart';
 import 'package:ojt_test_2/config/palette.dart';
+import 'package:ojt_test_2/enums/task.dart';
+import 'package:ojt_test_2/getX/task_propterty_controller.dart';
 
 class ErrorManageForm extends StatelessWidget {
   const ErrorManageForm({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Get.put(TaskPropertyController());
+
     TextEditingController retryCount = TextEditingController();
     TextEditingController retryDelay = TextEditingController();
 
@@ -25,10 +30,14 @@ class ErrorManageForm extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "TASK NAME",
-                style:
-                    GoogleFonts.nanumGothic(fontSize: 16, color: Palette.black),
+              GetBuilder<TaskPropertyController>(
+                builder: (controller) {
+                  return Text(
+                    convertEnumToString(controller.taskType),
+                    style: GoogleFonts.nanumGothic(
+                        fontSize: 16, color: Palette.black),
+                  );
+                },
               ),
               const SizedBox(height: 32),
               const CheckBoxWithLabel(label: '오류반영', height: 32),
