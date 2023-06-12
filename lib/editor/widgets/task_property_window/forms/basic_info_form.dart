@@ -11,6 +11,8 @@ import 'package:ojt_test_2/common/widgets/textfield_basic.dart';
 import 'package:ojt_test_2/common/widgets/textfield_with_calendar.dart';
 import 'package:ojt_test_2/common/widgets/textfield_with_icon.dart';
 import 'package:ojt_test_2/config/palette.dart';
+import 'package:ojt_test_2/editor/widgets/task_property_window/forms/schedule/schedule_time.dart';
+import 'package:ojt_test_2/editor/widgets/task_property_window/forms/schedule/task_calendar.dart';
 import 'package:ojt_test_2/enums/task.dart';
 import 'package:ojt_test_2/getX/task_propterty_controller.dart';
 
@@ -119,6 +121,7 @@ class IBasicInfoForm extends StatelessWidget {
                   {'text': '제외', 'width': 50},
                 ],
                 data: [],
+                dialogContent: TaskCalendar(),
               ),
               const SizedBox(height: 12),
               const TableAddRemove(
@@ -129,6 +132,7 @@ class IBasicInfoForm extends StatelessWidget {
                   {'text': '시간', 'width': 180},
                 ],
                 data: [],
+                dialogContent: ScheduleTime(),
               ),
             ],
           ),

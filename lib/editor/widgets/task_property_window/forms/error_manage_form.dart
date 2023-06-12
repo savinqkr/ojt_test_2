@@ -57,6 +57,7 @@ class ErrorManageForm extends StatelessWidget {
                   {'text': '재시도', 'width': 50},
                 ],
                 data: [],
+                dialogContent: Text("오류조건"),
               ),
             ],
           ),
