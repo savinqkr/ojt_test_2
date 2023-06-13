@@ -29,10 +29,12 @@ class _TabMenuPageState extends State<TabMenuPage> {
       ),
       TabData(
         text: 'tab 2',
+        keepAlive: true,
         content: const TabMenuContents(),
       ),
       TabData(
         text: 'tab 3',
+        keepAlive: true,
         content: const TabMenuContents(),
       ),
     ];
