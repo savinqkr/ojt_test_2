@@ -24,6 +24,7 @@ class _TabMenuPageState extends State<TabMenuPage> {
     List<TabData> tabs = [
       TabData(
         text: 'tab 1',
+        keepAlive: true,
         content: const TabMenuContents(),
       ),
       TabData(
@@ -55,7 +56,8 @@ class _TabMenuPageState extends State<TabMenuPage> {
         BorderRadius.only(topLeft: radius, topRight: radius);
 
     themeData.tab
-      ..padding = const EdgeInsets.fromLTRB(45, 7, 30, 7)
+      ..textStyle = const TextStyle(fontSize: 15)
+      ..padding = const EdgeInsets.fromLTRB(45, 8, 30, 8)
       ..buttonsOffset = 8
       ..decoration = BoxDecoration(
           shape: BoxShape.rectangle,
