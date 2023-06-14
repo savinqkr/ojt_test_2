@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ojt_test_2/common/widgets/button.dart';
 import 'package:ojt_test_2/common/widgets/checkbox_with_label.dart';
-import 'package:ojt_test_2/common/widgets/table_with_buttons/table_add_remove.dart';
 import 'package:ojt_test_2/common/widgets/textfield_basic.dart';
 import 'package:ojt_test_2/config/palette.dart';
 import 'package:ojt_test_2/enums/task.dart';
@@ -48,17 +47,17 @@ class ErrorManageForm extends StatelessWidget {
               const SizedBox(height: 24),
               const CheckBoxWithLabel(label: '오류조건', height: 32),
               const SizedBox(height: 12),
-              const TableAddRemove(
-                tableType: '오류조건',
-                label: '오류조건',
-                columnList: [
-                  {'text': '번호', 'width': 50},
-                  {'text': '조건', 'width': 140},
-                  {'text': '재시도', 'width': 50},
-                ],
-                data: [],
-                dialogContent: Text("오류조건"),
-              ),
+              // const TableAddRemove(
+              //   tableType: '오류조건',
+              //   label: '오류조건',
+              //   columnList: [
+              //     {'text': '번호', 'width': 50},
+              //     {'text': '조건', 'width': 140},
+              //     {'text': '재시도', 'width': 50},
+              //   ],
+              //   data: [],
+              //   dialogContent: Text("오류조건"),
+              // ),
             ],
           ),
           Row(

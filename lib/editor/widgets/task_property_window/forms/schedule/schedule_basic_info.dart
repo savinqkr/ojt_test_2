@@ -4,19 +4,26 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ojt_test_2/common/widgets/button.dart';
 import 'package:ojt_test_2/common/widgets/checkbox_with_label.dart';
-import 'package:ojt_test_2/common/widgets/table_with_buttons/table_add_remove.dart';
+import 'package:ojt_test_2/common/widgets/table/table_widget.dart';
 import 'package:ojt_test_2/common/widgets/textfield_basic.dart';
 import 'package:ojt_test_2/common/widgets/textfield_with_calendar.dart';
 import 'package:ojt_test_2/common/widgets/textfield_with_icon.dart';
 import 'package:ojt_test_2/config/palette.dart';
-import 'package:ojt_test_2/editor/widgets/task_property_window/forms/schedule/schedule_time.dart';
-import 'package:ojt_test_2/editor/widgets/task_property_window/forms/schedule/task_calendar.dart';
+import 'package:ojt_test_2/editor/models/schedule_time_data.dart';
+import 'package:ojt_test_2/editor/models/task_calendar_data.dart';
+import 'package:ojt_test_2/editor/widgets/task_property_window/forms/schedule/dialog/schedule_time.dart';
+import 'package:ojt_test_2/editor/widgets/task_property_window/forms/schedule/dialog/task_calendar.dart';
 import 'package:ojt_test_2/enums/task.dart';
 import 'package:ojt_test_2/getX/task_propterty_controller.dart';
 
-class ScheduleBasicInfo extends StatelessWidget {
+class ScheduleBasicInfo extends StatefulWidget {
   const ScheduleBasicInfo({super.key});
 
+  @override
+  State<ScheduleBasicInfo> createState() => _ScheduleBasicInfoState();
+}
+
+class _ScheduleBasicInfoState extends State<ScheduleBasicInfo> {
   @override
   Widget build(BuildContext context) {
     Get.put(TaskPropertyController());
@@ -110,27 +117,50 @@ class ScheduleBasicInfo extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 12),
-              const TableAddRemove(
-                tableType: '작업캘린더',
+              TableWidget(
                 label: '작업캘린더',
-                columnList: [
-                  {'text': '번호', 'width': 50},
-                  {'text': '작업캘린더명', 'width': 140},
-                  {'text': '제외', 'width': 50},
-                ],
-                data: [],
-                dialogContent: TaskCalendar(),
+                data: TaskCalendarData.selectedTaskCalendarDataList,
+                columnTitle: const ['번호', '작업캘린더명', '제외'],
+                onClickRemove: (List<int> selectedRows) {
+                  setState(() {
+                    TaskCalendarData().setSelectedRemoveList(selectedRows);
+                    TaskCalendarData().removeData();
+                    selectedRows.clear();
+                  });
+                },
+                dialogTitle: '전역설정 작업캘린더',
+                dialogContent: TaskCalendar(
+                  data: TaskCalendarData.taskCalendarDataList,
+                  columnTitle: const ['번호', '타입', '변수명', '범위'],
+                ),
+                dialogOnPressed: () {
+                  setState(() {
+                    TaskCalendarData().addData();
+                  });
+                },
+                dialogVar: TaskCalendarData.selectedDataForAdd,
               ),
               const SizedBox(height: 12),
-              const TableAddRemove(
-                tableType: '스케줄시간',
+              TableWidget(
                 label: '스케줄시간',
-                columnList: [
-                  {'text': '번호', 'width': 60},
-                  {'text': '시간', 'width': 180},
-                ],
-                data: [],
-                dialogContent: ScheduleTime(),
+                data: ScheduleTimeData.scheduleTimeDataList,
+                columnTitle: const ['번호', '시간'],
+                onClickRemove: (int selectedRow) {
+                  setState(() {
+                    ScheduleTimeData().setSelectedRemove(selectedRow);
+                    ScheduleTimeData().removeData();
+                  });
+                },
+                dialogTitle: '스케줄시간',
+                dialogContent: const ScheduleTime(
+                  columnTitle: ['번호', '작업캘린더명', '제외'],
+                ),
+                dialogOnPressed: () {
+                  setState(() {
+                    ScheduleTimeData().addData();
+                  });
+                },
+                dialogVar: ScheduleTimeData.selectedDataForAdd,
               ),
             ],
           ),

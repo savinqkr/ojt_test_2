@@ -6,13 +6,10 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ojt_test_2/common/widgets/button.dart';
 import 'package:ojt_test_2/common/widgets/checkbox_with_label.dart';
-import 'package:ojt_test_2/common/widgets/table_with_buttons/table_add_remove.dart';
 import 'package:ojt_test_2/common/widgets/textfield_basic.dart';
 import 'package:ojt_test_2/common/widgets/textfield_with_calendar.dart';
 import 'package:ojt_test_2/common/widgets/textfield_with_icon.dart';
 import 'package:ojt_test_2/config/palette.dart';
-import 'package:ojt_test_2/editor/widgets/task_property_window/forms/schedule/schedule_time.dart';
-import 'package:ojt_test_2/editor/widgets/task_property_window/forms/schedule/task_calendar.dart';
 import 'package:ojt_test_2/enums/task.dart';
 import 'package:ojt_test_2/getX/task_propterty_controller.dart';
 
@@ -111,29 +108,29 @@ class IBasicInfoForm extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 12),
-              const TableAddRemove(
-                tableType: '작업캘린더',
-                label: '작업캘린더',
-                columnList: [
-                  {'text': '번호', 'width': 50},
-                  {'text': '작업캘린더명', 'width': 140},
-                  {'text': '제외', 'width': 50},
-                ],
-                data: [],
-                dialogContent: TaskCalendar(),
-              ),
-              const SizedBox(height: 12),
-              const TableAddRemove(
-                tableType: '스케줄시간',
-                label: '스케줄시간',
-                columnList: [
-                  {'text': '번호', 'width': 60},
-                  {'text': '시간', 'width': 180},
-                ],
-                data: [],
-                dialogContent: ScheduleTime(),
-              ),
+              // const SizedBox(height: 12),
+              // const TableAddRemove(
+              //   tableType: '작업캘린더',
+              //   label: '작업캘린더',
+              //   columnList: [
+              //     {'text': '번호', 'width': 50},
+              //     {'text': '작업캘린더명', 'width': 140},
+              //     {'text': '제외', 'width': 50},
+              //   ],
+              //   data: [],
+              //   dialogContent: TaskCalendar(),
+              // ),
+              // const SizedBox(height: 12),
+              // const TableAddRemove(
+              //   tableType: '스케줄시간',
+              //   label: '스케줄시간',
+              //   columnList: [
+              //     {'text': '번호', 'width': 60},
+              //     {'text': '시간', 'width': 180},
+              //   ],
+              //   data: [],
+              //   dialogContent: ScheduleTime(),
+              // ),
             ],
           ),
           Row(
