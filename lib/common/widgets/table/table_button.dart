@@ -5,13 +5,13 @@ import 'package:ojt_test_2/config/palette.dart';
 class TableButton extends StatelessWidget {
   final String label;
   final Icon icon;
-  final Function showDialog;
+  final Function onClick;
 
   const TableButton(
       {super.key,
       required this.label,
       required this.icon,
-      required this.showDialog});
+      required this.onClick});
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +19,7 @@ class TableButton extends StatelessWidget {
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
         onTap: () {
-          print(label);
-          showDialog();
+          onClick();
         },
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
