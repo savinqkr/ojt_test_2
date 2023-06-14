@@ -27,7 +27,7 @@ class TaskCalendarData {
       type: '작업캘린더',
       name: '휴일',
       range: '전역',
-      exception: false,
+      exception: true,
       isFavorite: false,
     ),
     DataItem(

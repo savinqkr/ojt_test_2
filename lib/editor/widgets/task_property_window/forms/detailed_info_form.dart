@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_material_symbols/flutter_material_symbols.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ojt_test_2/common/widgets/button.dart';
 import 'package:ojt_test_2/common/widgets/checkbox_with_label.dart';
 import 'package:ojt_test_2/common/widgets/textfield_basic.dart';
-import 'package:ojt_test_2/common/widgets/textfield_with_icon.dart';
 import 'package:ojt_test_2/config/palette.dart';
 import 'package:ojt_test_2/enums/task.dart';
 import 'package:ojt_test_2/getX/task_propterty_controller.dart';
@@ -57,41 +55,50 @@ class DetailedInfoForm extends StatelessWidget {
               TextFieldBasic(
                   label: '리턴값 구분자', controller: returnValueSeparator),
               const SizedBox(height: 24),
-              TextFieldWithIcon(
-                textfieldType: '로그파일경로',
-                label: '로그파일경로',
-                controller: logFilePath,
-                // icon: const Icon(Icons.search)),
-                icon: const Icon(
-                  MaterialSymbols.more_horiz,
-                  size: 24,
-                  color: Palette.black,
-                ),
-              ),
-              const SizedBox(height: 24),
-              TextFieldWithIcon(
-                textfieldType: '강제종료 명령어',
-                label: '강제종료 명령어',
-                controller: shutdownCommand,
-                // icon: const Icon(Icons.search)),
-                icon: const Icon(
-                  MaterialSymbols.more_horiz,
-                  size: 24,
-                  color: Palette.black,
-                ),
-              ),
-              const SizedBox(height: 12),
-              TextFieldWithIcon(
-                textfieldType: '데이터처리건수파일',
-                label: '데이터처리건수파일',
-                controller: dataProcessingCountFile,
-                // icon: const Icon(Icons.search)),
-                icon: const Icon(
-                  MaterialSymbols.more_horiz,
-                  size: 24,
-                  color: Palette.black,
-                ),
-              ),
+              // TextFieldWithIcon(
+              //   dialogTitle: '스케줄',
+              //   dialogContent: const Schedule(
+              //     columnTitle: ['번호', '타입', '변수명', '범위'],
+              //   ),
+              //   label: '로그파일경로',
+              //   controller: logFilePath,
+              //   // icon: const Icon(Icons.search)),
+              //   icon: const Icon(
+              //     MaterialSymbols.more_horiz,
+              //     size: 24,
+              //     color: Palette.black,
+              //   ),
+              // ),
+              // const SizedBox(height: 24),
+              // TextFieldWithIcon(
+              //   dialogTitle: '스케줄',
+              //   dialogContent: const Schedule(
+              //     columnTitle: ['번호', '타입', '변수명', '범위'],
+              //   ),
+              //   label: '강제종료 명령어',
+              //   controller: shutdownCommand,
+              //   // icon: const Icon(Icons.search)),
+              //   icon: const Icon(
+              //     MaterialSymbols.more_horiz,
+              //     size: 24,
+              //     color: Palette.black,
+              //   ),
+              // ),
+              // const SizedBox(height: 12),
+              // TextFieldWithIcon(
+              //   dialogTitle: '스케줄',
+              //   dialogContent: const Schedule(
+              //     columnTitle: ['번호', '타입', '변수명', '범위'],
+              //   ),
+              //   label: '데이터처리건수파일',
+              //   controller: dataProcessingCountFile,
+              //   // icon: const Icon(Icons.search)),
+              //   icon: const Icon(
+              //     MaterialSymbols.more_horiz,
+              //     size: 24,
+              //     color: Palette.black,
+              //   ),
+              // ),
             ],
           ),
           Row(

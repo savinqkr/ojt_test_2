@@ -9,8 +9,10 @@ import 'package:ojt_test_2/common/widgets/textfield_basic.dart';
 import 'package:ojt_test_2/common/widgets/textfield_with_calendar.dart';
 import 'package:ojt_test_2/common/widgets/textfield_with_icon.dart';
 import 'package:ojt_test_2/config/palette.dart';
+import 'package:ojt_test_2/editor/models/schedule_data.dart';
 import 'package:ojt_test_2/editor/models/schedule_time_data.dart';
 import 'package:ojt_test_2/editor/models/task_calendar_data.dart';
+import 'package:ojt_test_2/editor/widgets/task_property_window/forms/schedule/dialog/schedule.dart';
 import 'package:ojt_test_2/editor/widgets/task_property_window/forms/schedule/dialog/schedule_time.dart';
 import 'package:ojt_test_2/editor/widgets/task_property_window/forms/schedule/dialog/task_calendar.dart';
 import 'package:ojt_test_2/enums/task.dart';
@@ -68,7 +70,6 @@ class _ScheduleBasicInfoState extends State<ScheduleBasicInfo> {
               ),
               const SizedBox(height: 12),
               TextFieldWithIcon(
-                textfieldType: '스케줄',
                 label: '스케줄',
                 controller: schedule,
                 // icon: const Icon(Icons.search)),
@@ -77,6 +78,20 @@ class _ScheduleBasicInfoState extends State<ScheduleBasicInfo> {
                   size: 24,
                   color: Palette.black,
                 ),
+                dialogTitle: '스케줄',
+                dialogContent: Schedule(
+                  data: ScheduleData.scheduleDataList,
+                  columnTitle: const ['번호', '타입', '변수명', '범위'],
+                ),
+                dialogVar: ScheduleData.selectedDataForAdd,
+                dialogOnPressed: () {
+                  setState(() {
+                    ScheduleData().addData();
+                    // schedule.text = ScheduleData
+                    //     .scheduleDataList[ScheduleData.selectedDataForAdd!].name
+                    //     .toString();
+                  });
+                },
               ),
               const SizedBox(height: 12),
               Column(
@@ -125,8 +140,8 @@ class _ScheduleBasicInfoState extends State<ScheduleBasicInfo> {
                   setState(() {
                     TaskCalendarData().setSelectedRemoveList(selectedRows);
                     TaskCalendarData().removeData();
-                    selectedRows.clear();
                   });
+                  selectedRows.clear();
                 },
                 dialogTitle: '전역설정 작업캘린더',
                 dialogContent: TaskCalendar(
@@ -138,7 +153,6 @@ class _ScheduleBasicInfoState extends State<ScheduleBasicInfo> {
                     TaskCalendarData().addData();
                   });
                 },
-                dialogVar: TaskCalendarData.selectedDataForAdd,
               ),
               const SizedBox(height: 12),
               TableWidget(
@@ -160,7 +174,6 @@ class _ScheduleBasicInfoState extends State<ScheduleBasicInfo> {
                     ScheduleTimeData().addData();
                   });
                 },
-                dialogVar: ScheduleTimeData.selectedDataForAdd,
               ),
             ],
           ),
