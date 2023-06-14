@@ -13,7 +13,6 @@ class TableWidget extends StatefulWidget {
   final String dialogTitle;
   final Widget dialogContent;
   final Function dialogOnPressed;
-  final dynamic dialogVar;
 
   const TableWidget({
     super.key,
@@ -23,7 +22,6 @@ class TableWidget extends StatefulWidget {
     required this.dialogTitle,
     required this.dialogContent,
     required this.dialogOnPressed,
-    this.dialogVar,
     required this.onClickRemove,
   });
 
@@ -66,9 +64,7 @@ class _TableWidgetState extends State<TableWidget> {
             TextButton(
               child: const Text('OK'),
               onPressed: () {
-                if (widget.dialogVar != null) {
-                  widget.dialogOnPressed();
-                }
+                widget.dialogOnPressed();
                 Navigator.of(context).pop();
               },
             ),

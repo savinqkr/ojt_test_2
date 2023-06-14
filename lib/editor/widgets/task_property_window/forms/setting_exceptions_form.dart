@@ -8,7 +8,6 @@ import 'package:ojt_test_2/common/widgets/button.dart';
 import 'package:ojt_test_2/common/widgets/checkbox_with_label.dart';
 import 'package:ojt_test_2/common/widgets/textfield_basic.dart';
 import 'package:ojt_test_2/common/widgets/textfield_with_calendar.dart';
-import 'package:ojt_test_2/common/widgets/textfield_with_icon.dart';
 import 'package:ojt_test_2/config/palette.dart';
 import 'package:ojt_test_2/enums/task.dart';
 import 'package:ojt_test_2/getX/task_propterty_controller.dart';
@@ -59,17 +58,20 @@ class SettingExceptionsForm extends StatelessWidget {
                 required: true,
               ),
               const SizedBox(height: 12),
-              TextFieldWithIcon(
-                textfieldType: '스케줄',
-                label: '스케줄',
-                controller: schedule,
-                // icon: const Icon(Icons.search)),
-                icon: const Icon(
-                  MaterialSymbols.more_horiz,
-                  size: 24,
-                  color: Palette.black,
-                ),
-              ),
+              // TextFieldWithIcon(
+              //   dialogTitle: '스케줄',
+              //   dialogContent: const Schedule(
+              //     columnTitle: ['번호', '타입', '변수명', '범위'],
+              //   ),
+              //   label: '스케줄',
+              //   controller: schedule,
+              //   // icon: const Icon(Icons.search)),
+              //   icon: const Icon(
+              //     MaterialSymbols.more_horiz,
+              //     size: 24,
+              //     color: Palette.black,
+              //   ),
+              // ),
               const SizedBox(height: 12),
               Column(
                 children: [
