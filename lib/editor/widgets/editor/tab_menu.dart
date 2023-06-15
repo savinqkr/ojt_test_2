@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ojt_test_2/common/models/job_data.dart';
 import 'package:ojt_test_2/config/palette.dart';
 import 'package:ojt_test_2/editor/widgets/editor/editor.dart';
 import 'package:ojt_test_2/editor/widgets/task_property_window/task_property_window.dart';
@@ -20,24 +21,37 @@ class _TabMenuPageState extends State<TabMenuPage> {
   void initState() {
     super.initState();
 
+    var isOpenJobList = JobData().getOpenJobList();
+
     // 일단 탭 메뉴 내부 데이터는 그대로 옮겨옴. 간략화 필요
     List<TabData> tabs = [
-      TabData(
-        text: 'tab 1',
-        keepAlive: true,
-        content: const TabMenuContents(),
-      ),
-      TabData(
-        text: 'tab 2',
-        keepAlive: true,
-        content: const TabMenuContents(),
-      ),
-      TabData(
-        text: 'tab 3',
-        keepAlive: true,
-        content: const TabMenuContents(),
-      ),
+      // TabData(
+      //   text: 'tab 1',
+      //   keepAlive: true,
+      //   content: const TabMenuContents(),
+      // ),
+      // TabData(
+      //   text: 'tab 2',
+      //   keepAlive: true,
+      //   content: const TabMenuContents(),
+      // ),
+      // TabData(
+      //   text: 'tab 3',
+      //   keepAlive: true,
+      //   content: const TabMenuContents(),
+      // ),
     ];
+
+    for (var job in isOpenJobList) {
+      tabs.add(
+        TabData(
+          text: job['name'],
+          keepAlive: true,
+          content: TabMenuContents(jobId: job['id']),
+        ),
+      );
+    }
+    print(tabs);
 
     controller = TabbedViewController(tabs);
 
@@ -77,8 +91,10 @@ class _TabMenuPageState extends State<TabMenuPage> {
 
 // --------------------- tab content 속성에 들어갈 부분 ------------------------
 class TabMenuContents extends StatelessWidget {
+  final String jobId;
   const TabMenuContents({
     super.key,
+    required this.jobId,
   });
 
   @override

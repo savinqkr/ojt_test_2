@@ -82,11 +82,11 @@ class TaskCalendarData {
       final selectedDataItem = selectedTaskCalendarDataList[index];
       print(selectedDataItem);
       final updatedDataItem = {
-        "type": selectedDataItem['type'],
+        // "type": selectedDataItem['type'],
         "name": selectedDataItem['name'],
-        "range": selectedDataItem['range'],
+        // "range": selectedDataItem['range'],
         "exception": !selectedDataItem['exception'],
-        "isFavorite": selectedDataItem['isFavorite'],
+        // "isFavorite": selectedDataItem['isFavorite'],
       };
       print(updatedDataItem);
       selectedTaskCalendarDataList[index] = updatedDataItem;
