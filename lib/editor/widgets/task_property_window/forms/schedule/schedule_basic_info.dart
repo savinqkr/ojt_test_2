@@ -18,6 +18,8 @@ import 'package:ojt_test_2/editor/widgets/task_property_window/forms/schedule/di
 import 'package:ojt_test_2/enums/task.dart';
 import 'package:ojt_test_2/getX/task_propterty_controller.dart';
 
+// ******* String 타입 vs 체크박스 vs .... ETC 에 대한 처리 필요 ******* //
+
 class ScheduleBasicInfo extends StatefulWidget {
   const ScheduleBasicInfo({super.key});
 
@@ -133,7 +135,7 @@ class _ScheduleBasicInfoState extends State<ScheduleBasicInfo> {
               ),
               const SizedBox(height: 12),
               TableWidget(
-                label: '작업캘린더',
+                label: '작업 캘린더',
                 data: TaskCalendarData.selectedTaskCalendarDataList,
                 columnTitle: const ['번호', '작업캘린더명', '제외'],
                 onClickRemove: (List<int> selectedRows) {
@@ -150,7 +152,7 @@ class _ScheduleBasicInfoState extends State<ScheduleBasicInfo> {
                 ),
                 dialogOnPressed: () {
                   setState(() {
-                    TaskCalendarData().addData();
+                    TaskCalendarData().addData(['name', 'exception']);
                   });
                 },
               ),
@@ -159,9 +161,9 @@ class _ScheduleBasicInfoState extends State<ScheduleBasicInfo> {
                 label: '스케줄시간',
                 data: ScheduleTimeData.scheduleTimeDataList,
                 columnTitle: const ['번호', '시간'],
-                onClickRemove: (int selectedRow) {
+                onClickRemove: (List<int> selectedRows) {
                   setState(() {
-                    ScheduleTimeData().setSelectedRemove(selectedRow);
+                    ScheduleTimeData().setSelectedRemove(selectedRows);
                     ScheduleTimeData().removeData();
                   });
                 },
@@ -171,7 +173,7 @@ class _ScheduleBasicInfoState extends State<ScheduleBasicInfo> {
                 ),
                 dialogOnPressed: () {
                   setState(() {
-                    ScheduleTimeData().addData();
+                    ScheduleTimeData().addData(['time']);
                   });
                 },
               ),

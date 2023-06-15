@@ -8,7 +8,8 @@ import 'package:ojt_test_2/editor/widgets/task_property_window/forms/common/desc
 import 'package:ojt_test_2/editor/widgets/task_property_window/forms/detailed_info_form.dart';
 import 'package:ojt_test_2/editor/widgets/task_property_window/forms/error_manage_form.dart';
 import 'package:ojt_test_2/editor/widgets/task_property_window/forms/schedule/schedule_basic_info.dart';
-import 'package:ojt_test_2/editor/widgets/task_property_window/forms/setting_exceptions_form.dart';
+import 'package:ojt_test_2/editor/widgets/task_property_window/forms/schedule/schedule_detail_info.dart';
+import 'package:ojt_test_2/editor/widgets/task_property_window/forms/schedule/schedule_setting_exceptions.dart';
 import 'package:ojt_test_2/editor/widgets/task_property_window/forms/common/basic_info.dart';
 import 'package:ojt_test_2/editor/widgets/task_property_window/forms/sleep/sleep_basic_info.dart';
 import 'package:ojt_test_2/enums/task.dart';
@@ -63,35 +64,6 @@ class TaskPropertyWindow extends StatelessWidget {
               ),
             );
           })
-          // DefaultTabController(
-          //   length: 2,
-          //   child: GetBuilder<TaskPropertyController>(
-          //     builder: (controller) {
-          //       return Column(
-          //         children: [
-          //           TabBar(
-          //             labelPadding: const EdgeInsets.symmetric(vertical: 10),
-          //             labelStyle: GoogleFonts.nanumGothic(fontSize: 10),
-          //             labelColor: Palette.mint,
-          //             unselectedLabelColor: Colors.grey[400],
-          //             indicatorColor: Palette.mint,
-          //             indicatorSize: TabBarIndicatorSize.tab,
-          //             tabs: getTabBar(controller.taskType)
-          //                 .map((value) => Text(value))
-          //                 .toList(),
-          //           ),
-          //           SizedBox(
-          //             width: 300,
-          //             height: 880,
-          //             child: TabBarView(
-          //               children: getTabBarView(controller.taskType).toList(),
-          //             ),
-          //           ),
-          //         ],
-          //       );
-          //     },
-          //   ),
-          // ),
         ],
       ),
     );
@@ -136,8 +108,8 @@ class TaskPropertyWindow extends StatelessWidget {
       case TaskTypes.schedule:
         return [
           const ScheduleBasicInfo(),
-          const DetailedInfoForm(),
-          const SettingExceptionsForm(),
+          const ScheduleDetailInfo(),
+          const ScheduleSettingException(),
           const DescriptionForm()
         ];
       case TaskTypes.runProgram:
