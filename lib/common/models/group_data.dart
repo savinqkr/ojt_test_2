@@ -6,7 +6,7 @@ class GroupData {
       "name": "그룹 1",
       "isOpen": true,
       "hasParentGroup": false,
-      "groupId": ""
+      "parentGroupId": ""
     },
     {
       "id": "group2",
@@ -14,7 +14,7 @@ class GroupData {
       "name": "그룹 2",
       "isOpen": true,
       "hasParentGroup": false,
-      "groupId": ""
+      "parentGroupId": ""
     },
     {
       "id": "group3",
@@ -22,7 +22,7 @@ class GroupData {
       "name": "그룹 3",
       "isOpen": true,
       "hasParentGroup": false,
-      "groupId": ""
+      "parentGroupId": ""
     },
     {
       "id": "group4",
@@ -30,7 +30,7 @@ class GroupData {
       "name": "그룹 4",
       "isOpen": false,
       "hasParentGroup": true,
-      "groupId": "1"
+      "parentGroupId": "group1"
     },
   ];
 
@@ -39,6 +39,16 @@ class GroupData {
     var result = [];
     for (var item in groupList) {
       if (item['isOpen'] == true) {
+        result.add(item);
+      }
+    }
+    return result;
+  }
+
+  List<dynamic> getHasPantGroupList() {
+    var result = [];
+    for (var item in groupList) {
+      if (item['hasParentGroup'] == true) {
         result.add(item);
       }
     }

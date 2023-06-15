@@ -22,11 +22,11 @@ class JobData {
       "isOpen": true
     },
     {
-      "id": "job3",
+      "id": "job4",
       "type": "job",
-      "name": "Sample 3",
-      "groupId": "group3",
-      "isOpen": false
+      "name": "Sample 4",
+      "groupId": "group4",
+      "isOpen": true
     },
   ];
 
@@ -41,8 +41,17 @@ class JobData {
     return result;
   }
 
-  // JOB을 추가하는 메서드
-  void findParentGroup(String id) {}
+  // 부모 group을 찾는 메서드
+  List<dynamic> findParentGroup(String parentGroupId) {
+    var result = [];
+    for (var item in jobList) {
+      if (item['groupId'] == parentGroupId) {
+        result.add(item);
+      }
+    }
+    return result;
+  }
+
   // JOB을 추가하는 메서드
   void addGroup() {}
   // JOB을 삭제하는 메서드
