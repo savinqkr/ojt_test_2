@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/data/custom_component_data.dart';
 
 mixin CustomStatePolicy implements PolicySet {
-  bool isGridVisible = true; // Grid 설정
+  bool isGridVisible = false; // Grid 설정
 
   List<String> bodies = [
     'starter',
@@ -70,7 +70,7 @@ mixin CustomStatePolicy implements PolicySet {
     isMultipleSelectionOn = true;
     isReadyToConnect = false;
 
-    addComponentToMultipleSelection(selectedComponentId!);
+    addComponentToMultipleSelection(selectedComponentId ?? '');
     selectedComponentId = null;
   }
 
@@ -80,9 +80,13 @@ mixin CustomStatePolicy implements PolicySet {
     hideAllHighlights();
   }
 
-  addComponentToMultipleSelection(String componentId) {
-    if (!multipleSelected.contains(componentId)) {
+  addComponentToMultipleSelection(String? componentId) {
+    if (!multipleSelected.contains(componentId!)) {
       multipleSelected.add(componentId);
+    }
+
+    if (multipleSelected[0] == '') {
+      multipleSelected.remove(multipleSelected[0]);
     }
   }
 
@@ -122,10 +126,11 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
   }
 
   removeSelected() {
-    for (var compId in multipleSelected) {
-      canvasWriter.model.removeComponent(compId);
-    }
-    multipleSelected = [];
+    print(multipleSelected);
+    // for (var compId in multipleSelected) {
+    //   canvasWriter.model.removeComponent(compId);
+    // }
+    // multipleSelected = [];
   }
 
   duplicateSelected() {
@@ -147,6 +152,7 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
     var components = canvasReader.model.canvasModel.components.keys;
 
     for (var componentId in components) {
+      print(componentId);
       addComponentToMultipleSelection(componentId);
       highlightComponent(componentId);
     }

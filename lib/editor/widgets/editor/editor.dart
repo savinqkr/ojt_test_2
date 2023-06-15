@@ -1,5 +1,4 @@
 import 'package:diagram_editor/diagram_editor.dart';
-import 'package:expandable_menu/expandable_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:ojt_test_2/config/palette.dart';
 import 'package:ojt_test_2/editor/widgets/editor/canvas_option_icon.dart';
@@ -21,9 +20,7 @@ class _EditorState extends State<Editor> {
   MyPolicySet myPolicySet = MyPolicySet();
   MiniMapPolicySet miniMapPolicySet = MiniMapPolicySet();
 
-  bool isMiniMapVisible = true;
-  bool isMenuVisible = true;
-  bool isOptionsVisible = true;
+  bool isCanvasMenuOpen = false;
 
   @override
   void initState() {
@@ -45,7 +42,6 @@ class _EditorState extends State<Editor> {
         children: [
           //  배경색상  //
           Container(color: Palette.white),
-          // Container(color: Palette.mint.withOpacity(0.15)),
           //  Diagram Editor  //
           Positioned(
             top: 0,
@@ -63,107 +59,132 @@ class _EditorState extends State<Editor> {
           Positioned(
             right: 30,
             bottom: 30,
-            child: SizedBox(
-              width: 360, // Set a finite width for the ExpandableMenu
-              child: ExpandableMenu(
-                width: 40.0,
-                height: 40.0,
-                backgroundColor: Palette.mint.withOpacity(0.7),
-                iconColor: Palette.white,
-                itemContainerColor: Palette.white,
-                items: [
-                  CanvasOptionIcon(
-                    size: 32,
-                    icon: const Icon(Icons.delete_forever,
-                        size: 20, color: Palette.darkGrey),
-                    tooltip: 'Delete All',
-                    onPressed: () => myPolicySet.removeAll(),
-                  ),
-                  CanvasOptionIcon(
-                    size: 32,
-                    icon: const Icon(Icons.replay,
-                        size: 20, color: Palette.darkGrey),
-                    tooltip: 'Reset Editor',
-                    onPressed: () => myPolicySet.resetView(),
-                  ),
-                  CanvasOptionIcon(
-                    size: 32,
-                    icon: Icon(
-                      myPolicySet.isGridVisible
-                          ? Icons.grid_off
-                          : Icons.grid_on,
-                      size: 20,
-                      color: Palette.darkGrey,
-                    ),
-                    tooltip:
-                        myPolicySet.isGridVisible ? 'hide grid' : 'show grid',
-                    onPressed: () {
-                      setState(() {
-                        myPolicySet.isGridVisible = !myPolicySet.isGridVisible;
-                      });
-                      print('isGridVisible : ${myPolicySet.isGridVisible}');
-                    },
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
+            child: Container(
+              height: 40,
+              decoration: BoxDecoration(
+                color: Palette.mint.withOpacity(0.5),
+                borderRadius: const BorderRadius.all(Radius.circular(20)),
+              ),
+              padding:
+                  EdgeInsets.symmetric(horizontal: isCanvasMenuOpen ? 15 : 10),
+              child: Row(children: [
+                CanvasOptionIcon(
+                  size: 32,
+                  icon: const Icon(Icons.close,
+                      size: 20, color: Palette.darkGrey),
+                  tooltip: 'Close',
+                  onPressed: () {
+                    setState(() {
+                      isCanvasMenuOpen = !isCanvasMenuOpen;
+                    });
+                  },
+                ),
+                if (isCanvasMenuOpen)
+                  Row(
                     children: [
-                      // Visibility(
-                      //   visible: myPolicySet.isMultipleSelectionOn,
-                      //   child: Column(
-                      //       mainAxisAlignment: MainAxisAlignment.end,
-                      //       children: [
-                      //         CanvasOptionIcon(
-                      //           size: 32,
-                      //           icon: const Icon(Icons.all_inclusive,
-                      //               size: 20, color: Palette.darkGrey),
-                      //           tooltip: 'Select All',
-                      //           onPressed: () => myPolicySet.selectAll(),
-                      //         ),
-                      //         CanvasOptionIcon(
-                      //           size: 32,
-                      //           icon: const Icon(Icons.all_inclusive,
-                      //               size: 20, color: Palette.darkGrey),
-                      //           tooltip: 'Duplicate Selected',
-                      //           onPressed: () =>
-                      //               myPolicySet.duplicateSelected(),
-                      //         ),
-                      //         CanvasOptionIcon(
-                      //           size: 32,
-                      //           icon: const Icon(Icons.delete,
-                      //               size: 20, color: Palette.darkGrey),
-                      //           tooltip: 'Remove Selected',
-                      //           onPressed: () => myPolicySet.removeSelected(),
-                      //         ),
-                      //       ]),
-                      // ),
                       CanvasOptionIcon(
-                        size: 30,
+                        size: 32,
+                        icon: const Icon(Icons.delete_forever,
+                            size: 20, color: Palette.darkGrey),
+                        tooltip: 'Delete All',
+                        onPressed: () => myPolicySet.removeAll(),
+                      ),
+                      CanvasOptionIcon(
+                        size: 32,
                         icon: Icon(
-                            myPolicySet.isMultipleSelectionOn
-                                ? Icons.group_work
-                                : Icons.group_work_outlined,
-                            size: 20,
-                            color: Palette.darkGrey),
-                        tooltip: myPolicySet.isMultipleSelectionOn
-                            ? 'Cancel Multiselection'
-                            : 'Enable Multiselection',
+                          myPolicySet.isGridVisible
+                              ? Icons.grid_off
+                              : Icons.grid_on,
+                          size: 20,
+                          color: Palette.darkGrey,
+                        ),
+                        tooltip: myPolicySet.isGridVisible
+                            ? 'hide grid'
+                            : 'show grid',
                         onPressed: () {
+                          setState(() {
+                            myPolicySet.isGridVisible =
+                                !myPolicySet.isGridVisible;
+                          });
+                        },
+                      ),
+                      CanvasOptionIcon(
+                        size: 32,
+                        icon: const Icon(
+                          Icons.replay,
+                          size: 20,
+                          color: Palette.darkGrey,
+                        ),
+                        tooltip: 'reset view',
+                        onPressed: () => myPolicySet.resetView(),
+                      ),
+                      CanvasOptionIcon(
+                        size: 32,
+                        icon: Icon(
+                          myPolicySet.isMultipleSelectionOn
+                              ? Icons.group_work
+                              : Icons.group_work_outlined,
+                          size: 20,
+                          color: Palette.darkGrey,
+                        ),
+                        tooltip: myPolicySet.isMultipleSelectionOn
+                            ? 'cancel multiselection'
+                            : 'enable multiselection',
+                        onPressed: () {
+                          print('${myPolicySet.isMultipleSelectionOn} >>> ');
                           setState(() {
                             if (myPolicySet.isMultipleSelectionOn) {
                               myPolicySet.turnOffMultipleSelection();
                             } else {
                               myPolicySet.turnOnMultipleSelection();
                             }
-                            print(myPolicySet.isMultipleSelectionOn);
                           });
+                          print(myPolicySet.isMultipleSelectionOn);
                         },
+                      ),
+                      Visibility(
+                        visible: myPolicySet.isMultipleSelectionOn,
+                        child: Row(
+                          children: [
+                            CanvasOptionIcon(
+                              size: 32,
+                              icon: const Icon(
+                                Icons.all_inclusive,
+                                size: 20,
+                                color: Palette.darkGrey,
+                              ),
+                              tooltip: 'select all',
+                              onPressed: () => myPolicySet.selectAll(),
+                            ),
+                            CanvasOptionIcon(
+                              size: 32,
+                              icon: const Icon(
+                                Icons.copy,
+                                size: 20,
+                                color: Palette.darkGrey,
+                              ),
+                              tooltip: 'duplicate selected',
+                              onPressed: () => myPolicySet.duplicateSelected(),
+                            ),
+                            CanvasOptionIcon(
+                              size: 32,
+                              icon: const Icon(
+                                Icons.delete,
+                                size: 20,
+                                color: Palette.darkGrey,
+                              ),
+                              tooltip: 'remove selected',
+                              onPressed: () => myPolicySet.removeSelected(),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
-                ],
-              ),
+              ]),
             ),
           ),
+
           //  Task Menu  //
           Column(
             children: [
