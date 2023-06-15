@@ -1,52 +1,41 @@
-class DataItem {
-  final String type;
-  final String name;
-  final String range;
-  final bool exception;
-  final bool isFavorite;
-
-  DataItem({
-    required this.type,
-    required this.name,
-    required this.range,
-    required this.exception,
-    required this.isFavorite,
-  });
-}
-
 class TaskCalendarData {
-  static final List<DataItem> taskCalendarDataList = [
-    DataItem(
-      type: '작업캘린더',
-      name: '매일',
-      range: '전역',
-      exception: false,
-      isFavorite: false,
-    ),
-    DataItem(
-      type: '작업캘린더',
-      name: '휴일',
-      range: '전역',
-      exception: true,
-      isFavorite: false,
-    ),
-    DataItem(
-      type: '작업캘린더',
-      name: '영업일',
-      range: '전역',
-      exception: false,
-      isFavorite: true,
-    ),
-    DataItem(
-      type: '작업캘린더',
-      name: '매주 금요일',
-      range: '전역',
-      exception: false,
-      isFavorite: true,
-    ),
+  static final List<Map> taskCalendarDataList = [
+    {
+      "type": '작업캘린더',
+      "name": '매일',
+      "range": '전역',
+      "exception": false,
+      "isFavorite": false,
+    },
+    {
+      "type": '작업캘린더',
+      "name": '휴일',
+      "range": '전역',
+      "exception": false,
+      "isFavorite": false,
+    },
+    {
+      "type": '작업캘린더',
+      "name": '영업일',
+      "range": '전역',
+      "exception": false,
+      "isFavorite": false,
+    },
+    {
+      "type": '작업캘린더',
+      "name": '매주 화요일',
+      "range": '전역',
+      "exception": false,
+      "isFavorite": false,
+    },
   ];
 
-  static final List<DataItem> selectedTaskCalendarDataList = [];
+  static final List<Map> selectedTaskCalendarDataList = [
+    {
+      "name": '매주 화요일',
+      "exception": false,
+    },
+  ];
 
   // ======= ADD ======= //
   static int? selectedDataForAdd;
@@ -54,12 +43,20 @@ class TaskCalendarData {
     selectedDataForAdd = selectedRow;
   }
 
-  void addData() {
-    if (selectedDataForAdd! >= 0 &&
+  void addData(List<String> keysToInclude) {
+    if (selectedDataForAdd != null &&
+        selectedDataForAdd! >= 0 &&
         selectedDataForAdd! < taskCalendarDataList.length) {
       final selectedDataItem = taskCalendarDataList[selectedDataForAdd!];
-      selectedTaskCalendarDataList.add(selectedDataItem);
+      final newDataItem = selectedDataItem.entries
+          .where((entry) => keysToInclude.contains(entry.key))
+          .fold<Map<String, dynamic>>({}, (acc, entry) {
+        acc[entry.key] = entry.value;
+        return acc;
+      });
+      selectedTaskCalendarDataList.add(newDataItem);
     }
+    print(selectedTaskCalendarDataList);
   }
 
   // ======= REMOVE ======= //
@@ -83,14 +80,17 @@ class TaskCalendarData {
   void setException(int index) {
     if (index >= 0 && index < selectedTaskCalendarDataList.length) {
       final selectedDataItem = selectedTaskCalendarDataList[index];
-      final updatedDataItem = DataItem(
-        type: selectedDataItem.type,
-        name: selectedDataItem.name,
-        range: selectedDataItem.range,
-        exception: !selectedDataItem.exception,
-        isFavorite: selectedDataItem.isFavorite,
-      );
+      print(selectedDataItem);
+      final updatedDataItem = {
+        "type": selectedDataItem['type'],
+        "name": selectedDataItem['name'],
+        "range": selectedDataItem['range'],
+        "exception": !selectedDataItem['exception'],
+        "isFavorite": selectedDataItem['isFavorite'],
+      };
+      print(updatedDataItem);
       selectedTaskCalendarDataList[index] = updatedDataItem;
+      print(selectedTaskCalendarDataList);
     }
   }
 }

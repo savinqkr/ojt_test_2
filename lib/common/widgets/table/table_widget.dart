@@ -5,9 +5,10 @@ import 'package:ojt_test_2/common/widgets/table/table_button.dart';
 import 'package:ojt_test_2/config/palette.dart';
 import 'package:ojt_test_2/editor/models/task_calendar_data.dart';
 
+// ******* String 타입 vs 체크박스 vs .... ETC 에 대한 처리 필요 ******* //
 class TableWidget extends StatefulWidget {
   final String label;
-  final List<dynamic> data;
+  final List<Map> data;
   final List<String> columnTitle;
   final Function onClickRemove;
   final String dialogTitle;
@@ -48,6 +49,7 @@ class _TableWidgetState extends State<TableWidget> {
         selectedRows.add(index);
       }
     });
+    print(selectedRows);
   }
 
   // showDialog
@@ -61,6 +63,12 @@ class _TableWidgetState extends State<TableWidget> {
                   GoogleFonts.nanumGothic(fontSize: 20, color: Palette.black)),
           content: widget.dialogContent,
           actions: <Widget>[
+            TextButton(
+              child: const Text('Close'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
             TextButton(
               child: const Text('OK'),
               onPressed: () {
@@ -137,6 +145,7 @@ class _TableWidgetState extends State<TableWidget> {
                       .map((item) => const SizedBox(height: 40))
                       .toList(),
                 ),
+
               if (widget.data.isNotEmpty)
                 ...widget.data.map(
                   (item) {
@@ -159,36 +168,46 @@ class _TableWidgetState extends State<TableWidget> {
                                 fontSize: 12, color: Palette.darkGrey),
                           )),
                         ),
-                        GestureDetector(
-                          onTap: () => onRowTap(index),
-                          child: Center(
-                              child: Text(
-                            item.name,
-                            style: GoogleFonts.nanumGothic(
-                                fontSize: 12, color: Palette.darkGrey),
-                          )),
-                        ),
-                        GestureDetector(
-                          onTap: () => onRowTap(index),
-                          child: Center(
-                            child: Transform.scale(
-                              scale: 0.85,
-                              child: Checkbox(
-                                value: item.exception,
-                                onChanged: (value) {
-                                  onChangeCheck(value!, index);
-                                },
-                                side: MaterialStateBorderSide.resolveWith(
-                                  (states) => const BorderSide(
-                                    width: 1.0,
-                                    color: Palette.mint,
+                        ...item.values.map(
+                          (itemValue) => itemValue.runtimeType == bool
+                              ? GestureDetector(
+                                  onTap: () => onRowTap(index),
+                                  child: Center(
+                                    child: Transform.scale(
+                                      scale: 0.85,
+                                      child: Checkbox(
+                                        value: itemValue,
+                                        onChanged: (value) {
+                                          print(value);
+                                        },
+                                        side:
+                                            MaterialStateBorderSide.resolveWith(
+                                          (states) => const BorderSide(
+                                            width: 1.0,
+                                            color: Palette.mint,
+                                          ),
+                                        ),
+                                        activeColor: Palette.white,
+                                        checkColor: Palette.mint,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : GestureDetector(
+                                  onTap: () => onRowTap(index),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 10),
+                                    child: Center(
+                                      child: Text(
+                                        itemValue,
+                                        style: GoogleFonts.nanumGothic(
+                                            fontSize: 12,
+                                            color: Palette.darkGrey),
+                                      ),
+                                    ),
                                   ),
                                 ),
-                                activeColor: Palette.white,
-                                checkColor: Palette.mint,
-                              ),
-                            ),
-                          ),
                         ),
                       ],
                     );

@@ -4,7 +4,7 @@ import 'package:ojt_test_2/config/palette.dart';
 import 'package:ojt_test_2/editor/models/task_calendar_data.dart';
 
 class TaskCalendar extends StatefulWidget {
-  final List<DataItem> data;
+  final List<Map> data;
   final List<String> columnTitle;
 
   const TaskCalendar({
@@ -120,7 +120,7 @@ class _TaskCalendarState extends State<TaskCalendar> {
                           onTap: () => onRowTap(index),
                           child: Center(
                               child: Text(
-                            item.type,
+                            item['type'],
                             style: GoogleFonts.nanumGothic(
                                 fontSize: 12, color: Palette.darkGrey),
                           )),
@@ -129,7 +129,7 @@ class _TaskCalendarState extends State<TaskCalendar> {
                           onTap: () => onRowTap(index),
                           child: Center(
                               child: Text(
-                            item.name,
+                            item['name'],
                             style: GoogleFonts.nanumGothic(
                                 fontSize: 12, color: Palette.darkGrey),
                           )),
@@ -138,7 +138,7 @@ class _TaskCalendarState extends State<TaskCalendar> {
                           onTap: () => onRowTap(index),
                           child: Center(
                               child: Text(
-                            item.range,
+                            item['range'],
                             style: GoogleFonts.nanumGothic(
                                 fontSize: 12, color: Palette.darkGrey),
                           )),
