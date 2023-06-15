@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ojt_test_2/common/models/group_data.dart';
 import 'package:ojt_test_2/editor/widgets/editor/tab_menu.dart';
 import 'package:ojt_test_2/editor/widgets/task_menu/job_tree_page.dart';
 import 'package:ojt_test_2/enums/menu.dart';
@@ -21,6 +22,7 @@ class EditorScreen extends StatefulWidget {
 
 class _EditorScreenState extends State<EditorScreen> {
   bool isJobTreeVisible = true;
+  var hasParentList = GroupData().getHasPantGroupList();
 
   void setIsJobTreeVisible() {
     setState(() {
@@ -53,9 +55,20 @@ class _EditorScreenState extends State<EditorScreen> {
           // --------------------------- JOB TREE --------------------------- //
           if (isJobTreeVisible)
             Container(
+              padding: const EdgeInsets.fromLTRB(5, 61, 5, 0),
               width: 200,
               color: Palette.white,
-              child: const MyTreeView(),
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  border: Border(
+                    right: BorderSide(
+                      width: 1.5,
+                      color: Palette.mint.withOpacity(0.2),
+                    ),
+                  ),
+                ),
+                child: const MyTreeView(),
+              ),
             ),
           // ---------------------------- TAB MENU ------------------------------ //
           const Expanded(child: TabMenuPage()),
