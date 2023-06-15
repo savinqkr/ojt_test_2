@@ -91,6 +91,13 @@ class _EditorState extends State<Editor> {
                       ),
                       CanvasOptionIcon(
                         size: 32,
+                        icon: const Icon(Icons.align_horizontal_center,
+                            size: 20, color: Palette.darkGrey),
+                        tooltip: 'Align',
+                        onPressed: () => myPolicySet.alignComponents(),
+                      ),
+                      CanvasOptionIcon(
+                        size: 32,
                         icon: Icon(
                           myPolicySet.isGridVisible
                               ? Icons.grid_off
@@ -131,7 +138,6 @@ class _EditorState extends State<Editor> {
                             ? 'cancel multiselection'
                             : 'enable multiselection',
                         onPressed: () {
-                          print('${myPolicySet.isMultipleSelectionOn} >>> ');
                           setState(() {
                             if (myPolicySet.isMultipleSelectionOn) {
                               myPolicySet.turnOffMultipleSelection();
@@ -139,44 +145,50 @@ class _EditorState extends State<Editor> {
                               myPolicySet.turnOnMultipleSelection();
                             }
                           });
-                          print(myPolicySet.isMultipleSelectionOn);
                         },
                       ),
                       Visibility(
                         visible: myPolicySet.isMultipleSelectionOn,
-                        child: Row(
-                          children: [
-                            CanvasOptionIcon(
-                              size: 32,
-                              icon: const Icon(
-                                Icons.all_inclusive,
-                                size: 20,
-                                color: Palette.darkGrey,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          decoration: BoxDecoration(
+                              color: Palette.white.withOpacity(0.7),
+                              borderRadius: BorderRadius.circular(20)),
+                          child: Row(
+                            children: [
+                              CanvasOptionIcon(
+                                size: 32,
+                                icon: const Icon(
+                                  Icons.all_inclusive,
+                                  size: 20,
+                                  color: Palette.darkGrey,
+                                ),
+                                tooltip: 'select all',
+                                onPressed: () => myPolicySet.selectAll(),
                               ),
-                              tooltip: 'select all',
-                              onPressed: () => myPolicySet.selectAll(),
-                            ),
-                            CanvasOptionIcon(
-                              size: 32,
-                              icon: const Icon(
-                                Icons.copy,
-                                size: 20,
-                                color: Palette.darkGrey,
+                              CanvasOptionIcon(
+                                size: 32,
+                                icon: const Icon(
+                                  Icons.copy,
+                                  size: 20,
+                                  color: Palette.darkGrey,
+                                ),
+                                tooltip: 'duplicate selected',
+                                onPressed: () =>
+                                    myPolicySet.duplicateSelected(),
                               ),
-                              tooltip: 'duplicate selected',
-                              onPressed: () => myPolicySet.duplicateSelected(),
-                            ),
-                            CanvasOptionIcon(
-                              size: 32,
-                              icon: const Icon(
-                                Icons.delete,
-                                size: 20,
-                                color: Palette.darkGrey,
+                              CanvasOptionIcon(
+                                size: 32,
+                                icon: const Icon(
+                                  Icons.delete,
+                                  size: 20,
+                                  color: Palette.darkGrey,
+                                ),
+                                tooltip: 'remove selected',
+                                onPressed: () => myPolicySet.removeSelected(),
                               ),
-                              tooltip: 'remove selected',
-                              onPressed: () => myPolicySet.removeSelected(),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ],

@@ -127,10 +127,10 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
 
   removeSelected() {
     print(multipleSelected);
-    // for (var compId in multipleSelected) {
-    //   canvasWriter.model.removeComponent(compId);
-    // }
-    // multipleSelected = [];
+    for (var compId in multipleSelected) {
+      canvasWriter.model.removeComponent(compId);
+    }
+    multipleSelected = [];
   }
 
   duplicateSelected() {
@@ -152,9 +152,48 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
     var components = canvasReader.model.canvasModel.components.keys;
 
     for (var componentId in components) {
-      print(componentId);
       addComponentToMultipleSelection(componentId);
       highlightComponent(componentId);
+    }
+  }
+
+  alignComponents() {
+    print("====================================================");
+
+    var componentList = canvasReader.model.getAllComponents().values.toList();
+    for (var component in componentList) {
+      var index = componentList.indexOf(component);
+      Offset criteria;
+
+      print('$index >>> ');
+      print(component.id);
+      for (var connection in component.connections) {
+        // type == 0 >> StartPoint || type == 1 >> EndPoint
+        // print(connection.type);
+        // 해당 링크의 아이디
+        // print(connection.connectionId);
+        // otherComponentId : 이어진 파트너 컴포넌트 아이디
+        // print(connection.otherComponentId);
+        print(connection.toJson());
+      }
+      print(component.type);
+      print('Before : ${component.position}');
+
+      if (index == 0) {
+        canvasWriter.model.moveComponent(
+          component.id,
+          const Offset(30.0, 30.0),
+        );
+        criteria = component.position;
+      } else {
+        canvasWriter.model.moveComponent(
+          component.id,
+          Offset(30.0 * (componentList.indexOf(component) + 1),
+              30.0 * (componentList.indexOf(component) + 1)),
+        );
+      }
+
+      print('After : ${component.position}');
     }
   }
 }

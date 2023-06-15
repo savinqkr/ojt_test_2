@@ -40,22 +40,22 @@ mixin MyInitPolicy implements InitPolicy {
     //   canvasWriter.model.setComponentParent(cd4.id, cd6.id);
 
     //   // 컴포넌트 사이를 선으로 연결하기
-    //   canvasWriter.model.connectTwoComponents(
-    //     sourceComponentId: cd1.id,
-    //     targetComponentId: cd3.id,
-    //     linkStyle: LinkStyle(
-    //       lineWidth: 2,
-    //       arrowType: ArrowType.arrow,
-    //     ),
-    //   );
-    //   canvasWriter.model.connectTwoComponents(
-    //     sourceComponentId: cd4.id,
-    //     targetComponentId: cd2.id,
-    //     linkStyle: LinkStyle(
-    //       lineWidth: 2,
-    //       arrowType: ArrowType.arrow,
-    //     ),
-    //   );
+    //   // canvasWriter.model.connectTwoComponents(
+    //   //   sourceComponentId: cd1.id,
+    //   //   targetComponentId: cd3.id,
+    //   //   linkStyle: LinkStyle(
+    //   //     lineWidth: 2,
+    //   //     arrowType: ArrowType.arrow,
+    //   //   ),
+    //   // );
+    //   // canvasWriter.model.connectTwoComponents(
+    //   //   sourceComponentId: cd4.id,
+    //   //   targetComponentId: cd2.id,
+    //   //   linkStyle: LinkStyle(
+    //   //     lineWidth: 2,
+    //   //     arrowType: ArrowType.arrow,
+    //   //   ),
+    //   // );
     // }
 
     // ComponentData getSmallComponentData(Offset position) {
