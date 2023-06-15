@@ -56,7 +56,6 @@ class TaskCalendarData {
       });
       selectedTaskCalendarDataList.add(newDataItem);
     }
-    print(selectedTaskCalendarDataList);
   }
 
   // ======= REMOVE ======= //
@@ -80,17 +79,11 @@ class TaskCalendarData {
   void setException(int index) {
     if (index >= 0 && index < selectedTaskCalendarDataList.length) {
       final selectedDataItem = selectedTaskCalendarDataList[index];
-      print(selectedDataItem);
       final updatedDataItem = {
-        // "type": selectedDataItem['type'],
         "name": selectedDataItem['name'],
-        // "range": selectedDataItem['range'],
         "exception": !selectedDataItem['exception'],
-        // "isFavorite": selectedDataItem['isFavorite'],
       };
-      print(updatedDataItem);
       selectedTaskCalendarDataList[index] = updatedDataItem;
-      print(selectedTaskCalendarDataList);
     }
   }
 }

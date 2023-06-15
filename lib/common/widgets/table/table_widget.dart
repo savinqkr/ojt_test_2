@@ -3,13 +3,13 @@ import 'package:flutter_material_symbols/flutter_material_symbols.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ojt_test_2/common/widgets/table/table_button.dart';
 import 'package:ojt_test_2/config/palette.dart';
-import 'package:ojt_test_2/editor/models/task_calendar_data.dart';
 
 // ******* String 타입 vs 체크박스 vs .... ETC 에 대한 처리 필요 ******* //
 class TableWidget extends StatefulWidget {
   final String label;
   final List<Map> data;
   final List<String> columnTitle;
+  final Function? onChangeCheck;
   final Function onClickRemove;
   final String dialogTitle;
   final Widget dialogContent;
@@ -24,6 +24,7 @@ class TableWidget extends StatefulWidget {
     required this.dialogContent,
     required this.dialogOnPressed,
     required this.onClickRemove,
+    this.onChangeCheck,
   });
 
   @override
@@ -32,11 +33,11 @@ class TableWidget extends StatefulWidget {
 
 class _TableWidgetState extends State<TableWidget> {
   // onChangeCheck
-  void onChangeCheck(bool value, int index) {
-    setState(() {
-      TaskCalendarData().setException(index);
-    });
-  }
+  // void onChangeCheck(bool value, int index) {
+  //   setState(() {
+  //     TaskCalendarData().setException(index);
+  //   });
+  // }
 
   // selectedRows
   List<int> selectedRows = [];
@@ -178,7 +179,7 @@ class _TableWidgetState extends State<TableWidget> {
                                       child: Checkbox(
                                         value: itemValue,
                                         onChanged: (value) {
-                                          print(value);
+                                          widget.onChangeCheck!(index);
                                         },
                                         side:
                                             MaterialStateBorderSide.resolveWith(

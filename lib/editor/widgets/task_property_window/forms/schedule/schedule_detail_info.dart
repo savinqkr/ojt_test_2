@@ -78,7 +78,7 @@ class _ScheduleDetailInfoState extends State<ScheduleDetailInfo> {
                             alignment: Alignment.topLeft,
                             child: Wrap(
                               spacing:
-                                  4.0, // Set the spacing between the wrapped elements
+                                  0.0, // Set the spacing between the wrapped elements
                               runSpacing:
                                   4.0, // Set the spacing between the lines
                               children: [

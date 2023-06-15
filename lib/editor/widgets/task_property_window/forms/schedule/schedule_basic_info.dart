@@ -138,6 +138,11 @@ class _ScheduleBasicInfoState extends State<ScheduleBasicInfo> {
                 label: '작업 캘린더',
                 data: TaskCalendarData.selectedTaskCalendarDataList,
                 columnTitle: const ['번호', '작업캘린더명', '제외'],
+                onChangeCheck: (int selectedRow) {
+                  setState(() {
+                    TaskCalendarData().setException(selectedRow);
+                  });
+                },
                 onClickRemove: (List<int> selectedRows) {
                   setState(() {
                     TaskCalendarData().setSelectedRemoveList(selectedRows);
