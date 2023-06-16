@@ -8,12 +8,13 @@ class TextFieldBasic extends StatelessWidget {
   final bool? required;
   final bool? multiLines;
 
-  const TextFieldBasic(
-      {super.key,
-      required this.label,
-      required this.controller,
-      this.multiLines,
-      this.required});
+  const TextFieldBasic({
+    super.key,
+    required this.label,
+    required this.controller,
+    this.multiLines,
+    this.required,
+  });
 
   @override
   Widget build(BuildContext context) {

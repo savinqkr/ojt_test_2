@@ -2,13 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ojt_test_2/config/palette.dart';
-import 'package:ojt_test_2/editor/widgets/task_property_window/forms/advanced_info_form.dart';
 import 'package:ojt_test_2/editor/widgets/task_property_window/forms/and/and_basic_info.dart';
 import 'package:ojt_test_2/editor/widgets/task_property_window/forms/common/description.dart';
-import 'package:ojt_test_2/editor/widgets/task_property_window/forms/detailed_info_form.dart';
-import 'package:ojt_test_2/editor/widgets/task_property_window/forms/error_manage_form.dart';
+import 'package:ojt_test_2/editor/widgets/task_property_window/forms/executejob/executejob_basic_info.dart';
+import 'package:ojt_test_2/editor/widgets/task_property_window/forms/executejob/executejob_detail_info.dart';
+import 'package:ojt_test_2/editor/widgets/task_property_window/forms/jobstatus/jobstatus_basic_info.dart';
+import 'package:ojt_test_2/editor/widgets/task_property_window/forms/common/error_info.dart';
+import 'package:ojt_test_2/editor/widgets/task_property_window/forms/runprogram/runprogram_advanced_info.dart';
+import 'package:ojt_test_2/editor/widgets/task_property_window/forms/runprogram/runprogram_basic_info.dart';
+import 'package:ojt_test_2/editor/widgets/task_property_window/forms/runprogram/runprogram_detail_info.dart';
+import 'package:ojt_test_2/editor/widgets/task_property_window/forms/runprogram/runprogram_error_info.dart';
 import 'package:ojt_test_2/editor/widgets/task_property_window/forms/schedule/schedule_basic_info.dart';
-import 'package:ojt_test_2/editor/widgets/task_property_window/forms/setting_exceptions_form.dart';
+import 'package:ojt_test_2/editor/widgets/task_property_window/forms/schedule/schedule_detail_info.dart';
+import 'package:ojt_test_2/editor/widgets/task_property_window/forms/schedule/schedule_setting_exceptions.dart';
 import 'package:ojt_test_2/editor/widgets/task_property_window/forms/common/basic_info.dart';
 import 'package:ojt_test_2/editor/widgets/task_property_window/forms/sleep/sleep_basic_info.dart';
 import 'package:ojt_test_2/enums/task.dart';
@@ -63,35 +69,6 @@ class TaskPropertyWindow extends StatelessWidget {
               ),
             );
           })
-          // DefaultTabController(
-          //   length: 2,
-          //   child: GetBuilder<TaskPropertyController>(
-          //     builder: (controller) {
-          //       return Column(
-          //         children: [
-          //           TabBar(
-          //             labelPadding: const EdgeInsets.symmetric(vertical: 10),
-          //             labelStyle: GoogleFonts.nanumGothic(fontSize: 10),
-          //             labelColor: Palette.mint,
-          //             unselectedLabelColor: Colors.grey[400],
-          //             indicatorColor: Palette.mint,
-          //             indicatorSize: TabBarIndicatorSize.tab,
-          //             tabs: getTabBar(controller.taskType)
-          //                 .map((value) => Text(value))
-          //                 .toList(),
-          //           ),
-          //           SizedBox(
-          //             width: 300,
-          //             height: 880,
-          //             child: TabBarView(
-          //               children: getTabBarView(controller.taskType).toList(),
-          //             ),
-          //           ),
-          //         ],
-          //       );
-          //     },
-          //   ),
-          // ),
         ],
       ),
     );
@@ -136,29 +113,29 @@ class TaskPropertyWindow extends StatelessWidget {
       case TaskTypes.schedule:
         return [
           const ScheduleBasicInfo(),
-          const DetailedInfoForm(),
-          const SettingExceptionsForm(),
+          const ScheduleDetailInfo(),
+          const ScheduleSettingException(),
           const DescriptionForm()
         ];
       case TaskTypes.runProgram:
         return [
-          const BasicInfo(),
-          const DetailedInfoForm(),
-          const AdvancedInfoForm(),
-          const ErrorManageForm(),
+          const RunProgramBasicInfo(),
+          const RunProgramDetailInfo(),
+          const RunProgramAdvancedInfo(),
+          const RunProgramErrorInfo(),
           const DescriptionForm()
         ];
       case TaskTypes.executeJob:
         return [
-          const BasicInfo(),
-          const DetailedInfoForm(),
-          const ErrorManageForm(),
+          const ExecuteJobBasicInfo(),
+          const ExecuteJobDetailInfo(),
+          const ErrorInfo(),
           const DescriptionForm()
         ];
       case TaskTypes.jobStatus:
         return [
-          const BasicInfo(),
-          const ErrorManageForm(),
+          const JobStatusBasicInfo(),
+          const ErrorInfo(),
           const DescriptionForm()
         ];
       default:

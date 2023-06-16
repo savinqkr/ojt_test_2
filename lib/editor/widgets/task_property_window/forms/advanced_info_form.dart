@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_material_symbols/flutter_material_symbols.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ojt_test_2/common/widgets/button.dart';
 import 'package:ojt_test_2/common/widgets/textfield_basic.dart';
-import 'package:ojt_test_2/common/widgets/textfield_with_icon.dart';
 import 'package:ojt_test_2/config/palette.dart';
 import 'package:ojt_test_2/enums/task.dart';
 import 'package:ojt_test_2/getX/task_propterty_controller.dart';
@@ -40,17 +38,20 @@ class AdvancedInfoForm extends StatelessWidget {
                 },
               ),
               const SizedBox(height: 32),
-              TextFieldWithIcon(
-                textfieldType: '선행프로그램',
-                label: '선행프로그램',
-                controller: precedingProgram,
-                // icon: const Icon(Icons.search)),
-                icon: const Icon(
-                  MaterialSymbols.more_horiz,
-                  size: 24,
-                  color: Palette.black,
-                ),
-              ),
+              // TextFieldWithIcon(
+              //   dialogTitle: '스케줄',
+              //   dialogContent: const Schedule(
+              //     columnTitle: ['번호', '타입', '변수명', '범위'],
+              //   ),
+              //   label: '선행프로그램',
+              //   controller: precedingProgram,
+              //   // icon: const Icon(Icons.search)),
+              //   icon: const Icon(
+              //     MaterialSymbols.more_horiz,
+              //     size: 24,
+              //     color: Palette.black,
+              //   ),
+              // ),
               const SizedBox(height: 12),
               TextFieldBasic(
                 label: '환경설정',

@@ -78,6 +78,7 @@ mixin MyComponentPolicy implements ComponentPolicy, CustomStatePolicy {
     lastFocalPoint = details.localFocalPoint;
   }
 
+// ----------------------컴포넌트 연결 가능 여부 확인--------------------------
   bool connectComponents(String sourceComponentId, String targetComponentId) {
     // ignore: unnecessary_null_comparison
     if (sourceComponentId == null) {
@@ -93,6 +94,7 @@ mixin MyComponentPolicy implements ComponentPolicy, CustomStatePolicy {
       return false;
     }
 
+// 연결 가능 시 connectTwoComponwnts함수를 실행시켜 두 컴포넌트 연결 수행 -> true 반환
     canvasWriter.model.connectTwoComponents(
       sourceComponentId: sourceComponentId,
       targetComponentId: targetComponentId,

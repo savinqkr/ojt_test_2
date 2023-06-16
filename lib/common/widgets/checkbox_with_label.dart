@@ -30,7 +30,7 @@ class _CheckBoxWithLabelState extends State<CheckBoxWithLabel> {
       child: Row(
         children: [
           Transform.scale(
-            scale: 0.85,
+            scale: 0.75,
             child: Checkbox(
               value: _isChecked,
               onChanged: (value) {

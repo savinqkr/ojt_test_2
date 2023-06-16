@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/data/custom_component_data.dart';
 
 mixin CustomStatePolicy implements PolicySet {
-  bool isGridVisible = true; // Grid 설정
+  bool isGridVisible = false; // Grid 설정
 
   List<String> bodies = [
     'starter',
@@ -70,7 +70,7 @@ mixin CustomStatePolicy implements PolicySet {
     isMultipleSelectionOn = true;
     isReadyToConnect = false;
 
-    addComponentToMultipleSelection(selectedComponentId!);
+    addComponentToMultipleSelection(selectedComponentId ?? '');
     selectedComponentId = null;
   }
 
@@ -80,9 +80,13 @@ mixin CustomStatePolicy implements PolicySet {
     hideAllHighlights();
   }
 
-  addComponentToMultipleSelection(String componentId) {
-    if (!multipleSelected.contains(componentId)) {
+  addComponentToMultipleSelection(String? componentId) {
+    if (!multipleSelected.contains(componentId!)) {
       multipleSelected.add(componentId);
+    }
+
+    if (multipleSelected[0] == '') {
+      multipleSelected.remove(multipleSelected[0]);
     }
   }
 
@@ -122,6 +126,7 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
   }
 
   removeSelected() {
+    print(multipleSelected);
     for (var compId in multipleSelected) {
       canvasWriter.model.removeComponent(compId);
     }
@@ -149,6 +154,46 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
     for (var componentId in components) {
       addComponentToMultipleSelection(componentId);
       highlightComponent(componentId);
+    }
+  }
+
+  alignComponents() {
+    print("====================================================");
+
+    var componentList = canvasReader.model.getAllComponents().values.toList();
+    for (var component in componentList) {
+      var index = componentList.indexOf(component);
+      Offset criteria;
+
+      print('$index >>> ');
+      print(component.id);
+      for (var connection in component.connections) {
+        // type == 0 >> StartPoint || type == 1 >> EndPoint
+        // print(connection.type);
+        // 해당 링크의 아이디
+        // print(connection.connectionId);
+        // otherComponentId : 이어진 파트너 컴포넌트 아이디
+        // print(connection.otherComponentId);
+        print(connection.toJson());
+      }
+      print(component.type);
+      print('Before : ${component.position}');
+
+      if (index == 0) {
+        canvasWriter.model.moveComponent(
+          component.id,
+          const Offset(30.0, 30.0),
+        );
+        criteria = component.position;
+      } else {
+        canvasWriter.model.moveComponent(
+          component.id,
+          Offset(30.0 * (componentList.indexOf(component) + 1),
+              30.0 * (componentList.indexOf(component) + 1)),
+        );
+      }
+
+      print('After : ${component.position}');
     }
   }
 }

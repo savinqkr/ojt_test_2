@@ -3,17 +3,25 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ojt_test_2/config/palette.dart';
 
 class TextFieldWithIcon extends StatefulWidget {
-  final String textfieldType;
+  final String dialogTitle;
   final String label;
   final Icon icon;
   final TextEditingController controller;
+  final Widget dialogContent;
+  final Function dialogOnPressed;
+  final dynamic dialogVar;
+  final bool? isParentSelected;
 
   const TextFieldWithIcon({
     super.key,
     required this.label,
     required this.controller,
     required this.icon,
-    required this.textfieldType,
+    required this.dialogTitle,
+    required this.dialogContent,
+    required this.dialogOnPressed,
+    this.dialogVar,
+    this.isParentSelected,
   });
 
   @override
@@ -21,17 +29,23 @@ class TextFieldWithIcon extends StatefulWidget {
 }
 
 class _TextFieldWithIconState extends State<TextFieldWithIcon> {
-  void _showPopup(BuildContext context, String textfieldType) {
+  // showDialog
+  void _showDialog() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(textfieldType),
-          content: const Text('This is a custom dialog.'),
-          actions: [
+          title: Text(widget.dialogTitle,
+              style:
+                  GoogleFonts.nanumGothic(fontSize: 20, color: Palette.black)),
+          content: widget.dialogContent,
+          actions: <Widget>[
             TextButton(
-              child: const Text('Close'),
+              child: const Text('OK'),
               onPressed: () {
+                if (widget.dialogVar != null) {
+                  widget.dialogOnPressed();
+                }
                 Navigator.of(context).pop();
               },
             ),
@@ -63,6 +77,11 @@ class _TextFieldWithIconState extends State<TextFieldWithIcon> {
             height: 32,
             child: TextField(
               controller: widget.controller,
+              // enabled: widget.isParentSelected == null
+              //     ? true
+              //     : widget.isParentSelected! == true
+              //         ? true
+              //         : false,
               style:
                   GoogleFonts.nanumGothic(fontSize: 14, color: Palette.black),
               cursorColor: Palette.mint,
@@ -76,8 +95,7 @@ class _TextFieldWithIconState extends State<TextFieldWithIcon> {
                 ),
                 suffixIcon: GestureDetector(
                   onTap: () {
-                    _showPopup(
-                        context, widget.textfieldType); // Show the dialog
+                    _showDialog(); // Show the dialog
                   },
                   child: widget.icon,
                 ),

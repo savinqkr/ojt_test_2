@@ -70,7 +70,6 @@ class _MyTreeViewState extends State<MyTreeView> {
   @override
   Widget build(BuildContext context) {
     return TreeView<MyNode>(
-      padding: const EdgeInsets.only(top: 61),
       treeController: treeController,
       nodeBuilder: (BuildContext context, TreeEntry<MyNode> entry) {
         return MyTreeTile(
@@ -95,31 +94,45 @@ class MyTreeTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: TreeIndentation(
-        entry: entry,
-        guide: const ConnectingLinesGuide(
-            color: Palette.grey, indent: 30, thickness: 0),
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(4, 0, 3, 0),
-          child: Row(
-            children: [
-              FolderButton(
-                isOpen: entry.hasChildren ? entry.isExpanded : null,
-                openedIcon: const Icon(
-                  Icons.folder,
-                  color: Palette.mint,
-                ),
-                closedIcon: const Icon(
-                  Icons.folder_open,
-                  color: Palette.darkGrey,
-                ),
-                onPressed: entry.hasChildren ? onTap : null,
+    return TreeIndentation(
+      entry: entry,
+      guide: const ConnectingLinesGuide(
+          color: Palette.grey, indent: 30, thickness: 0),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(4, 0, 3, 0),
+        child: Row(
+          children: [
+            FolderButton(
+              isOpen: entry.hasChildren ? entry.isExpanded : null,
+              icon: const Icon(
+                Icons.article,
+                color: Palette.grey,
               ),
-              Text(entry.node.title),
-            ],
-          ),
+              openedIcon: const Icon(
+                Icons.arrow_drop_down_outlined,
+                color: Palette.mint,
+              ),
+              closedIcon: const Icon(
+                Icons.arrow_right_outlined,
+                color: Palette.darkGrey,
+              ),
+              onPressed: entry.hasChildren ? onTap : null,
+            ),
+            Container(
+              child: entry.hasChildren
+                  ? const Row(
+                      children: [
+                        Icon(
+                          Icons.folder,
+                          color: Palette.mint,
+                        ),
+                        SizedBox(width: 10),
+                      ],
+                    )
+                  : null,
+            ),
+            Text(entry.node.title),
+          ],
         ),
       ),
     );

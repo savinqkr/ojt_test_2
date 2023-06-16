@@ -27,7 +27,4 @@ class MyPolicySet extends PolicySet
         CanvasControlPolicy,
         //
         CustomStatePolicy,
-        CustomBehaviourPolicy {
-  @override
-  removeSelected() {}
-}
+        CustomBehaviourPolicy {}
