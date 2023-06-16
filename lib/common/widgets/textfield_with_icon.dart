@@ -10,6 +10,7 @@ class TextFieldWithIcon extends StatefulWidget {
   final Widget dialogContent;
   final Function dialogOnPressed;
   final dynamic dialogVar;
+  final bool? isParentSelected;
 
   const TextFieldWithIcon({
     super.key,
@@ -20,6 +21,7 @@ class TextFieldWithIcon extends StatefulWidget {
     required this.dialogContent,
     required this.dialogOnPressed,
     this.dialogVar,
+    this.isParentSelected,
   });
 
   @override
@@ -75,6 +77,11 @@ class _TextFieldWithIconState extends State<TextFieldWithIcon> {
             height: 32,
             child: TextField(
               controller: widget.controller,
+              // enabled: widget.isParentSelected == null
+              //     ? true
+              //     : widget.isParentSelected! == true
+              //         ? true
+              //         : false,
               style:
                   GoogleFonts.nanumGothic(fontSize: 14, color: Palette.black),
               cursorColor: Palette.mint,
