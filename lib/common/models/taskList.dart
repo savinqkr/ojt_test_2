@@ -20,7 +20,7 @@ class AllTaskList {
     ItemData(name: "sleep", icon: MaterialSymbols.dark_mode),
     ItemData(name: "jobStatus", icon: MaterialSymbols.hourglass_empty),
     ItemData(name: "executeJob", icon: MaterialSymbols.play_arrow_filled),
-    ItemData(name: "runProgeam", icon: MaterialSymbols.terminal),
+    ItemData(name: "runProgram", icon: MaterialSymbols.terminal),
   ];
 }
 
@@ -50,7 +50,7 @@ List<Map<String, List<ItemData>>> taskLists = [
   },
   {
     'task list 3': [
-      ItemData(name: "runProgeam", icon: MaterialSymbols.terminal),
+      ItemData(name: "runProgram", icon: MaterialSymbols.terminal),
       ItemData(name: "jobStatus", icon: MaterialSymbols.hourglass_empty),
       ItemData(name: "executeJob", icon: MaterialSymbols.play_arrow_filled),
     ],
