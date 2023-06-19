@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ojt_test_2/common/models/job_data.dart';
 import 'package:ojt_test_2/config/palette.dart';
 import 'package:ojt_test_2/editor/widgets/editor/editor.dart';
 import 'package:ojt_test_2/editor/widgets/task_property_window/task_property_window.dart';
+import 'package:ojt_test_2/getX/tab_tabs_item_controller.dart';
 import 'package:ojt_test_2/getX/task_propterty_controller.dart';
+import 'package:ojt_test_2/getX/tree_to_tab_controller.dart';
 import 'package:tabbed_view/tabbed_view.dart';
 
 class TabMenuPage extends StatefulWidget {
@@ -15,77 +16,62 @@ class TabMenuPage extends StatefulWidget {
 }
 
 class _TabMenuPageState extends State<TabMenuPage> {
-  late TabbedViewController controller;
+  late TabbedViewController tabController;
+  final TabTabsItemController controller = Get.put(TabTabsItemController());
 
   @override
   void initState() {
     super.initState();
 
-    var isOpenJobList = JobData().getOpenJobList();
+    Get.find<TabTabsItemController>().addItemsToTabsList();
 
-    // 일단 탭 메뉴 내부 데이터는 그대로 옮겨옴. 간략화 필요
-    List<TabData> tabs = [
-      // TabData(
-      //   text: 'tab 1',
-      //   keepAlive: true,
-      //   content: const TabMenuContents(),
-      // ),
-      // TabData(
-      //   text: 'tab 2',
-      //   keepAlive: true,
-      //   content: const TabMenuContents(),
-      // ),
-      // TabData(
-      //   text: 'tab 3',
-      //   keepAlive: true,
-      //   content: const TabMenuContents(),
-      // ),
-    ];
+    // controller = TabbedViewController(tabController);
 
-    for (var job in isOpenJobList) {
-      tabs.add(
-        TabData(
-          text: job['name'],
-          keepAlive: true,
-          content: TabMenuContents(jobId: job['id']),
-        ),
-      );
-    }
-    print(tabs);
-
-    controller = TabbedViewController(tabs);
-
-    TabbedView tabbedView = TabbedView(controller: controller);
+    // TabbedView tabbedView = TabbedView(controller: controller);
   }
 
 // ---------------------- tab style section ----------------------
   @override
   Widget build(BuildContext context) {
-    TabbedView tabbedView = TabbedView(
-      controller: controller,
+    return Scaffold(
+      body: Obx(
+        () {
+          TabbedViewController tabController =
+              TabbedViewController(controller.tabs);
+          TabbedView tabbedView = TabbedView(
+            controller: tabController,
+            onTabClose: (tabIndex, tabData) {
+              Get.find<TreeToTabController>().changeJobIsOpen(tabData.text);
+            },
+          );
+
+          TabbedViewThemeData themeData = TabbedViewThemeData();
+          themeData.tabsArea.middleGap = 6;
+          Radius radius = const Radius.circular(5);
+          BorderRadiusGeometry? borderRadius =
+              BorderRadius.only(topLeft: radius, topRight: radius);
+
+          themeData.tab
+            ..textStyle = const TextStyle(fontSize: 15)
+            ..padding = const EdgeInsets.fromLTRB(45, 8, 30, 8)
+            ..buttonsOffset = 8
+            ..decoration = BoxDecoration(
+                shape: BoxShape.rectangle,
+                color: Palette.grey.withAlpha(50), // 탭 버튼 색상
+                borderRadius: borderRadius)
+            ..selectedStatus.decoration = BoxDecoration(
+                color: Palette.darkGrey.withAlpha(50), // 탭 버튼 클릭 시 색상
+                borderRadius: borderRadius);
+
+          Widget w = TabbedViewTheme(data: themeData, child: tabbedView);
+
+          return Container(
+            padding: const EdgeInsets.all(0),
+            child: w,
+          );
+        },
+      ),
     );
-
-    TabbedViewThemeData themeData = TabbedViewThemeData();
-    themeData.tabsArea.middleGap = 6;
-    Radius radius = const Radius.circular(5);
-    BorderRadiusGeometry? borderRadius =
-        BorderRadius.only(topLeft: radius, topRight: radius);
-
-    themeData.tab
-      ..textStyle = const TextStyle(fontSize: 15)
-      ..padding = const EdgeInsets.fromLTRB(45, 8, 30, 8)
-      ..buttonsOffset = 8
-      ..decoration = BoxDecoration(
-          shape: BoxShape.rectangle,
-          color: Palette.grey.withAlpha(50), // 탭 버튼 색상
-          borderRadius: borderRadius)
-      ..selectedStatus.decoration = BoxDecoration(
-          color: Palette.darkGrey.withAlpha(50), // 탭 버튼 클릭 시 색상
-          borderRadius: borderRadius);
-
-    Widget w = TabbedViewTheme(data: themeData, child: tabbedView);
-
-    return Container(padding: const EdgeInsets.all(0), child: w);
   }
 }
 
@@ -99,6 +85,8 @@ class TabMenuContents extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(TreeToTabController());
+
     return Row(
       children: [
         // ----------------- EDITOR ----------------- //
