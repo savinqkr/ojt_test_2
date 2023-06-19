@@ -82,20 +82,7 @@ class _EditorState extends State<Editor> {
                 if (isCanvasMenuOpen)
                   Row(
                     children: [
-                      CanvasOptionIcon(
-                        size: 32,
-                        icon: const Icon(Icons.delete_forever,
-                            size: 20, color: Palette.darkGrey),
-                        tooltip: 'Delete All',
-                        onPressed: () => myPolicySet.removeAll(),
-                      ),
-                      CanvasOptionIcon(
-                        size: 32,
-                        icon: const Icon(Icons.align_horizontal_center,
-                            size: 20, color: Palette.darkGrey),
-                        tooltip: 'Align',
-                        onPressed: () => myPolicySet.alignComponents(),
-                      ),
+                      // 그리드
                       CanvasOptionIcon(
                         size: 32,
                         icon: Icon(
@@ -115,6 +102,7 @@ class _EditorState extends State<Editor> {
                           });
                         },
                       ),
+                      // 뷰 초기화
                       CanvasOptionIcon(
                         size: 32,
                         icon: const Icon(
@@ -125,6 +113,37 @@ class _EditorState extends State<Editor> {
                         tooltip: 'reset view',
                         onPressed: () => myPolicySet.resetView(),
                       ),
+                      // 수평정렬
+                      CanvasOptionIcon(
+                        size: 32,
+                        icon: const Icon(Icons.align_horizontal_center,
+                            size: 20, color: Palette.darkGrey),
+                        tooltip: 'Align Horizontally',
+                        onPressed: () =>
+                            myPolicySet.alignComponentsHorizontally(),
+                      ),
+                      // 수직정렬
+                      CanvasOptionIcon(
+                        size: 32,
+                        icon: const Icon(Icons.align_vertical_center,
+                            size: 20, color: Palette.darkGrey),
+                        tooltip: 'Align Vertically',
+                        onPressed: () {
+                          setState(() {
+                            myPolicySet.alignComponentsVertically();
+                          });
+                        },
+                      ),
+                      // 전체 삭제
+                      CanvasOptionIcon(
+                        size: 32,
+                        icon: const Icon(Icons.delete_forever,
+                            size: 20, color: Palette.darkGrey),
+                        tooltip: 'Delete All',
+                        onPressed: () => myPolicySet.removeAll(),
+                      ),
+
+                      // 다중 선택
                       CanvasOptionIcon(
                         size: 32,
                         icon: Icon(
@@ -156,6 +175,7 @@ class _EditorState extends State<Editor> {
                               borderRadius: BorderRadius.circular(20)),
                           child: Row(
                             children: [
+                              // 전체 선택
                               CanvasOptionIcon(
                                 size: 32,
                                 icon: const Icon(
@@ -166,6 +186,7 @@ class _EditorState extends State<Editor> {
                                 tooltip: 'select all',
                                 onPressed: () => myPolicySet.selectAll(),
                               ),
+                              // 선택 복제
                               CanvasOptionIcon(
                                 size: 32,
                                 icon: const Icon(
@@ -177,6 +198,7 @@ class _EditorState extends State<Editor> {
                                 onPressed: () =>
                                     myPolicySet.duplicateSelected(),
                               ),
+                              // 선택 삭제
                               CanvasOptionIcon(
                                 size: 32,
                                 icon: const Icon(
