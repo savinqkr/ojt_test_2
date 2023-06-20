@@ -29,7 +29,7 @@ class TaskPainter extends CustomPainter {
 
   TaskPainter({
     this.color = Palette.white,
-    this.borderColor = const Color.fromARGB(255, 95, 95, 95),
+    this.borderColor = const Color.fromRGBO(95, 95, 95, 0),
     this.borderWidth = 1.0,
   });
 
@@ -47,7 +47,7 @@ class TaskPainter extends CustomPainter {
     if (borderWidth > 0) {
       paint
         ..style = PaintingStyle.stroke
-        ..color = const Color.fromARGB(255, 95, 95, 95)
+        ..color = const Color.fromRGBO(95, 95, 95, 0)
         ..strokeWidth = borderWidth;
 
       canvas.drawPath(path, paint);

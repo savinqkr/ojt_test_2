@@ -1,6 +1,7 @@
 import 'package:diagram_editor/diagram_editor.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:indexed/indexed.dart';
 import 'package:ojt_test_2/config/palette.dart';
 import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/dialog/edit_component_dialog.dart';
 import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/policy/custom_policy.dart';
@@ -43,115 +44,152 @@ mixin MyComponentWidgetsPolicy
 
     Offset componentPosition =
         canvasReader.state.toCanvasCoordinates(componentData.position);
-    return Positioned(
-      left: componentPosition.dx + 90,
-      top: componentPosition.dy + 35,
-      child: Container(
-        height: 36,
-        width: 240,
-        padding: const EdgeInsets.symmetric(horizontal: 12.0),
-        decoration: BoxDecoration(
-          color: Palette.mint.withOpacity(0.3),
-          borderRadius: BorderRadius.circular(18.0),
+
+    var width = componentData.size.width;
+    var height = componentData.size.height;
+
+    return Indexer(
+      children: [
+        Indexed(
+          index: 1,
+          child: Positioned(
+            // left: componentPosition.dx + 90,
+            // top: componentPosition.dy + 35,
+            left: componentPosition.dx + width + 20,
+            top: componentPosition.dy + height - 36,
+            child: Container(
+              height: 36,
+              width: 320,
+              padding: const EdgeInsets.symmetric(horizontal: 12.0),
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 180, 242, 245),
+                borderRadius: BorderRadius.circular(18.0),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  TaskOptionIcon(
+                    iconData: Icons.delete_forever,
+                    tooltip: 'delete',
+                    size: 30,
+                    onPressed: () {
+                      canvasWriter.model.removeComponent(componentData.id);
+                      selectedComponentId = null;
+                    },
+                    iconColor: Palette.darkGrey,
+                    iconSize: 20.0,
+                    shape: BoxShape.circle,
+                  ),
+                  GetBuilder<TaskPropertyController>(builder: (controller) {
+                    return TaskOptionIcon(
+                      iconData: Icons.edit,
+                      tooltip: 'edit',
+                      size: 30,
+                      onPressed: () {
+                        print('TASK ID : ${componentData.id}');
+                        print('TASK TYPE : ${componentData.type}');
+                        if (controller.isPropertyWindowVisible) {
+                          if (controller.taskId == componentData.id) {
+                            Get.find<TaskPropertyController>()
+                                .setIsPropertyWindowVisible(componentData.id);
+                          } else {
+                            Get.find<TaskPropertyController>()
+                                .setTaskId(componentData.id);
+                            Get.find<TaskPropertyController>().setTaskType(
+                                convertStringToEnum(componentData.type!));
+                          }
+                        } else {
+                          Get.find<TaskPropertyController>()
+                              .setIsPropertyWindowVisible(componentData.id);
+                          Get.find<TaskPropertyController>()
+                              .setTaskId(componentData.id);
+                          Get.find<TaskPropertyController>().setTaskType(
+                              convertStringToEnum(componentData.type!));
+                        }
+                      },
+                      iconColor: Palette.darkGrey,
+                      iconSize: 20.0,
+                      shape: BoxShape.circle,
+                    );
+                  }),
+                  TaskOptionIcon(
+                    // iconData: Icons.arrow_right_alt,
+                    iconData: Icons.link,
+                    tooltip: 'connect',
+                    size: 30,
+                    onPressed: () {
+                      isReadyToConnect = true;
+                      componentData.updateComponent();
+                    },
+                    iconColor: Palette.darkGrey,
+                    iconSize: 20.0,
+                    shape: BoxShape.circle,
+                  ),
+                  TaskOptionIcon(
+                    iconData: Icons.link_off,
+                    tooltip: 'remove links',
+                    size: 30,
+                    onPressed: () => canvasWriter.model
+                        .removeComponentConnections(componentData.id),
+                    iconColor: Palette.darkGrey,
+                    iconSize: 20.0,
+                    shape: BoxShape.circle,
+                  ),
+                  TaskOptionIcon(
+                    iconData: Icons.rectangle,
+                    tooltip: 'Bring to front',
+                    size: 30,
+                    onPressed: () {
+                      canvasWriter.model
+                          .moveComponentToTheFront(componentData.id);
+                    },
+                    iconColor: Palette.darkGrey,
+                    iconSize: 20.0,
+                    shape: BoxShape.circle,
+                  ),
+                  TaskOptionIcon(
+                    iconData: Icons.arrow_downward,
+                    tooltip: 'Move to back',
+                    size: 30,
+                    onPressed: () {
+                      canvasWriter.model
+                          .moveComponentToTheBack(componentData.id);
+                    },
+                    iconColor: Palette.darkGrey,
+                    iconSize: 20.0,
+                    shape: BoxShape.circle,
+                  ),
+                  TaskOptionIcon(
+                    iconData: Icons.person_add,
+                    tooltip: 'Add parent',
+                    size: 30,
+                    onPressed: () {
+                      // isReadyToAddParent = true;
+                      // componentData.updateComponent();
+                      print('Add parent');
+                    },
+                    iconColor: Palette.darkGrey,
+                    iconSize: 20.0,
+                    shape: BoxShape.circle,
+                  ),
+                  TaskOptionIcon(
+                    iconData: Icons.person_remove,
+                    tooltip: 'Remove parent',
+                    size: 30,
+                    onPressed: () {
+                      print('Remove parent');
+                    },
+                    iconColor: Palette.darkGrey,
+                    iconSize: 20.0,
+                    shape: BoxShape.circle,
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            TaskOptionIcon(
-              iconData: Icons.delete_forever,
-              tooltip: 'delete',
-              size: 30,
-              onPressed: () {
-                canvasWriter.model.removeComponent(componentData.id);
-                selectedComponentId = null;
-              },
-              iconColor: Palette.darkGrey,
-              iconSize: 20.0,
-              shape: BoxShape.circle,
-            ),
-            GetBuilder<TaskPropertyController>(builder: (controller) {
-              return TaskOptionIcon(
-                iconData: Icons.edit,
-                tooltip: 'edit',
-                size: 30,
-                onPressed: () {
-                  print('TASK ID : ${componentData.id}');
-                  print('TASK TYPE : ${componentData.type}');
-                  if (controller.isPropertyWindowVisible) {
-                    if (controller.taskId == componentData.id) {
-                      Get.find<TaskPropertyController>()
-                          .setIsPropertyWindowVisible(componentData.id);
-                    } else {
-                      Get.find<TaskPropertyController>()
-                          .setTaskId(componentData.id);
-                      Get.find<TaskPropertyController>().setTaskType(
-                          convertStringToEnum(componentData.type!));
-                    }
-                  } else {
-                    Get.find<TaskPropertyController>()
-                        .setIsPropertyWindowVisible(componentData.id);
-                    Get.find<TaskPropertyController>()
-                        .setTaskId(componentData.id);
-                    Get.find<TaskPropertyController>()
-                        .setTaskType(convertStringToEnum(componentData.type!));
-                  }
-                },
-                iconColor: Palette.darkGrey,
-                iconSize: 20.0,
-                shape: BoxShape.circle,
-              );
-            }),
-            TaskOptionIcon(
-              // iconData: Icons.arrow_right_alt,
-              iconData: Icons.link,
-              tooltip: 'connect',
-              size: 30,
-              onPressed: () {
-                isReadyToConnect = true;
-                componentData.updateComponent();
-              },
-              iconColor: Palette.darkGrey,
-              iconSize: 20.0,
-              shape: BoxShape.circle,
-            ),
-            TaskOptionIcon(
-              iconData: Icons.link_off,
-              tooltip: 'remove links',
-              size: 30,
-              onPressed: () => canvasWriter.model
-                  .removeComponentConnections(componentData.id),
-              iconColor: Palette.darkGrey,
-              iconSize: 20.0,
-              shape: BoxShape.circle,
-            ),
-            TaskOptionIcon(
-              iconData: Icons.person_add,
-              tooltip: 'Add parent',
-              size: 30,
-              onPressed: () {
-                // isReadyToAddParent = true;
-                // componentData.updateComponent();
-                print('Add parent');
-              },
-              iconColor: Palette.darkGrey,
-              iconSize: 20.0,
-              shape: BoxShape.circle,
-            ),
-            TaskOptionIcon(
-              iconData: Icons.person_remove,
-              tooltip: 'Remove parent',
-              size: 30,
-              onPressed: () {
-                print('Remove parent');
-              },
-              iconColor: Palette.darkGrey,
-              iconSize: 20.0,
-              shape: BoxShape.circle,
-            ),
-          ],
-        ),
-      ),
+      ],
     );
   }
 
