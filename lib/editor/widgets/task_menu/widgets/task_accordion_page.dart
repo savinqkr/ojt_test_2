@@ -102,7 +102,7 @@ class _TaskAccordionPageState extends State<TaskAccordionPage> {
       minSize: const Size(70, 70),
       data: MyComponentData(
         color: Colors.white,
-        borderColor: Colors.black,
+        borderColor: Palette.darkGrey,
         borderWidth: 1.5,
       ),
       type: componentType,
