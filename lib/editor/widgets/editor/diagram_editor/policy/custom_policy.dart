@@ -219,8 +219,10 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
 
     // -- while 문 종료 조건 : count = 캔버스 위 전체 컴포넌트 수
     int count = 0;
+    int depth = 0;
 
     while (count < allComponentsOnCanvasList.length) {
+      depth++;
       count += startPointList.length;
       // -- startPointList 안의 startPoint 컴포넌트와 연결된 컴포넌트 조회
       for (var startPoint in startPointList) {
@@ -233,8 +235,20 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
         // -- 조회한 endpoint 컴포넌트 위치 지정
         for (var endlist in endPointList) {
           ComponentData? startPoint = getStartPointComponent(endlist);
+          // 자식 컴포넌트 개수
+          int countChild = 0;
+          for (var component in endlist) {
+            print(component.type);
+            for (var connection in component.connections) {
+              if (connection is ConnectionOut) {
+                countChild++;
+              }
+            }
+          }
+
           if (startPoint != null) {
-            setComponentOffsetVertically(startPoint, endlist);
+            setComponentOffsetVertically(
+                startPoint, endlist, countChild, depth);
           }
         }
         // -- endPointList 에 있던 컴포넌트들을 startPointList 로 이동
@@ -315,16 +329,11 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
   // 기준 컴포넌트 기준으로 컴포넌트 수평 정렬
   setComponentOffsetHorizontally(
       ComponentData mainComponent, List<ComponentData> connectedComponents) {
-    // print(">>>>>>> ${mainComponent.type} <<<<<<<");
-    // print(mainComponent.type);
-    // print(mainComponent.position);
     Offset mainPosition = mainComponent.position;
     int X = 200;
     int Y = 100;
 
     for (var component in connectedComponents) {
-      // print("-------- ${component.type} --------");
-      // print('BEFORE >> ${component.position}');
       canvasWriter.model.setComponentPosition(
         component.id,
         Offset(
@@ -334,23 +343,20 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
                     (connectedComponents.indexOf(component) -
                         (connectedComponents.length - 1) / 2)),
       );
-      // print('AFTER >> ${component.position}');
     }
   }
 
   // 기준 컴포넌트 기준으로 컴포넌트 수직 정렬
-  setComponentOffsetVertically(
-      ComponentData mainComponent, List<ComponentData> connectedComponents) {
-    // print(">>>>>>> ${mainComponent.type} <<<<<<<");
-    // print(mainComponent.type);
-    // print(mainComponent.position);
+  setComponentOffsetVertically(ComponentData mainComponent,
+      List<ComponentData> connectedComponents, int countChild, int depth) {
     Offset mainPosition = mainComponent.position;
-    int X = 200;
+    num X = 100 * (countChild + 1);
     int Y = 150;
 
+    print('countChild >> $countChild');
+    print('depth >> $depth');
+
     for (var component in connectedComponents) {
-      // print("-------- ${component.type} --------");
-      // print('BEFORE >> ${component.position}');
       canvasWriter.model.setComponentPosition(
         component.id,
         Offset(
@@ -360,7 +366,6 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
                         (connectedComponents.length - 1) / 2),
             mainPosition.dy + Y),
       );
-      // print('AFTER >> ${component.position}');
     }
   }
 }
