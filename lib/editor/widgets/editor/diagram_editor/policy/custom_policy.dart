@@ -160,70 +160,94 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
 
   // ----- 수평정렬 ----- //
   alignComponentsHorizontally() {
-    print("수평정렬");
+    // -- 캔버스 위에 올린 전체 컴포넌트
+    List<ComponentData> allComponentsOnCanvasList =
+        canvasReader.model.getAllComponents().values.toList();
 
-    // List<ComponentData> allComponentsOnCanvasList =
-    //     canvasReader.model.getAllComponents().values.toList();
+    // -- 루트 컴포넌트
+    ComponentData rootComponent = getRootComponent(allComponentsOnCanvasList);
 
-    // List<ComponentData> mainComponents = [
-    //   getRootComponent(allComponentsOnCanvasList)
-    // ];
-    // List<ComponentData> connectedComponents =
-    //     getConnectedEndComponents(mainComponents[0], allComponentsOnCanvasList);
+    // -- 시작점 & 끝점 컴포넌트 리스트
+    List<ComponentData> startPointList = [rootComponent];
+    List<List<ComponentData>> endPointList = [];
 
-    // int count = connectedComponents.length;
-    // print(allComponentsOnCanvasList.length);
+    // -- while 문 종료 조건 : count = 캔버스 위 전체 컴포넌트 수
+    int count = 0;
 
-    // while (count < allComponentsOnCanvasList.length) {
-    //   // count += connectedComponents.length;
-    //   print(count);
+    while (count < allComponentsOnCanvasList.length) {
+      count += startPointList.length;
+      // -- startPointList 안의 startPoint 컴포넌트와 연결된 컴포넌트 조회
+      for (var startPoint in startPointList) {
+        var connectedComponents =
+            getEndPointComponents(startPoint, allComponentsOnCanvasList);
+        endPointList.add(connectedComponents);
+      }
 
-    //   mainComponents = connectedComponents;
-
-    //   var sublist = [];
-    //   for (var element in mainComponents) {
-    //     print('>>>>> ${element.type}');
-    //     getConnectedEndComponents(element, allComponentsOnCanvasList)
-    //         .forEach((item) {
-    //       sublist.add(item);
-    //       print(item.type);
-    //     });
-    //   }
-    //   print('length :  ${sublist.length}');
-    //   count += sublist.length;
-    //   //   print(sublist.length);
-    // }
+      if (endPointList.isNotEmpty) {
+        // -- 조회한 endpoint 컴포넌트 위치 지정
+        for (var endlist in endPointList) {
+          ComponentData? startPoint = getStartPointComponent(endlist);
+          if (startPoint != null) {
+            setComponentOffsetHorizontally(startPoint, endlist);
+          }
+        }
+        // -- endPointList 에 있던 컴포넌트들을 startPointList 로 이동
+        startPointList.clear();
+        for (var endlist in endPointList) {
+          for (var endPoint in endlist) {
+            startPointList.add(endPoint);
+          }
+        }
+        // endPointList 는 빈배열로 초기화
+        endPointList.clear();
+      }
+    }
   }
 
-  // ----- 수직정렬 ----- //
+  // 수직정렬
   alignComponentsVertically() {
-    print("수직정렬");
-    // List<ComponentData> allComponentsOnCanvasList =
-    //     canvasReader.model.getAllComponents().values.toList();
+    // -- 캔버스 위에 올린 전체 컴포넌트
+    List<ComponentData> allComponentsOnCanvasList =
+        canvasReader.model.getAllComponents().values.toList();
 
-    // ComponentData rootComponents = getRootComponent(allComponentsOnCanvasList);
+    // -- 루트 컴포넌트
+    ComponentData rootComponent = getRootComponent(allComponentsOnCanvasList);
 
-    // List<ComponentData> connectedComponents =
-    //     getConnectedEndComponents(rootComponents, allComponentsOnCanvasList);
+    // -- 시작점 & 끝점 컴포넌트 리스트
+    List<ComponentData> startPointList = [rootComponent];
+    List<List<ComponentData>> endPointList = [];
 
-    // int count = 0;
+    // -- while 문 종료 조건 : count = 캔버스 위 전체 컴포넌트 수
+    int count = 0;
 
-    // setComponentOffsetVertically(rootComponents, connectedComponents);
-    // ComponentData newRootComponent = rootComponents;
-    // List<ComponentData> newConnectedComponents = [...connectedComponents];
-
-    // while (count < allComponentsOnCanvasList.length) {
-    //   for (var component in newConnectedComponents) {
-    //     newRootComponent = component;
-    //     newConnectedComponents.clear();
-    //     getConnectedEndComponents(newRootComponent, allComponentsOnCanvasList)
-    //         .forEach((item) {
-    //       newConnectedComponents.add(item);
-    //     });
-    //     setComponentOffsetVertically(newRootComponent, newConnectedComponents);
-    //   }
-    //   count += newConnectedComponents.length;
-    // }
+    while (count < allComponentsOnCanvasList.length) {
+      count += startPointList.length;
+      // -- startPointList 안의 startPoint 컴포넌트와 연결된 컴포넌트 조회
+      for (var startPoint in startPointList) {
+        var connectedComponents =
+            getEndPointComponents(startPoint, allComponentsOnCanvasList);
+        endPointList.add(connectedComponents);
+      }
+      // -- 조회한 endpoint 컴포넌트 위치 지정
+      if (endPointList.isNotEmpty) {
+        // -- 조회한 endpoint 컴포넌트 위치 지정
+        for (var endlist in endPointList) {
+          ComponentData? startPoint = getStartPointComponent(endlist);
+          if (startPoint != null) {
+            setComponentOffsetVertically(startPoint, endlist);
+          }
+        }
+        // -- endPointList 에 있던 컴포넌트들을 startPointList 로 이동
+        startPointList.clear();
+        for (var endlist in endPointList) {
+          for (var endPoint in endlist) {
+            startPointList.add(endPoint);
+          }
+        }
+        // endPointList 는 빈배열로 초기화
+        endPointList.clear();
+      }
+    }
   }
 
   // 루트 컴포넌트 찾기
@@ -243,26 +267,36 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
     }
   }
 
-  // // 연결된 START 컴포넌트 찾기
-  // getConnectedStartComponent(List<ComponentData> componentList) {
-  //   String count = '';
-  //   String startComponentId = '';
-  //   for (var component in componentList) {
-  //     print(component.connections);
-  //     for (var connection in component.connections) {
-  //       print(connection);
-  //       if (connection is ConnectionIn &&
-  //           connection.otherComponentId == startComponentId) {
-  //         startComponentId = connection.otherComponentId;
-  //       }
-  //     }
-  //   }
+  // 시작점 컴포넌트 찾기
+  getStartPointComponent(List<ComponentData> componentList) {
+    Map<String, int> countParent = {};
+    for (var component in componentList) {
+      for (var connection in component.connections) {
+        if (countParent.keys.contains(connection.otherComponentId)) {
+          countParent[connection.otherComponentId] =
+              countParent[connection.otherComponentId]! + 1;
+        } else {
+          countParent[connection.otherComponentId] = 1;
+        }
+      }
+    }
 
-  //   return startComponentId;
-  // }
+    String keyWithLargestValue = '';
+    int largestValue = 0;
+    countParent.forEach((key, value) {
+      if (value > largestValue) {
+        largestValue = value;
+        keyWithLargestValue = key;
+      }
+    });
 
-  // 연결된 END 컴포넌트들 찾기
-  getConnectedEndComponents(
+    if (keyWithLargestValue != '') {
+      return canvasReader.model.getComponent(keyWithLargestValue);
+    }
+  }
+
+  // 연결된 하위 컴포넌트들 찾기
+  getEndPointComponents(
       ComponentData mainComponent, List<ComponentData> componentList) {
     List<ComponentData> connectedComponents = [];
 
