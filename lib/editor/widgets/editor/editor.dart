@@ -82,6 +82,19 @@ class _EditorState extends State<Editor> {
                 if (isCanvasMenuOpen)
                   Row(
                     children: [
+                      // 저장
+                      CanvasOptionIcon(
+                        size: 32,
+                        icon: const Icon(
+                          Icons.save_outlined,
+                          size: 20,
+                          color: Palette.darkGrey,
+                        ),
+                        tooltip: 'Save',
+                        onPressed: () {
+                          print('save');
+                        },
+                      ),
                       // 그리드
                       CanvasOptionIcon(
                         size: 32,
@@ -93,8 +106,8 @@ class _EditorState extends State<Editor> {
                           color: Palette.darkGrey,
                         ),
                         tooltip: myPolicySet.isGridVisible
-                            ? 'hide grid'
-                            : 'show grid',
+                            ? 'Hide grid'
+                            : 'Show grid',
                         onPressed: () {
                           setState(() {
                             myPolicySet.isGridVisible =
@@ -110,7 +123,7 @@ class _EditorState extends State<Editor> {
                           size: 20,
                           color: Palette.darkGrey,
                         ),
-                        tooltip: 'reset view',
+                        tooltip: 'Reset view',
                         onPressed: () => myPolicySet.resetView(),
                       ),
                       // 수평정렬
@@ -154,8 +167,8 @@ class _EditorState extends State<Editor> {
                           color: Palette.darkGrey,
                         ),
                         tooltip: myPolicySet.isMultipleSelectionOn
-                            ? 'cancel multiselection'
-                            : 'enable multiselection',
+                            ? 'Cancel multiselection'
+                            : 'Enable multiselection',
                         onPressed: () {
                           setState(() {
                             if (myPolicySet.isMultipleSelectionOn) {
@@ -183,7 +196,7 @@ class _EditorState extends State<Editor> {
                                   size: 20,
                                   color: Palette.darkGrey,
                                 ),
-                                tooltip: 'select all',
+                                tooltip: 'Select all',
                                 onPressed: () => myPolicySet.selectAll(),
                               ),
                               // 선택 복제
@@ -194,7 +207,7 @@ class _EditorState extends State<Editor> {
                                   size: 20,
                                   color: Palette.darkGrey,
                                 ),
-                                tooltip: 'duplicate selected',
+                                tooltip: 'Duplicate selected',
                                 onPressed: () =>
                                     myPolicySet.duplicateSelected(),
                               ),
@@ -206,7 +219,7 @@ class _EditorState extends State<Editor> {
                                   size: 20,
                                   color: Palette.darkGrey,
                                 ),
-                                tooltip: 'remove selected',
+                                tooltip: 'Remove selected',
                                 onPressed: () => myPolicySet.removeSelected(),
                               ),
                             ],
