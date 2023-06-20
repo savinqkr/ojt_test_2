@@ -8,6 +8,19 @@ mixin MyInitPolicy implements InitPolicy {
     canvasWriter.state.setCanvasColor(Colors.white); // Canvas 색상
     canvasWriter.state.setScale(1.0); // 초기 Scale
 
+    // Get.put(ViewingJobIdController());
+    // var jobId = Get.find<ViewingJobIdController>().viewingJobId;
+    // print('jobId : $jobId');
+    var jobId = 'job1';
+    // if (jobId != '') {
+    //   var tasks = TaskData().getTaskList(jobId);
+
+    //   tasks.forEach((task) {
+    //     var component = getComponentData(task['position'], task['type']);
+    //     canvasWriter.model.addComponent(component);
+    //   });
+    // }
+
     // var cd1 = getComponentData(const Offset(220, 100), 'starter');
 
     //   var cd1 = getSmallComponentData(const Offset(220, 100));

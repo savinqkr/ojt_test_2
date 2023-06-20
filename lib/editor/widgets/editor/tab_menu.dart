@@ -6,6 +6,7 @@ import 'package:ojt_test_2/editor/widgets/task_property_window/task_property_win
 import 'package:ojt_test_2/getX/tab_tabs_item_controller.dart';
 import 'package:ojt_test_2/getX/task_propterty_controller.dart';
 import 'package:ojt_test_2/getX/tree_to_tab_controller.dart';
+import 'package:ojt_test_2/getX/viewing_jobId.controller.dart';
 import 'package:tabbed_view/tabbed_view.dart';
 
 class TabMenuPage extends StatefulWidget {
@@ -41,7 +42,11 @@ class _TabMenuPageState extends State<TabMenuPage> {
           TabbedView tabbedView = TabbedView(
             controller: tabController,
             onTabSelection: (newTabIndex) {
-              print(Get.find<TreeToTabController>().jobList[newTabIndex!]);
+              var jobId =
+                  Get.find<TreeToTabController>().jobList[newTabIndex!]['id'];
+              Get.find<ViewingJobIdController>().setJobName(jobId);
+              print(
+                  'JOB_ID : ${Get.find<ViewingJobIdController>().viewingJobId}');
             },
             onTabClose: (tabIndex, tabData) {
               Get.find<TreeToTabController>().changeJobIsOpen(tabData.text);
