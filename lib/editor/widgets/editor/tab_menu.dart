@@ -40,6 +40,9 @@ class _TabMenuPageState extends State<TabMenuPage> {
               TabbedViewController(controller.tabs);
           TabbedView tabbedView = TabbedView(
             controller: tabController,
+            onTabSelection: (newTabIndex) {
+              print(Get.find<TreeToTabController>().jobList[newTabIndex!]);
+            },
             onTabClose: (tabIndex, tabData) {
               Get.find<TreeToTabController>().changeJobIsOpen(tabData.text);
             },

@@ -10,11 +10,13 @@ import 'package:ojt_test_2/getX/tree_to_tab_controller.dart';
 class MyNode {
   const MyNode({
     required this.title,
+    required this.isGroup,
     this.children = const <MyNode>[],
   });
 
   final String title;
   final List<MyNode> children;
+  final bool isGroup;
 }
 
 class MyTreeView extends StatefulWidget {
@@ -27,25 +29,29 @@ class MyTreeView extends StatefulWidget {
 class _MyTreeViewState extends State<MyTreeView> {
   static const List<MyNode> roots = <MyNode>[
     MyNode(
-      title: '그룹명',
+      title: 'Group 1',
+      isGroup: true,
       children: <MyNode>[
         MyNode(
-          title: '그룹명',
+          title: 'Group 2',
+          isGroup: true,
           children: <MyNode>[
-            MyNode(title: 'Sample 1'),
-            MyNode(title: 'Sample 2'),
+            MyNode(title: 'Sample 1', isGroup: false),
+            MyNode(title: 'Sample 2', isGroup: false),
           ],
         ),
-        MyNode(title: 'Sample 3'),
+        MyNode(title: 'Sample 3', isGroup: false),
       ],
     ),
     MyNode(
-      title: '그룹명',
+      title: 'Group 3',
+      isGroup: true,
       children: <MyNode>[
         MyNode(
-          title: '그룹명',
+          title: 'Group 4',
+          isGroup: true,
           children: <MyNode>[
-            MyNode(title: 'Sample 4'),
+            MyNode(title: 'Sample 4', isGroup: false),
           ],
         ),
       ],
@@ -125,13 +131,12 @@ class MyTreeTile extends StatelessWidget {
                 context: context,
                 position: position,
                 items: [
-                  const PopupMenuItem<int>(
-                    value: 1,
-                    child: Text('작업 추가'),
-                  ),
-                  const PopupMenuItem<int>(
+                  PopupMenuItem<int>(
                     value: 2,
-                    child: Text('작업 삭제'),
+                    child: const Text('작업 삭제'),
+                    onTap: () {
+                      print(selectId);
+                    },
                   ),
                 ],
               )
@@ -150,10 +155,6 @@ class MyTreeTile extends StatelessWidget {
                   const PopupMenuItem<int>(
                     value: 3,
                     child: Text('작업 추가'),
-                  ),
-                  const PopupMenuItem<int>(
-                    value: 3,
-                    child: Text('작업 삭제'),
                   ),
                 ],
               );
