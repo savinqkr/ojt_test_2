@@ -44,17 +44,6 @@ mixin MyLinkControlPolicy implements LinkPolicy, CustomStatePolicy {
     }
   }
 
-  @override
-  createComponentLink(String linkId, Offset position) {
-    print('create component link!');
-    segmentIndex =
-        canvasReader.model.determineLinkSegmentIndex(linkId, position);
-    if (segmentIndex != null) {
-      canvasWriter.model.insertLinkMiddlePoint(linkId, position, segmentIndex);
-      canvasWriter.model.updateLink(linkId);
-    }
-  }
-
 // 링크를 길게 누르면 발생. 링크 옵션을 숨기고 누른 위치에 새로운 중간연결 지점 삽입.
   @override
   onLinkLongPressStart(String linkId, LongPressStartDetails details) {

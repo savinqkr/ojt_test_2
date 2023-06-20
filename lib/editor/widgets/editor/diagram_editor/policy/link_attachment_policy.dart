@@ -1,7 +1,7 @@
 import 'package:diagram_editor/diagram_editor.dart';
 import 'package:flutter/material.dart';
 
-/// Attach to border, depends on shape
+/// 테두리에 부착, 모양에 따라 다름
 mixin MyLinkAttachmentPolicy implements LinkAttachmentPolicy {
   @override
   Alignment getLinkEndpointAlignment(
@@ -10,6 +10,7 @@ mixin MyLinkAttachmentPolicy implements LinkAttachmentPolicy {
   ) {
     Offset pointPosition = targetPoint -
         (componentData.position + componentData.size.center(Offset.zero));
+
     pointPosition = Offset(
       pointPosition.dx / componentData.size.width,
       pointPosition.dy / componentData.size.height,

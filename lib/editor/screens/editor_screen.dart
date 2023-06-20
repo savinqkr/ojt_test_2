@@ -36,16 +36,30 @@ class _EditorScreenState extends State<EditorScreen> {
 
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(30.0),
-        child: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0.2,
-          title: Text('OJT Project',
-              style:
-                  GoogleFonts.nanumGothic(color: Colors.black, fontSize: 12)),
-          centerTitle: true,
-        ),
-      ),
+          preferredSize: const Size.fromHeight(30.0),
+          child: AppBar(
+              backgroundColor: Colors.white,
+              elevation: 0.2,
+              title: Text('OJT Project',
+                  style: GoogleFonts.nanumGothic(
+                      color: Colors.black, fontSize: 12)),
+              centerTitle: true,
+              actions: const [
+                Row(
+                  children: [
+                    Icon(
+                      Icons.account_circle_outlined,
+                      color: Palette.mint,
+                    ),
+                    SizedBox(width: 10),
+                    Text(
+                      'User 01',
+                      style: TextStyle(color: Palette.mint),
+                    ),
+                    SizedBox(width: 30),
+                  ],
+                )
+              ])),
       body: LayoutTemplate(
         menuWidget: SidebarMenu(
           currentMenu: EditorScreen.menuType,

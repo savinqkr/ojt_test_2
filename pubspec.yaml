@@ -60,6 +60,7 @@ dependencies:
   # https://pub.dev/packages/expandable_menu/install
   expandable_menu: ^0.0.5
   align_positioned: ^3.0.0
+  indexed: ^0.0.8
 
 dev_dependencies:
   flutter_test:

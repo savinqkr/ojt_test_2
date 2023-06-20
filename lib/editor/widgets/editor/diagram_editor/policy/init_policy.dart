@@ -1,11 +1,27 @@
 import 'package:diagram_editor/diagram_editor.dart';
 import 'package:flutter/material.dart';
+import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/data/custom_component_data.dart';
 
 mixin MyInitPolicy implements InitPolicy {
   @override
   initializeDiagramEditor() {
     canvasWriter.state.setCanvasColor(Colors.white); // Canvas 색상
     canvasWriter.state.setScale(1.0); // 초기 Scale
+
+    // Get.put(ViewingJobIdController());
+    // var jobId = Get.find<ViewingJobIdController>().viewingJobId;
+    // print('jobId : $jobId');
+    var jobId = 'job1';
+    // if (jobId != '') {
+    //   var tasks = TaskData().getTaskList(jobId);
+
+    //   tasks.forEach((task) {
+    //     var component = getComponentData(task['position'], task['type']);
+    //     canvasWriter.model.addComponent(component);
+    //   });
+    // }
+
+    // var cd1 = getComponentData(const Offset(220, 100), 'starter');
 
     //   var cd1 = getSmallComponentData(const Offset(220, 100));
     //   var cd2 = getSmallComponentData(const Offset(220, 180));
@@ -16,7 +32,7 @@ mixin MyInitPolicy implements InitPolicy {
     //   var cd6 = getBigComponentData(const Offset(380, 80));
 
     //   // 컴포넌트 생성
-    //   canvasWriter.model.addComponent(cd1);
+    // canvasWriter.model.addComponent(cd1);
     //   canvasWriter.model.addComponent(cd2);
     //   canvasWriter.model.addComponent(cd3);
     //   canvasWriter.model.addComponent(cd4);
@@ -74,5 +90,13 @@ mixin MyInitPolicy implements InitPolicy {
     //     position: position,
     //     data: MyComponentData(),
     //   );
+  }
+
+  getComponentData(Offset position, String type) {
+    return ComponentData(
+      type: type,
+      position: position,
+      data: MyComponentData(),
+    );
   }
 }

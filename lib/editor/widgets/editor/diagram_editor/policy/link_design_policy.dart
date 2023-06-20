@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CurvedLinePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    // Define your curved line here
+    // 여기에서 곡선을 정의하십시오.
     final path = Path()
       ..moveTo(0, size.height / 2)
       ..quadraticBezierTo(
@@ -13,13 +13,13 @@ class CurvedLinePainter extends CustomPainter {
         size.height / 2, // End point y-coordinate
       );
 
-    // Customize the appearance of the line
+    // 선의 모양을 사용자 지정합니다.
     final paint = Paint()
       ..color = Colors.black
       ..strokeWidth = 2
       ..style = PaintingStyle.stroke;
 
-    // Draw the curved line
+    // 곡선을 그립니다
     canvas.drawPath(path, paint);
   }
 

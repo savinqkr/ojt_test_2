@@ -95,7 +95,11 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
                           value.isNotEmpty; // 검색어 입력 여부에 따라 검색 창 활성화 상태 변경
                     });
                   },
+                  cursorColor: Palette.mint,
                   decoration: const InputDecoration(
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Palette.mint),
+                    ),
                     contentPadding: EdgeInsets.fromLTRB(5, 17, 0, 2),
                     hintStyle: TextStyle(fontSize: 10),
                     hintText: "검색어를 입력하세요.",
@@ -104,6 +108,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
                       child: Icon(
                         MaterialSymbols.search,
                         size: 20,
+                        color: Palette.mint,
                       ),
                     ),
                   ),
