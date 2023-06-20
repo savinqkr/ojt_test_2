@@ -19,14 +19,14 @@ class JobData {
       "type": "job",
       "name": "Sample 3",
       "groupId": "group3",
-      "isOpen": true
+      "isOpen": false
     },
     {
       "id": "job4",
       "type": "job",
       "name": "Sample 4",
       "groupId": "group4",
-      "isOpen": true
+      "isOpen": false
     },
   ];
 

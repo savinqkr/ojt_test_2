@@ -28,35 +28,43 @@ class SidebarMenu extends StatelessWidget {
                 menuName: MenuTypes.home,
                 isSelected: currentMenu == MenuTypes.home,
               ),
+              const SizedBox(height: 10),
               SidebarMenuButton(
                 menuName: MenuTypes.editor,
                 isSelected: currentMenu == MenuTypes.editor,
                 setIsJobTreeVisible: setIsJobTreeVisible,
               ),
+              const SizedBox(height: 10),
               SidebarMenuButton(
                 menuName: MenuTypes.planner,
                 isSelected: currentMenu == MenuTypes.planner,
               ),
+              const SizedBox(height: 10),
               SidebarMenuButton(
                 menuName: MenuTypes.monitor,
                 isSelected: currentMenu == MenuTypes.monitor,
               ),
+              const SizedBox(height: 10),
               SidebarMenuButton(
                 menuName: MenuTypes.focusView,
                 isSelected: currentMenu == MenuTypes.focusView,
               ),
+              const SizedBox(height: 10),
               SidebarMenuButton(
                 menuName: MenuTypes.prediction,
                 isSelected: currentMenu == MenuTypes.prediction,
               ),
+              const SizedBox(height: 10),
               SidebarMenuButton(
                 menuName: MenuTypes.report,
                 isSelected: currentMenu == MenuTypes.report,
               ),
+              const SizedBox(height: 10),
               SidebarMenuButton(
                 menuName: MenuTypes.managementTools,
                 isSelected: currentMenu == MenuTypes.managementTools,
               ),
+              const SizedBox(height: 10),
               SidebarMenuButton(
                 menuName: MenuTypes.approval,
                 isSelected: currentMenu == MenuTypes.approval,

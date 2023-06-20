@@ -13,14 +13,14 @@ import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/policy/my_link_j
 
 class MyPolicySet extends PolicySet
     with
-        MyInitPolicy,
-        MyCanvasPolicy,
-        MyComponentPolicy,
+        MyInitPolicy, // 초기 화면에 그려지는 component 관련
+        MyCanvasPolicy, // multiple select 관련
+        MyComponentPolicy, // conponent 클릭 시 나오는 위젯 관련
         MyComponentDesignPolicy,
-        MyLinkControlPolicy,
-        MyLinkJointControlPolicy,
+        MyLinkControlPolicy, // joint 생성과 관련
+        MyLinkJointControlPolicy, // 이미 생성된 joint를 움직이는 것과 관련
         MyLinkWidgetsPolicy,
-        MyLinkAttachmentPolicy,
+        MyLinkAttachmentPolicy, // 링크 연결 시 연결점 관련
         MyCanvasWidgetsPolicy,
         MyComponentWidgetsPolicy,
         //
