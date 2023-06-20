@@ -3,7 +3,7 @@ class GroupData {
     {
       "id": "group1",
       "type": "group",
-      "name": "그룹 1",
+      "name": "Group 1",
       "isOpen": true,
       "hasParentGroup": false,
       "parentGroupId": ""
@@ -11,7 +11,7 @@ class GroupData {
     {
       "id": "group2",
       "type": "group",
-      "name": "그룹 2",
+      "name": "Group 2",
       "isOpen": true,
       "hasParentGroup": false,
       "parentGroupId": ""
@@ -19,7 +19,7 @@ class GroupData {
     {
       "id": "group3",
       "type": "group",
-      "name": "그룹 3",
+      "name": "Group 3",
       "isOpen": true,
       "hasParentGroup": false,
       "parentGroupId": ""
@@ -27,7 +27,7 @@ class GroupData {
     {
       "id": "group4",
       "type": "group",
-      "name": "그룹 4",
+      "name": "Group 4",
       "isOpen": false,
       "hasParentGroup": true,
       "parentGroupId": "group1"
