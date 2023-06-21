@@ -353,8 +353,8 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
     num X = 100 * (countChild + 1);
     int Y = 150;
 
-    print('countChild >> $countChild');
-    print('depth >> $depth');
+    // print('countChild >> $countChild');
+    // print('depth >> $depth');
 
     for (var component in connectedComponents) {
       canvasWriter.model.setComponentPosition(
