@@ -98,34 +98,50 @@ class TaskData {
         },
       ],
     },
-    // {
-    //   "jobId": "job2",
-    //   "task": [
-    //     // ROOT
-    //     {
-    //       'type': 'schedule',
-    //       'taskId': 'schedule1',
-    //       'componentId': '',
-    //       'position': const Offset(400.0, 220.0),
-    //       'connection': []
-    //     },
-    //     // DEPTH 1
-    //     // {
-    //     //   'type': 'runProgram',
-    //     //   'taskId': 'runProgram21',
-    //     //   'componentId': '',
-    //     //   'position': const Offset(350.0, 250.0),
-    //     //   'connection': []
-    //     // },
-    //     // {
-    //     //   'type': 'runProgram',
-    //     //   'taskId': 'runProgram22',
-    //     //   'componentId': '',
-    //     //   'position': const Offset(750.0, 250.0),
-    //     //   'connection': []
-    //     // },
-    //   ],
-    // }
+    {
+      "jobId": "job2",
+      "task": [
+        // ROOT
+        {
+          'type': 'schedule',
+          'taskId': 'schedule21',
+          'componentId': '',
+          'position': const Offset(500.0, 100.0),
+          'connection': ['runProgram21', 'runProgram22']
+        },
+        // DEPTH 1
+        {
+          'type': 'runProgram',
+          'taskId': 'runProgram21',
+          'componentId': '',
+          'position': const Offset(350.0, 250.0),
+          'connection': ['and21']
+        },
+        {
+          'type': 'runProgram',
+          'taskId': 'runProgram22',
+          'componentId': '',
+          'position': const Offset(650.0, 250.0),
+          'connection': ['and21']
+        },
+        // DEPTH 3
+        {
+          'type': 'and',
+          'taskId': 'and21',
+          'componentId': '',
+          'position': const Offset(500.0, 400.0),
+          'connection': ['sleep21']
+        },
+        // DEPTH 4
+        {
+          'type': 'sleep',
+          'taskId': 'sleep21',
+          'componentId': '',
+          'position': const Offset(500.0, 550.0),
+          'connection': []
+        },
+      ],
+    }
   ];
 
   getTaskList(String jobId) {
