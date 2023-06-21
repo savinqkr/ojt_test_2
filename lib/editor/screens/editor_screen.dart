@@ -70,7 +70,7 @@ class _EditorScreenState extends State<EditorScreen> {
           if (isJobTreeVisible)
             Container(
               padding: const EdgeInsets.fromLTRB(5, 61, 5, 0),
-              width: 200,
+              width: 220, // 트리구조 scroll 찾으면 다시 줄일 예정 200
               color: Palette.white,
               child: DecoratedBox(
                 decoration: BoxDecoration(

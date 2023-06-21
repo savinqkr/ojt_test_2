@@ -10,12 +10,13 @@ class TreeToTabController extends GetxController {
 // tree에서 선택한 작업의 이름 가져와서
 // isOpen이 true면 일단 프린트 (나중에 포커싱으로 변경)
 // isOpen이 false면 tabs에 추가
-  void getSelectedJobId(String newJobId) {
+  getSelectedJobId(String newJobId) {
     for (var item in jobList) {
       if (newJobId == item['name']) {
         if (item['isOpen'] == true) {
           print('open');
         } else if (item['isOpen'] == false) {
+          print('selectedId');
           item['isOpen'] = true;
           Get.find<TabTabsItemController>().addItemToTabs(item);
         }
