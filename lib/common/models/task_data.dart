@@ -1,3 +1,5 @@
+// ignore_for_file: void_checks
+
 import 'package:flutter/material.dart';
 
 class TaskData {
@@ -5,32 +7,125 @@ class TaskData {
     {
       "jobId": "job1",
       "task": [
+        // ROOT
         {
           'type': 'starter',
-          'position': const Offset(300.0, 100.0),
-          'connection': [
-            {'type': 0, 'other_component_id': ''},
-          ]
+          'taskId': 'starter1',
+          'componentId': '',
+          'position': const Offset(550.0, 100.0),
+          'connection': ['runProgram1', 'runProgram2']
+        },
+        // DEPTH 1
+        {
+          'type': 'runProgram',
+          'taskId': 'runProgram1',
+          'componentId': '',
+          'position': const Offset(350.0, 250.0),
+          'connection': ['runProgram3', 'runProgram4']
         },
         {
           'type': 'runProgram',
-          'position': const Offset(500.0, 120.0),
-          'connection': [
-            {'type': 0, 'other_component_id': ''},
-          ]
+          'taskId': 'runProgram2',
+          'componentId': '',
+          'position': const Offset(750.0, 250.0),
+          'connection': ['runProgram5', 'runProgram6', 'runProgram7']
         },
-      ],
-    },
-    {
-      "jobId": "job2",
-      "task": [
+        // DEPTH 2
         {
-          'type': 'schedule',
-          'position': const Offset(400.0, 220.0),
+          'type': 'runProgram',
+          'taskId': 'runProgram3',
+          'componentId': '',
+          'position': const Offset(250.0, 400.0),
+          'connection': ['and1']
+        },
+        {
+          'type': 'runProgram',
+          'taskId': 'runProgram4',
+          'componentId': '',
+          'position': const Offset(450.0, 400.0),
+          'connection': ['and1']
+        },
+        {
+          'type': 'runProgram',
+          'taskId': 'runProgram5',
+          'componentId': '',
+          'position': const Offset(650.0, 400.0),
+          'connection': ['or1']
+        },
+        {
+          'type': 'runProgram',
+          'taskId': 'runProgram6',
+          'componentId': '',
+          'position': const Offset(750.0, 400.0),
+          'connection': ['or1']
+        },
+        {
+          'type': 'runProgram',
+          'taskId': 'runProgram7',
+          'componentId': '',
+          'position': const Offset(850.0, 400.0),
+          'connection': ['or1']
+        },
+        // DEPTH 3
+        {
+          'type': 'and',
+          'taskId': 'and1',
+          'componentId': '',
+          'position': const Offset(350.0, 550.0),
+          'connection': ['executeJob1']
+        },
+        {
+          'type': 'or',
+          'taskId': 'or1',
+          'componentId': '',
+          'position': const Offset(750.0, 550.0),
+          'connection': ['executeJob2']
+        },
+        // DEPTH 4
+        {
+          'type': 'executeJob',
+          'taskId': 'executeJob1',
+          'componentId': '',
+          'position': const Offset(350.0, 700.0),
+          'connection': []
+        },
+        {
+          'type': 'executeJob',
+          'taskId': 'executeJob2',
+          'componentId': '',
+          'position': const Offset(750.0, 700.0),
           'connection': []
         },
       ],
-    }
+    },
+    // {
+    //   "jobId": "job2",
+    //   "task": [
+    //     // ROOT
+    //     {
+    //       'type': 'schedule',
+    //       'taskId': 'schedule1',
+    //       'componentId': '',
+    //       'position': const Offset(400.0, 220.0),
+    //       'connection': []
+    //     },
+    //     // DEPTH 1
+    //     // {
+    //     //   'type': 'runProgram',
+    //     //   'taskId': 'runProgram21',
+    //     //   'componentId': '',
+    //     //   'position': const Offset(350.0, 250.0),
+    //     //   'connection': []
+    //     // },
+    //     // {
+    //     //   'type': 'runProgram',
+    //     //   'taskId': 'runProgram22',
+    //     //   'componentId': '',
+    //     //   'position': const Offset(750.0, 250.0),
+    //     //   'connection': []
+    //     // },
+    //   ],
+    // }
   ];
 
   getTaskList(String jobId) {
@@ -40,5 +135,16 @@ class TaskData {
       }
     }
     return [];
+  }
+
+  setComponentId(String taskId, String componentId) {
+    for (var data in taskData) {
+      List<Map<String, dynamic>> tasks = data['task'];
+      for (var task in tasks) {
+        if (task['taskId'] == taskId) {
+          task['componentId'] = componentId;
+        }
+      }
+    }
   }
 }

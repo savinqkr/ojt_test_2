@@ -1,102 +1,96 @@
 import 'package:diagram_editor/diagram_editor.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:ojt_test_2/common/models/task_data.dart';
 import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/data/custom_component_data.dart';
+import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/data/custom_link_data.dart';
+import 'package:ojt_test_2/getX/viewing_jobId.controller.dart';
 
 mixin MyInitPolicy implements InitPolicy {
+  late String viewingJobId;
   @override
   initializeDiagramEditor() {
     canvasWriter.state.setCanvasColor(Colors.white); // Canvas 색상
     canvasWriter.state.setScale(1.0); // 초기 Scale
 
-    // Get.put(ViewingJobIdController());
-    // var jobId = Get.find<ViewingJobIdController>().viewingJobId;
-    // print('jobId : $jobId');
-    var jobId = 'job1';
-    // if (jobId != '') {
-    //   var tasks = TaskData().getTaskList(jobId);
+    Get.put(ViewingJobIdController());
+    viewingJobId = Get.find<ViewingJobIdController>().viewingJobId;
 
-    //   tasks.forEach((task) {
-    //     var component = getComponentData(task['position'], task['type']);
-    //     canvasWriter.model.addComponent(component);
-    //   });
-    // }
+    var taskList = [];
 
-    // var cd1 = getComponentData(const Offset(220, 100), 'starter');
+    if (viewingJobId != '') {
+      var tasks = TaskData().getTaskList(viewingJobId);
 
-    //   var cd1 = getSmallComponentData(const Offset(220, 100));
-    //   var cd2 = getSmallComponentData(const Offset(220, 180));
-    //   var cd3 = getSmallComponentData(const Offset(400, 100));
-    //   var cd4 = getSmallComponentData(const Offset(400, 180));
+      tasks.forEach((task) {
+        var component = getComponentData(task['position'], task['type']);
+        TaskData().setComponentId(task['taskId'], component.id);
+        taskList.add({
+          'taskId': task['taskId'],
+          "componentId": component.id,
+          "connections": task['connection'],
+        });
 
-    //   var cd5 = getBigComponentData(const Offset(80, 80));
-    //   var cd6 = getBigComponentData(const Offset(380, 80));
+        canvasWriter.model.addComponent(component);
+      });
 
-    //   // 컴포넌트 생성
-    // canvasWriter.model.addComponent(cd1);
-    //   canvasWriter.model.addComponent(cd2);
-    //   canvasWriter.model.addComponent(cd3);
-    //   canvasWriter.model.addComponent(cd4);
-    //   canvasWriter.model.addComponent(cd5);
-    //   canvasWriter.model.addComponent(cd6);
+      for (var task in taskList) {
+        task['connections'].forEach((connection) {
+          for (var target in taskList) {
+            if (target['taskId'] == connection) {
+              canvasWriter.model.connectTwoComponents(
+                sourceComponentId: task['componentId'],
+                targetComponentId: target['componentId'],
+                linkStyle: LinkStyle(
+                  arrowType: ArrowType.pointedArrow,
+                  lineWidth: 1.5,
+                  backArrowType: ArrowType.centerCircle,
+                ),
+                data: MyLinkData(),
+              );
+            }
+          }
+        });
+      }
 
-    //   // 부모 컴포넌트 앞으로 이동
-    //   canvasWriter.model.moveComponentToTheFront(cd5.id);
-    //   canvasWriter.model.moveComponentToTheFront(cd6.id);
-    //   // 자식 컴포넌트 앞으로 이동
-    //   canvasWriter.model.moveComponentToTheFront(cd1.id);
-    //   canvasWriter.model.moveComponentToTheFront(cd2.id);
-    //   canvasWriter.model.moveComponentToTheFront(cd3.id);
-    //   canvasWriter.model.moveComponentToTheFront(cd4.id);
+      // var cd2 = getComponentData(const Offset(220, 180), 'schedule');
+      // var cd3 = getComponentData(const Offset(400, 100), 'sleep');
 
-    //   // 부모-자식 relation 걸기
-    //   canvasWriter.model.setComponentParent(cd1.id, cd5.id);
-    //   canvasWriter.model.setComponentParent(cd2.id, cd5.id);
-    //   // 부모-자식 relation 걸기
-    //   canvasWriter.model.setComponentParent(cd3.id, cd6.id);
-    //   canvasWriter.model.setComponentParent(cd4.id, cd6.id);
+      // canvasWriter.model.addComponent(cd2);
+      // canvasWriter.model.addComponent(cd3);
 
-    //   // 컴포넌트 사이를 선으로 연결하기
-    //   // canvasWriter.model.connectTwoComponents(
-    //   //   sourceComponentId: cd1.id,
-    //   //   targetComponentId: cd3.id,
-    //   //   linkStyle: LinkStyle(
-    //   //     lineWidth: 2,
-    //   //     arrowType: ArrowType.arrow,
-    //   //   ),
-    //   // );
-    //   // canvasWriter.model.connectTwoComponents(
-    //   //   sourceComponentId: cd4.id,
-    //   //   targetComponentId: cd2.id,
-    //   //   linkStyle: LinkStyle(
-    //   //     lineWidth: 2,
-    //   //     arrowType: ArrowType.arrow,
-    //   //   ),
-    //   // );
-    // }
+      // canvasWriter.model.connectTwoComponents(
+      //   sourceComponentId: cd2.id,
+      //   targetComponentId: cd3.id,
+      //   linkStyle: LinkStyle(
+      //     arrowType: ArrowType.pointedArrow,
+      //     lineWidth: 1.5,
+      //     backArrowType: ArrowType.centerCircle,
+      //   ),
+      //   data: MyLinkData(),
+      // );
+      //   // 부모 컴포넌트 앞으로 이동
+      //   canvasWriter.model.moveComponentToTheFront(cd5.id);
+      //   canvasWriter.model.moveComponentToTheFront(cd6.id);
+      //   // 자식 컴포넌트 앞으로 이동
+      //   canvasWriter.model.moveComponentToTheFront(cd1.id);
+      //   canvasWriter.model.moveComponentToTheFront(cd2.id);
+      //   canvasWriter.model.moveComponentToTheFront(cd3.id);
+      //   canvasWriter.model.moveComponentToTheFront(cd4.id);
 
-    // ComponentData getSmallComponentData(Offset position) {
-    //   return ComponentData(
-    //     size: const Size(80, 64),
-    //     minSize: const Size(72, 48),
-    //     position: position,
-    //     data: MyComponentData(),
-    //   );
-    // }
-
-    // ComponentData getBigComponentData(Offset position) {
-    //   return ComponentData(
-    //     size: const Size(240, 180),
-    //     minSize: const Size(72, 48),
-    //     position: position,
-    //     data: MyComponentData(),
-    //   );
+      //   // 부모-자식 relation 걸기
+      //   canvasWriter.model.setComponentParent(cd1.id, cd5.id);
+      //   canvasWriter.model.setComponentParent(cd2.id, cd5.id);
+      //   // 부모-자식 relation 걸기
+      //   canvasWriter.model.setComponentParent(cd3.id, cd6.id);
+      //   canvasWriter.model.setComponentParent(cd4.id, cd6.id);
+    }
   }
+}
 
-  getComponentData(Offset position, String type) {
-    return ComponentData(
-      type: type,
-      position: position,
-      data: MyComponentData(),
-    );
-  }
+getComponentData(Offset position, String type) {
+  return ComponentData(
+    type: type,
+    position: position,
+    data: MyComponentData(),
+  );
 }
