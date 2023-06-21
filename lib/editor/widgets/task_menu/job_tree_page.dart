@@ -8,63 +8,74 @@ import 'package:ojt_test_2/getX/tree_to_tab_controller.dart';
 // package : https://pub.dev/packages/flutter_fancy_tree_view
 
 class MyNode {
-  const MyNode({
+  MyNode({
     required this.title,
     required this.isGroup,
-    this.children = const <MyNode>[],
-  });
+    List<MyNode>? children,
+  }) : children = children ?? [];
 
   final String title;
   final List<MyNode> children;
   final bool isGroup;
+
+  void addChild(MyNode child) {
+    children.add(child);
+  }
+
+  void removeChild(MyNode child) {
+    children.remove(child);
+  }
 }
 
 class MyTreeView extends StatefulWidget {
-  const MyTreeView({super.key});
+  const MyTreeView({Key? key}) : super(key: key);
 
   @override
   State<MyTreeView> createState() => _MyTreeViewState();
 }
 
 class _MyTreeViewState extends State<MyTreeView> {
-  static const List<MyNode> roots = <MyNode>[
-    MyNode(
-      title: 'Group 1',
-      isGroup: true,
-      children: <MyNode>[
-        MyNode(
-          title: 'Group 2',
-          isGroup: true,
-          children: <MyNode>[
-            MyNode(title: 'Sample 1', isGroup: false),
-            MyNode(title: 'Sample 2', isGroup: false),
-          ],
-        ),
-        MyNode(title: 'Sample 3', isGroup: false),
-      ],
-    ),
-    MyNode(
-      title: 'Group 3',
-      isGroup: true,
-      children: <MyNode>[
-        MyNode(
-          title: 'Group 4',
-          isGroup: true,
-          children: <MyNode>[
-            MyNode(title: 'Sample 4', isGroup: false),
-          ],
-        ),
-      ],
-    ),
-  ];
-
   late final TreeController<MyNode> treeController;
+  final MyNode rootNode = MyNode(
+    title: 'Root',
+    isGroup: true,
+    children: <MyNode>[
+      MyNode(
+        title: 'Group 1',
+        isGroup: true,
+        children: <MyNode>[
+          MyNode(
+            title: 'Group 2',
+            isGroup: true,
+            children: <MyNode>[
+              MyNode(title: 'Sample 1', isGroup: false),
+              MyNode(title: 'Sample 2', isGroup: false),
+            ],
+          ),
+          MyNode(title: 'Sample 3', isGroup: false),
+        ],
+      ),
+      MyNode(
+        title: 'Group 3',
+        isGroup: true,
+        children: <MyNode>[
+          MyNode(
+            title: 'Group 4',
+            isGroup: true,
+            children: <MyNode>[
+              MyNode(title: 'Sample 4', isGroup: false),
+            ],
+          ),
+        ],
+      ),
+    ],
+  );
 
   @override
   void initState() {
     super.initState();
     treeController = TreeController<MyNode>(
-      roots: roots,
+      roots: [rootNode],
       childrenProvider: (MyNode node) => node.children,
     );
   }
@@ -81,24 +92,78 @@ class _MyTreeViewState extends State<MyTreeView> {
       treeController: treeController,
       nodeBuilder: (BuildContext context, TreeEntry<MyNode> entry) {
         return MyTreeTile(
-          key: ValueKey(entry.node),
           entry: entry,
           onTap: () => treeController.toggleExpansion(entry.node),
+          addNode: addNode,
+          removeNode: removeNode,
         );
       },
     );
   }
+
+  // ----------------- child node add method
+  addNode(MyNode parentNode, bool isGroup, String title) {
+    setState(() {
+      int totalGroupCount =
+          _MyTreeTileState().countGroupNodes(rootNode.children, true);
+      int totalJobCount =
+          _MyTreeTileState().countGroupNodes(rootNode.children, false) + 4;
+
+      MyNode newChildNode = MyNode(
+        title:
+            '$title ${isGroup ? totalGroupCount + 1 : totalJobCount + 1}', // 그룹 노드의 카운트를 사용하여 타이틀 생성
+        isGroup: isGroup,
+        children: <MyNode>[],
+      );
+      parentNode.addChild(newChildNode);
+      treeController.roots = [rootNode];
+
+      if (!isGroup) {
+        JobData().addJob(totalJobCount + 1, parentNode.title);
+      }
+    });
+  }
+
+  // ------------------- node delete method
+  void removeNode(MyNode parentNode, MyNode nodeToRemove) {
+    setState(() {
+      parentNode.removeChild(nodeToRemove);
+      treeController.roots = [rootNode];
+    });
+  }
 }
 
-class MyTreeTile extends StatelessWidget {
+class MyTreeTile extends StatefulWidget {
   const MyTreeTile({
-    super.key,
+    Key? key,
     required this.entry,
     required this.onTap,
-  });
+    required this.addNode,
+    required this.removeNode,
+  }) : super(key: key);
 
   final TreeEntry<MyNode> entry;
   final VoidCallback onTap;
+  final void Function(MyNode, bool, String) addNode;
+  final void Function(MyNode, MyNode) removeNode;
+
+  @override
+  State<MyTreeTile> createState() => _MyTreeTileState();
+}
+
+class _MyTreeTileState extends State<MyTreeTile> {
+  int countGroupNodes(List<MyNode> nodes, bool state) {
+    int count = 0;
+    for (var node in nodes) {
+      if (node.isGroup == state) {
+        // true면 그룹, false면 작업
+        count++;
+        count +=
+            countGroupNodes(node.children, state); // 재귀적으로 자식 노드에서 그룹 노드 개수 계산
+      }
+    }
+    return count;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +171,9 @@ class MyTreeTile extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        Get.find<TreeToTabController>().getSelectedJobId(entry.node.title);
+        Get.find<TreeToTabController>()
+            .getSelectedJobId(widget.entry.node.title);
+        print('select!!');
       },
       onSecondaryTapDown: (details) {
         final RenderBox overlay =
@@ -116,7 +183,7 @@ class MyTreeTile extends StatelessWidget {
           Offset.zero & overlay.size,
         );
         List jobDataList = JobData().jobList;
-        String selectId = entry.node.title;
+        String selectId = widget.entry.node.title;
         bool isJob(jobDataList, selectId) {
           for (var item in jobDataList) {
             if (item['name'] == selectId) {
@@ -135,7 +202,11 @@ class MyTreeTile extends StatelessWidget {
                     value: 2,
                     child: const Text('작업 삭제'),
                     onTap: () {
-                      print(selectId);
+                      widget.removeNode(
+                        widget.entry.parent?.node ??
+                            MyNode(title: '', isGroup: false),
+                        widget.entry.node,
+                      );
                     },
                   ),
                 ],
@@ -144,23 +215,36 @@ class MyTreeTile extends StatelessWidget {
                 context: context,
                 position: position,
                 items: [
-                  const PopupMenuItem<int>(
+                  PopupMenuItem<int>(
                     value: 1,
-                    child: Text('그룹 추가'),
+                    child: const Text('그룹 추가'),
+                    onTap: () {
+                      widget.addNode(widget.entry.node, true, "Group");
+                    },
                   ),
-                  const PopupMenuItem<int>(
+                  PopupMenuItem<int>(
                     value: 2,
-                    child: Text('그룹 삭제'),
+                    child: const Text('그룹 삭제'),
+                    onTap: () {
+                      widget.removeNode(
+                        widget.entry.parent?.node ??
+                            MyNode(title: '', isGroup: false),
+                        widget.entry.node,
+                      );
+                    },
                   ),
-                  const PopupMenuItem<int>(
+                  PopupMenuItem<int>(
                     value: 3,
-                    child: Text('작업 추가'),
+                    child: const Text('작업 추가'),
+                    onTap: () {
+                      widget.addNode(widget.entry.node, false, "Sample");
+                    },
                   ),
                 ],
               );
       },
       child: TreeIndentation(
-        entry: entry,
+        entry: widget.entry,
         guide: const ConnectingLinesGuide(
             color: Palette.grey, indent: 30, thickness: 0),
         child: Padding(
@@ -168,11 +252,17 @@ class MyTreeTile extends StatelessWidget {
           child: Row(
             children: [
               FolderButton(
-                isOpen: entry.hasChildren ? entry.isExpanded : null,
-                icon: const Icon(
-                  Icons.article,
-                  color: Palette.grey,
-                ),
+                isOpen:
+                    widget.entry.hasChildren ? widget.entry.isExpanded : null,
+                icon: widget.entry.node.isGroup
+                    ? const Icon(
+                        Icons.folder,
+                        color: Palette.mint,
+                      )
+                    : const Icon(
+                        Icons.article,
+                        color: Palette.grey,
+                      ),
                 openedIcon: const Icon(
                   Icons.arrow_drop_down_outlined,
                   color: Palette.mint,
@@ -181,10 +271,10 @@ class MyTreeTile extends StatelessWidget {
                   Icons.arrow_right_outlined,
                   color: Palette.darkGrey,
                 ),
-                onPressed: entry.hasChildren ? onTap : null,
+                onPressed: widget.entry.hasChildren ? widget.onTap : null,
               ),
               Container(
-                child: entry.hasChildren
+                child: widget.entry.node.isGroup && widget.entry.hasChildren
                     ? const Row(
                         children: [
                           Icon(
@@ -196,7 +286,9 @@ class MyTreeTile extends StatelessWidget {
                       )
                     : null,
               ),
-              Text(entry.node.title),
+              Text(
+                widget.entry.node.title,
+              ),
             ],
           ),
         ),

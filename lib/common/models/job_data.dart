@@ -53,7 +53,20 @@ class JobData {
   }
 
   // JOB을 추가하는 메서드
-  void addGroup() {}
+  void addJob(int count, String groupId) {
+    Map<String, dynamic> newItem = Map<String, dynamic>.from({
+      "id": "job$count",
+      "type": "job",
+      "name": "Sample $count",
+      "groupId": groupId,
+      "isOpen": false
+    });
+
+    jobList.add(newItem);
+    getOpenJobList();
+    print(jobList);
+  }
+
   // JOB을 삭제하는 메서드
   void removeGroup(String id) {}
 }
