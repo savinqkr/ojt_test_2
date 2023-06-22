@@ -13,6 +13,7 @@ class TabTabsItemController extends GetxController {
       tabs.add(
         TabData(
           text: job['name'],
+          value: job['id'],
           keepAlive: true,
           content: TabMenuContents(jobId: job['id']),
         ),
@@ -27,6 +28,7 @@ class TabTabsItemController extends GetxController {
     tabs.add(
       TabData(
         text: item['name'],
+        value: item['id'],
         keepAlive: true,
         content: TabMenuContents(jobId: item['id']),
       ),

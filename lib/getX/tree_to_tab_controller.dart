@@ -16,6 +16,7 @@ class TreeToTabController extends GetxController {
       if (newJobId == item['name']) {
         if (item['isOpen'] == true) {
           print('open');
+          // focus 추가
         } else if (item['isOpen'] == false) {
           print('selectedId');
           item['isOpen'] = true;
