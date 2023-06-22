@@ -43,7 +43,7 @@ class _TabMenuPageState extends State<TabMenuPage> {
             controller: tabController,
             onTabSelection: (newTabIndex) {
               var jobId =
-                  Get.find<TreeToTabController>().jobList[newTabIndex!]['id'];
+                  Get.find<TabTabsItemController>().tabs[newTabIndex!].value;
               Get.find<ViewingJobIdController>().setViewingJobId(jobId);
             },
             onTabClose: (tabIndex, tabData) {
