@@ -173,6 +173,7 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
 
     // -- while 문 종료 조건 : count = 캔버스 위 전체 컴포넌트 수
     int count = 0;
+    int depth = 0;
 
     while (count < allComponentsOnCanvasList.length) {
       count += startPointList.length;
@@ -183,14 +184,18 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
         endPointList.add(connectedComponents);
       }
 
+      endPointList = checkOverlappingEndPoints(endPointList);
+
       if (endPointList.isNotEmpty) {
         // -- 조회한 endpoint 컴포넌트 위치 지정
         for (var endlist in endPointList) {
-          ComponentData? startPoint = getStartPointComponent(endlist);
-          if (startPoint != null) {
-            setComponentOffsetHorizontally(startPoint, endlist);
+          List<ComponentData> startPoints = getStartPointComponents(endlist);
+
+          if (startPoints.isNotEmpty) {
+            setComponentOffsetHorizontally(startPoints, endlist, depth);
           }
         }
+
         // -- endPointList 에 있던 컴포넌트들을 startPointList 로 이동
         startPointList.clear();
         for (var endlist in endPointList) {
@@ -201,6 +206,7 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
         // endPointList 는 빈배열로 초기화
         endPointList.clear();
       }
+      depth++;
     }
   }
 
@@ -222,7 +228,6 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
     int depth = 0;
 
     while (count < allComponentsOnCanvasList.length) {
-      depth++;
       count += startPointList.length;
       // -- startPointList 안의 startPoint 컴포넌트와 연결된 컴포넌트 조회
       for (var startPoint in startPointList) {
@@ -230,27 +235,19 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
             getEndPointComponents(startPoint, allComponentsOnCanvasList);
         endPointList.add(connectedComponents);
       }
-      // -- 조회한 endpoint 컴포넌트 위치 지정
+
+      endPointList = checkOverlappingEndPoints(endPointList);
+
       if (endPointList.isNotEmpty) {
         // -- 조회한 endpoint 컴포넌트 위치 지정
         for (var endlist in endPointList) {
-          ComponentData? startPoint = getStartPointComponent(endlist);
-          // 자식 컴포넌트 개수
-          int countChild = 0;
-          for (var component in endlist) {
-            print(component.type);
-            for (var connection in component.connections) {
-              if (connection is ConnectionOut) {
-                countChild++;
-              }
-            }
-          }
-
-          if (startPoint != null) {
-            setComponentOffsetVertically(
-                startPoint, endlist, countChild, depth);
+          List<ComponentData> startPoints = getStartPointComponents(endlist);
+          // Offset 설정
+          if (startPoints.isNotEmpty) {
+            setComponentOffsetVertically(startPoints, endlist, depth);
           }
         }
+
         // -- endPointList 에 있던 컴포넌트들을 startPointList 로 이동
         startPointList.clear();
         for (var endlist in endPointList) {
@@ -261,6 +258,7 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
         // endPointList 는 빈배열로 초기화
         endPointList.clear();
       }
+      depth++;
     }
   }
 
@@ -282,31 +280,38 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
   }
 
   // 시작점 컴포넌트 찾기
-  getStartPointComponent(List<ComponentData> componentList) {
+  getStartPointComponents(List<ComponentData> endPoints) {
     Map<String, int> countParent = {};
-    for (var component in componentList) {
+    for (var component in endPoints) {
       for (var connection in component.connections) {
-        if (countParent.keys.contains(connection.otherComponentId)) {
-          countParent[connection.otherComponentId] =
-              countParent[connection.otherComponentId]! + 1;
-        } else {
-          countParent[connection.otherComponentId] = 1;
+        if (connection is ConnectionIn) {
+          if (countParent.keys.contains(connection.otherComponentId)) {
+            countParent[connection.otherComponentId] =
+                countParent[connection.otherComponentId]! + 1;
+          } else {
+            countParent[connection.otherComponentId] = 1;
+          }
         }
       }
     }
 
-    String keyWithLargestValue = '';
+    List<String> keyWithLargestValue = [];
     int largestValue = 0;
     countParent.forEach((key, value) {
-      if (value > largestValue) {
+      if (value >= largestValue) {
         largestValue = value;
-        keyWithLargestValue = key;
+        keyWithLargestValue.add(key);
       }
     });
 
-    if (keyWithLargestValue != '') {
-      return canvasReader.model.getComponent(keyWithLargestValue);
+    List<ComponentData> result = [];
+    if (keyWithLargestValue.isNotEmpty) {
+      for (var key in keyWithLargestValue) {
+        result.add(canvasReader.model.getComponent(key));
+      }
     }
+
+    return result;
   }
 
   // 연결된 하위 컴포넌트들 찾기
@@ -326,46 +331,136 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
     return connectedComponents;
   }
 
+  // 이중배열인 EndPoinList 에 중복되는 요소를 제거하는 메서드
+  checkOverlappingEndPoints(List<List<ComponentData>> endpointList) {
+    List<List<ComponentData>> output = [];
+    for (int i = 0; i < endpointList.length; i++) {
+      bool isOverlap = false;
+      for (int j = 0; j < output.length; j++) {
+        if (compareEndpointArrays(endpointList[i], output[j])) {
+          isOverlap = true;
+          break;
+        }
+      }
+      if (!isOverlap) {
+        output.add(endpointList[i]);
+      }
+    }
+
+    return output;
+  }
+
+  compareEndpointArrays(List<ComponentData> arr1, List<ComponentData> arr2) {
+    if (arr1.length != arr2.length) {
+      return false;
+    }
+    for (int i = 0; i < arr1.length; i++) {
+      if (arr1[i] != arr2[i]) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   // 기준 컴포넌트 기준으로 컴포넌트 수평 정렬
   setComponentOffsetHorizontally(
-      ComponentData mainComponent, List<ComponentData> connectedComponents) {
-    Offset mainPosition = mainComponent.position;
-    int X = 200;
-    int Y = 100;
+    List<ComponentData> startPoints,
+    List<ComponentData> endPoints,
+    int depth,
+  ) {
+    //  기준 위치
+    double criteriaX = 0;
+    double criteriaY = 0;
+    for (var startPoint in startPoints) {
+      criteriaX += startPoint.position.dx;
+      criteriaY += startPoint.position.dy;
+    }
+    criteriaX = criteriaX / startPoints.length;
+    criteriaY = criteriaY / startPoints.length;
 
-    for (var component in connectedComponents) {
-      canvasWriter.model.setComponentPosition(
-        component.id,
-        Offset(
-            mainPosition.dx + X,
-            mainPosition.dy +
-                Y *
-                    (connectedComponents.indexOf(component) -
-                        (connectedComponents.length - 1) / 2)),
-      );
+    // 가중치
+    double X = 150;
+    double Y = 150;
+
+    // Offset 지정
+    for (var component in endPoints) {
+      int countEndPointChild = getEndPointComponents(
+              component, canvasReader.model.getAllComponents().values.toList())
+          .length as int;
+
+      if (countEndPointChild == 0) {
+        canvasWriter.model.setComponentPosition(
+          component.id,
+          Offset(
+              criteriaX + X,
+              criteriaY +
+                  Y *
+                      (endPoints.indexOf(component) -
+                          (endPoints.length - 1) / 2)),
+        );
+      } else {
+        canvasWriter.model.setComponentPosition(
+          component.id,
+          Offset(
+              criteriaX + X,
+              criteriaY +
+                  Y *
+                      countEndPointChild *
+                      (endPoints.indexOf(component) -
+                          (endPoints.length - 1) / 2)),
+        );
+      }
     }
   }
 
   // 기준 컴포넌트 기준으로 컴포넌트 수직 정렬
-  setComponentOffsetVertically(ComponentData mainComponent,
-      List<ComponentData> connectedComponents, int countChild, int depth) {
-    Offset mainPosition = mainComponent.position;
-    num X = 100 * (countChild + 1);
-    int Y = 150;
+  setComponentOffsetVertically(
+    List<ComponentData> startPoints,
+    List<ComponentData> endPoints,
+    int depth,
+  ) {
+    //  기준 위치
+    double criteriaX = 0;
+    double criteriaY = 0;
+    for (var startPoint in startPoints) {
+      criteriaX += startPoint.position.dx;
+      criteriaY += startPoint.position.dy;
+    }
+    criteriaX = criteriaX / startPoints.length;
+    criteriaY = criteriaY / startPoints.length;
 
-    print('countChild >> $countChild');
-    print('depth >> $depth');
+    // 가중치
+    double X = 150;
+    double Y = 150;
 
-    for (var component in connectedComponents) {
-      canvasWriter.model.setComponentPosition(
-        component.id,
-        Offset(
-            mainPosition.dx +
-                X *
-                    (connectedComponents.indexOf(component) -
-                        (connectedComponents.length - 1) / 2),
-            mainPosition.dy + Y),
-      );
+    // Offset 지정
+    for (var component in endPoints) {
+      int countEndPointChild = getEndPointComponents(
+              component, canvasReader.model.getAllComponents().values.toList())
+          .length as int;
+
+      if (countEndPointChild == 0) {
+        canvasWriter.model.setComponentPosition(
+          component.id,
+          Offset(
+              criteriaX +
+                  X *
+                      (endPoints.indexOf(component) -
+                          (endPoints.length - 1) / 2),
+              criteriaY + Y),
+        );
+      } else {
+        canvasWriter.model.setComponentPosition(
+          component.id,
+          Offset(
+              criteriaX +
+                  X *
+                      countEndPointChild *
+                      (endPoints.indexOf(component) -
+                          (endPoints.length - 1) / 2),
+              criteriaY + Y),
+        );
+      }
     }
   }
 }

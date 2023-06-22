@@ -5,7 +5,7 @@ import 'package:tabbed_view/tabbed_view.dart';
 
 class TabTabsItemController extends GetxController {
   List<TabData> tabs = <TabData>[].obs;
-  var isOpenJobList = JobData().getOpenJobList();
+  var isOpenJobList = JobData().getOpenJobList().obs;
 
 // tab 초기 렌더링 시 탭 그리는 메서드
   void addItemsToTabsList() {
@@ -13,6 +13,7 @@ class TabTabsItemController extends GetxController {
       tabs.add(
         TabData(
           text: job['name'],
+          value: job['id'],
           keepAlive: true,
           content: TabMenuContents(jobId: job['id']),
         ),
@@ -27,6 +28,7 @@ class TabTabsItemController extends GetxController {
     tabs.add(
       TabData(
         text: item['name'],
+        value: item['id'],
         keepAlive: true,
         content: TabMenuContents(jobId: item['id']),
       ),
