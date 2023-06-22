@@ -141,6 +141,35 @@ class TaskData {
           'connection': []
         },
       ],
+    },
+    {
+      "jobId": "job3",
+      "task": [
+        // ROOT
+        {
+          'type': 'schedule',
+          'taskId': 'schedule31',
+          'componentId': '',
+          'position': const Offset(300.0, 100.0),
+          'connection': ['runProgram31']
+        },
+        // DEPTH 1
+        {
+          'type': 'runProgram',
+          'taskId': 'runProgram31',
+          'componentId': '',
+          'position': const Offset(350.0, 250.0),
+          'connection': ['sleep31']
+        },
+        // DEPTH 2
+        {
+          'type': 'sleep',
+          'taskId': 'sleep31',
+          'componentId': '',
+          'position': const Offset(600.0, 400.0),
+          'connection': []
+        },
+      ],
     }
   ];
 

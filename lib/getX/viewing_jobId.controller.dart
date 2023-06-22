@@ -1,11 +1,10 @@
 import 'package:get/get.dart';
 
 class ViewingJobIdController extends GetxController {
-  String viewingJobId = "job1";
-  // String viewingJobId = "job2";
+  RxString viewingJobId = "job1".obs;
 
-  void setViewingJobId(selectedJobId) {
-    viewingJobId = selectedJobId;
+  void setViewingJobId(String selectedJobId) {
+    viewingJobId.value = selectedJobId;
     update();
   }
 }

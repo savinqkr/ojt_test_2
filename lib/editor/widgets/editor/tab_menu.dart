@@ -45,8 +45,6 @@ class _TabMenuPageState extends State<TabMenuPage> {
               var jobId =
                   Get.find<TreeToTabController>().jobList[newTabIndex!]['id'];
               Get.find<ViewingJobIdController>().setViewingJobId(jobId);
-              // print(
-              //     'TAB_MENU : ${Get.find<ViewingJobIdController>().viewingJobId}');
             },
             onTabClose: (tabIndex, tabData) {
               Get.find<TreeToTabController>().changeJobIsOpen(tabData.text);
