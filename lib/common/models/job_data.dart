@@ -1,3 +1,7 @@
+import 'package:get/get.dart';
+import 'package:ojt_test_2/getX/tab_tabs_item_controller.dart';
+import 'package:ojt_test_2/getX/tree_to_tab_controller.dart';
+
 class JobData {
   List<Map> jobList = [
     {
@@ -59,12 +63,12 @@ class JobData {
       "type": "job",
       "name": "Sample $count",
       "groupId": groupId,
-      "isOpen": false
+      "isOpen": true
     });
 
     jobList.add(newItem);
-    getOpenJobList();
-    print(jobList);
+    Get.find<TabTabsItemController>().addItemToTabs(newItem);
+    Get.find<TreeToTabController>().jobList.add(newItem);
   }
 
   // JOB을 삭제하는 메서드
