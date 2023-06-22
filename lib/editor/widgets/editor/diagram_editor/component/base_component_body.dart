@@ -33,19 +33,10 @@ class BaseComponentBody extends StatelessWidget {
           child: Center(
             child: Task(
               icon: getTaskIcon(componentData.type),
-              name: componentData.type.toString(),
+              name: getTaskName(componentData.type),
             ),
           ),
         ),
-
-        // child: Container(
-        //   width: 70,
-        //   height: 70,
-        //   color: Palette.mint.withOpacity(0.5),
-        //   child: Center(
-        //     child: Text(componentData.type.toString()),
-        //   ),
-        // ),
       ),
     );
   }
@@ -70,6 +61,29 @@ class BaseComponentBody extends StatelessWidget {
         return const Icon(MaterialSymbols.dark_mode);
       default:
         return const Icon(MaterialSymbols.terminal);
+    }
+  }
+
+  String getTaskName(String? taskType) {
+    switch (taskType) {
+      case 'starter':
+        return 'Starter';
+      case 'schedule':
+        return 'Schdule';
+      case 'runProgram':
+        return 'RunProgram';
+      case 'jobStatus':
+        return 'JobStatus';
+      case 'executeJob':
+        return 'ExecuteJob';
+      case 'and':
+        return 'AND';
+      case 'or':
+        return 'OR';
+      case 'sleep':
+        return 'Sleep';
+      default:
+        return '';
     }
   }
 }
