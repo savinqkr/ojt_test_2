@@ -38,7 +38,6 @@ class TreeToTabController extends GetxController {
       }
     }
     print('change!');
-    print(jobList);
     update();
   }
 }

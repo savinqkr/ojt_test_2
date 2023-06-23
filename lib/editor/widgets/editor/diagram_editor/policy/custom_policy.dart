@@ -127,7 +127,6 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
   }
 
   removeSelected() {
-    print(multipleSelected);
     for (var compId in multipleSelected) {
       canvasWriter.model.removeComponent(compId);
     }
