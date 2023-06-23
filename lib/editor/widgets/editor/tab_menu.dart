@@ -20,16 +20,16 @@ class _TabMenuPageState extends State<TabMenuPage> {
   late TabbedViewController tabController;
   final TabTabsItemController controller = Get.put(TabTabsItemController());
 
-  @override
-  void initState() {
-    super.initState();
+  // @override
+  // void initState() {
+  //   super.initState();
 
-    Get.find<TabTabsItemController>().addItemsToTabsList();
+  //   // Get.find<TabTabsItemController>().addItemsToTabsList();
 
-    // controller = TabbedViewController(tabController);
+  //   // controller = TabbedViewController(tabController);
 
-    // TabbedView tabbedView = TabbedView(controller: controller);
-  }
+  //   // TabbedView tabbedView = TabbedView(controller: controller);
+  // }
 
 // ---------------------- tab style section ----------------------
   @override
