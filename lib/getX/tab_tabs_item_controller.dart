@@ -19,7 +19,6 @@ class TabTabsItemController extends GetxController {
         ),
       );
     }
-    print(tabs);
     update();
   }
 
@@ -33,7 +32,6 @@ class TabTabsItemController extends GetxController {
         content: TabMenuContents(jobId: item['id']),
       ),
     );
-    print(tabs);
     update();
   }
 }

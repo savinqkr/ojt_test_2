@@ -16,27 +16,35 @@ mixin MyLinkAttachmentPolicy implements LinkAttachmentPolicy {
       pointPosition.dy / componentData.size.height,
     );
 
-    switch (componentData.type) {
-      case 'oval':
-        Offset pointAlignment = pointPosition / pointPosition.distance;
+    // switch (componentData.type) {
+    //   case 'oval':
+    //     Offset pointAlignment = pointPosition / pointPosition.distance;
 
-        return Alignment(pointAlignment.dx, pointAlignment.dy);
-      case 'crystal':
-        Offset pointAlignment =
-            pointPosition / (pointPosition.dx.abs() + pointPosition.dy.abs());
+    //     return Alignment(pointAlignment.dx, pointAlignment.dy);
+    //   case 'crystal':
+    //     Offset pointAlignment =
+    //         pointPosition / (pointPosition.dx.abs() + pointPosition.dy.abs());
 
-        return Alignment(pointAlignment.dx, pointAlignment.dy);
+    //     return Alignment(pointAlignment.dx, pointAlignment.dy);
 
-      default:
-        Offset pointAlignment;
-        if (pointPosition.dx.abs() >= pointPosition.dy.abs()) {
-          pointAlignment = Offset(pointPosition.dx / pointPosition.dx.abs(),
-              pointPosition.dy / pointPosition.dx.abs());
-        } else {
-          pointAlignment = Offset(pointPosition.dx / pointPosition.dy.abs(),
-              pointPosition.dy / pointPosition.dy.abs());
-        }
-        return Alignment(pointAlignment.dx, pointAlignment.dy);
+    //   default:
+    //     Offset pointAlignment;
+    //     if (pointPosition.dx.abs() >= pointPosition.dy.abs()) {
+    //       pointAlignment =
+    //           Offset(0.0, pointPosition.dy / pointPosition.dx.abs());
+    //     } else {
+    //       pointAlignment =
+    //           Offset(0.0, pointPosition.dy / pointPosition.dy.abs());
+    //     }
+    //     return Alignment(pointAlignment.dx, pointAlignment.dy.roundToDouble());
+    // }
+
+    Offset pointAlignment;
+    if (pointPosition.dx.abs() >= pointPosition.dy.abs()) {
+      pointAlignment = Offset(0.0, pointPosition.dy / pointPosition.dx.abs());
+    } else {
+      pointAlignment = Offset(0.0, pointPosition.dy / pointPosition.dy.abs());
     }
+    return Alignment(pointAlignment.dx, pointAlignment.dy.roundToDouble());
   }
 }
