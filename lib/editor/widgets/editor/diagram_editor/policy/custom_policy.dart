@@ -219,10 +219,10 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
       }
       depth++;
     }
-
-    for (var link in allLinks) {
-      canvasWriter.model.moveComponentWithMiddleJoint(link);
-    }
+    // 캔버스에 있는 링크들 연결점 다시 계산
+    // for (var link in allLinks) {
+    //   canvasWriter.model.moveComponentWithMiddleJoint(link);
+    // }
   }
 
   // 수직정렬
@@ -246,14 +246,15 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
       count += startPointList.length;
       // -- startPointList 안의 startPoint 컴포넌트와 연결된 컴포넌트 조회
       for (var startPoint in startPointList) {
-        for (var element in startPoint.connections) {
-          if (element is ConnectionOut) {
-            // print(element.toJson());
-            // print(element.connectionId);
-            canvasWriter.model
-                .moveComponentWithMiddleJoint(element.connectionId);
-          }
-        }
+        // 캔버스에 있는 링크들 연결점 다시 계산
+        // for (var element in startPoint.connections) {
+        //   if (element is ConnectionOut) {
+        //     // print(element.toJson());
+        //     // print(element.connectionId);
+        //     canvasWriter.model
+        //         .moveComponentWithMiddleJoint(element.connectionId);
+        //   }
+        // }
         var connectedComponents =
             getEndPointComponents(startPoint, allComponentsOnCanvasList);
         endPointList.add(connectedComponents);

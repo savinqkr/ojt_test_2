@@ -75,10 +75,10 @@ mixin MyComponentPolicy implements ComponentPolicy, CustomStatePolicy {
     } else {
       canvasWriter.model.moveComponent(componentId, positionDelta);
       var componentData = canvasReader.model.getComponent(componentId);
-      for (var connection in componentData.connections) {
-        canvasWriter.model
-            .moveComponentWithMiddleJoint(connection.connectionId);
-      }
+      // for (var connection in componentData.connections) {
+      //   canvasWriter.model
+      //       .moveComponentWithMiddleJoint(connection.connectionId);
+      // }
     }
     lastFocalPoint = details.localFocalPoint;
   }
