@@ -16,6 +16,8 @@ mixin MyLinkAttachmentPolicy implements LinkAttachmentPolicy {
       pointPosition.dy / componentData.size.height,
     );
 
+    PolicySet policySet = PolicySet();
+
     // switch (componentData.type) {
     //   case 'oval':
     //     Offset pointAlignment = pointPosition / pointPosition.distance;
@@ -39,12 +41,53 @@ mixin MyLinkAttachmentPolicy implements LinkAttachmentPolicy {
     //     return Alignment(pointAlignment.dx, pointAlignment.dy.roundToDouble());
     // }
 
+// 수직 정렬이면 component의 상, 하에만 연결, 수평 정렬이면 좌, 우에만 연결
+// 현재는 상, 하만 구현
     Offset pointAlignment;
-    if (pointPosition.dx.abs() >= pointPosition.dy.abs()) {
-      pointAlignment = Offset(0.0, pointPosition.dy / pointPosition.dx.abs());
-    } else {
-      pointAlignment = Offset(0.0, pointPosition.dy / pointPosition.dy.abs());
+    Alignment alignment;
+
+    switch (policySet.getIsAlignVertically()) {
+      //------------------------------------------------------------------
+      case true:
+        if (pointPosition.dx.abs() >= pointPosition.dy.abs()) {
+          pointAlignment =
+              Offset(0.0, pointPosition.dy / pointPosition.dx.abs());
+        } else {
+          pointAlignment =
+              Offset(0.0, pointPosition.dy / pointPosition.dy.abs());
+        }
+        alignment = (pointAlignment.dy == 0.0 || pointAlignment.dy == -0.0)
+            ? const Alignment(0.0, -1.0)
+            : Alignment(pointAlignment.dx, pointAlignment.dy.roundToDouble());
+        return alignment;
+//-------------------------------------------------------------------------
+      case false:
+        if (pointPosition.dx.abs() >= pointPosition.dy.abs()) {
+          pointAlignment =
+              Offset(pointPosition.dx / pointPosition.dx.abs(), 0.0);
+        } else {
+          pointAlignment =
+              Offset(pointPosition.dx / pointPosition.dy.abs(), 0.0);
+        }
+        alignment = (pointAlignment.dx == 0.0 || pointAlignment.dx == -0.0)
+            ? const Alignment(-1.0, 0.0)
+            : Alignment(pointAlignment.dx.roundToDouble(), pointAlignment.dy);
+
+        return alignment;
+// -------------------------------------------------------------------------
+      default:
+        if (pointPosition.dx.abs() >= pointPosition.dy.abs()) {
+          pointAlignment =
+              Offset(0.0, pointPosition.dy / pointPosition.dx.abs());
+        } else {
+          pointAlignment =
+              Offset(0.0, pointPosition.dy / pointPosition.dy.abs());
+        }
+        // 0.0, -0.0은 component의 중간에 연결됨. -> -1.0 값 부여
+        alignment = (pointAlignment.dy == 0.0 || pointAlignment.dy == -0.0)
+            ? const Alignment(0.0, -1.0)
+            : Alignment(pointAlignment.dx, pointAlignment.dy.roundToDouble());
+        return alignment;
     }
-    return Alignment(pointAlignment.dx, pointAlignment.dy.roundToDouble());
   }
 }
