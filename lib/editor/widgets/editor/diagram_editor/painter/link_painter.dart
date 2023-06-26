@@ -22,6 +22,7 @@ class LinkPainter extends CustomPainter {
 
     for (int i = 0; i < linkPoints.length - 1; i++) {
       if (linkPoints.length == 2) {
+        // 직선
         canvas.drawPath(
           linkStyle.getLinePath(
             VectorUtils.getShorterLineStart(
@@ -39,6 +40,7 @@ class LinkPainter extends CustomPainter {
           paint,
         );
       } else if (i == 0) {
+        // startpoint
         canvas.drawPath(
           linkStyle.getLinePath(
             VectorUtils.getShorterLineStart(
@@ -52,6 +54,7 @@ class LinkPainter extends CustomPainter {
           paint,
         );
       } else if (i == linkPoints.length - 2) {
+        // endpoint
         canvas.drawPath(
           linkStyle.getLinePath(
             linkPoints[i],
@@ -65,6 +68,7 @@ class LinkPainter extends CustomPainter {
           paint,
         );
       } else {
+        // middle
         canvas.drawPath(
             linkStyle.getLinePath(linkPoints[i], linkPoints[i + 1], scale),
             paint);
@@ -72,6 +76,8 @@ class LinkPainter extends CustomPainter {
     }
 
     paint.style = PaintingStyle.fill;
+
+    // arrow direction
     canvas.drawPath(
         linkStyle.getArrowTipPath(
           linkStyle.arrowType,
