@@ -10,9 +10,10 @@ class TreeToTabController extends GetxController {
 // tree에서 선택한 작업의 이름 가져와서
 // isOpen이 true면 일단 프린트 (나중에 포커싱으로 변경)
 // isOpen이 false면 tabs에 추가
-  getSelectedJobId(String newJobId) {
+  getSelectedJobId(String newJobName) {
+    print(newJobName);
     for (var item in jobList) {
-      if (newJobId == item['name']) {
+      if (newJobName == item['name']) {
         if (item['isOpen'] == true) {
           // focus 추가
         } else if (item['isOpen'] == false) {
@@ -26,14 +27,15 @@ class TreeToTabController extends GetxController {
   }
 
 // isOpen 상태 변경
-  void changeJobIsOpen(closeJobId) {
+  void changeJobIsOpen(closeJobName) {
     for (var item in jobList) {
-      if (item['name'] == closeJobId) {
+      if (item['name'] == closeJobName) {
         if (item['isOpen'] == true) {
           item['isOpen'] = false;
         }
       }
     }
+    print('$closeJobName CLOSED');
     update();
   }
 }

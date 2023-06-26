@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_material_symbols/flutter_material_symbols.dart';
 import 'package:ojt_test_2/common/screens/preparing_screen.dart';
+import 'package:ojt_test_2/editor/screens/jobflow_screen.dart';
 import 'package:ojt_test_2/enums/menu.dart';
 import 'package:ojt_test_2/config/palette.dart';
 import 'package:ojt_test_2/home/screens/home_screen.dart';
@@ -124,6 +125,12 @@ class SidebarMenuButton extends StatelessWidget {
           size: 24,
           color: isSelected ? Palette.mint : Palette.black,
         );
+      case MenuTypes.jobFlow:
+        return Icon(
+          MaterialSymbols.flowsheet,
+          size: 24,
+          color: isSelected ? Palette.mint : Palette.black,
+        );
       case MenuTypes.notice:
         return Container(
           width: 22,
@@ -172,6 +179,7 @@ class SidebarMenuButton extends StatelessWidget {
             color: isSelected ? Palette.mint : Palette.black,
           ),
         );
+
       default:
         return const Text('No content available');
     }
@@ -201,6 +209,8 @@ class SidebarMenuButton extends StatelessWidget {
         return NoticeScreen.route;
       case MenuTypes.help:
         return HelpScreen.route;
+      case MenuTypes.jobFlow:
+        return JobFlowScreem.route;
       case MenuTypes.preparing:
         return PreparingScreen.route;
       default:
@@ -232,6 +242,8 @@ class SidebarMenuButton extends StatelessWidget {
         return const NoticeScreen();
       case MenuTypes.help:
         return const HelpScreen();
+      case MenuTypes.jobFlow:
+        return const JobFlowScreem();
       case MenuTypes.preparing:
         return const PreparingScreen();
       default:
