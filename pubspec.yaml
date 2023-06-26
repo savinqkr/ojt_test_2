@@ -37,7 +37,11 @@ dependencies:
 
   resizable_widget: ^1.0.5
 
-  diagram_editor: ^0.1.6
+  # diagram_editor: ^0.1.6
+  diagram_editor:
+    git:
+      url: https://github.com/kicu-xxo/flutter_diagram_editor.git
+      ref: master
   flutter_colorpicker: ^1.0.3
 
   # https://pub.dev/packages/get/install

@@ -127,6 +127,7 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
   }
 
   removeSelected() {
+    print(multipleSelected);
     for (var compId in multipleSelected) {
       canvasWriter.model.removeComponent(compId);
     }
@@ -169,6 +170,7 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
     // -- 시작점 & 끝점 컴포넌트 리스트
     List<ComponentData> startPointList = [rootComponent];
     List<List<ComponentData>> endPointList = [];
+    List<String> allLinks = [];
 
     // -- while 문 종료 조건 : count = 캔버스 위 전체 컴포넌트 수
     int count = 0;
@@ -176,8 +178,18 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
 
     while (count < allComponentsOnCanvasList.length) {
       count += startPointList.length;
+
       // -- startPointList 안의 startPoint 컴포넌트와 연결된 컴포넌트 조회
       for (var startPoint in startPointList) {
+        for (var element in startPoint.connections) {
+          if (element is ConnectionOut) {
+            // print(element.toJson());
+            // print(element.connectionId);
+            // canvasWriter.model
+            //     .moveComponentWithMiddleJoint(element.connectionId);
+            allLinks.add(element.connectionId);
+          }
+        }
         var connectedComponents =
             getEndPointComponents(startPoint, allComponentsOnCanvasList);
         endPointList.add(connectedComponents);
@@ -207,6 +219,10 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
       }
       depth++;
     }
+
+    for (var link in allLinks) {
+      canvasWriter.model.moveComponentWithMiddleJoint(link);
+    }
   }
 
   // 수직정렬
@@ -230,6 +246,14 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
       count += startPointList.length;
       // -- startPointList 안의 startPoint 컴포넌트와 연결된 컴포넌트 조회
       for (var startPoint in startPointList) {
+        for (var element in startPoint.connections) {
+          if (element is ConnectionOut) {
+            // print(element.toJson());
+            // print(element.connectionId);
+            canvasWriter.model
+                .moveComponentWithMiddleJoint(element.connectionId);
+          }
+        }
         var connectedComponents =
             getEndPointComponents(startPoint, allComponentsOnCanvasList);
         endPointList.add(connectedComponents);

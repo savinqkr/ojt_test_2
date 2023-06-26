@@ -36,6 +36,9 @@ class _EditorState extends State<Editor> {
 
   @override
   Widget build(BuildContext context) {
+    // diagram_editor LinkAlignController 가져옴
+    myPolicySet.getPutLinkAlignController();
+
     //  DIAGRAM EDITOR  //
     return SafeArea(
       child: Stack(
@@ -128,13 +131,17 @@ class _EditorState extends State<Editor> {
                       ),
                       // 수평정렬
                       CanvasOptionIcon(
-                        size: 32,
-                        icon: const Icon(Icons.align_horizontal_center,
-                            size: 20, color: Palette.darkGrey),
-                        tooltip: 'Align Horizontally',
-                        onPressed: () =>
-                            myPolicySet.alignComponentsHorizontally(),
-                      ),
+                          size: 32,
+                          icon: const Icon(Icons.align_horizontal_center,
+                              size: 20, color: Palette.darkGrey),
+                          tooltip: 'Align Horizontally',
+                          onPressed: () {
+                            myPolicySet.alignComponentsHorizontally();
+                            setState(() {
+                              myPolicySet.changeIsAlignHorizontallyState(false);
+                            });
+                            // print(myPolicySet.getIsAlignVertically());
+                          }),
                       // 수직정렬
                       CanvasOptionIcon(
                         size: 32,
@@ -144,6 +151,8 @@ class _EditorState extends State<Editor> {
                         onPressed: () {
                           setState(() {
                             myPolicySet.alignComponentsVertically();
+                            myPolicySet.changeIsAlignHorizontallyState(true);
+                            // print(myPolicySet.getIsAlignVertically());
                           });
                         },
                       ),

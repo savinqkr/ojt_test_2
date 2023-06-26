@@ -4,6 +4,7 @@ import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/policy/custom_po
 mixin MyCanvasPolicy implements CanvasPolicy, CustomStatePolicy {
   @override
   onCanvasTap() {
+    //
     multipleSelected = [];
 
     if (isReadyToConnect) {
