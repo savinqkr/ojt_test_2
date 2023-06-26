@@ -61,6 +61,7 @@ dependencies:
   expandable_menu: ^0.0.5
   align_positioned: ^3.0.0
   indexed: ^0.0.8
+  dotted_border: ^2.0.0+3
 
 dev_dependencies:
   flutter_test:

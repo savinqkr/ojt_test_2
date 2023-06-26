@@ -7,8 +7,10 @@ import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/component/bend_l
 import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/component/bend_right_component.dart';
 import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/component/crystal_component.dart';
 import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/component/document_component.dart';
+import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/component/group_component.dart';
 import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/component/hexagon_horizontal_component.dart';
 import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/component/hexagon_vertical_component.dart';
+import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/component/job_component.dart';
 import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/component/no_corner_rect_component.dart';
 import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/component/oval_component.dart';
 import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/component/rect_component.dart';
@@ -72,6 +74,10 @@ mixin MyComponentDesignPolicy implements ComponentDesignPolicy {
         return TaskComponentBody(componentData: componentData);
       case 'sleep':
         return TaskComponentBody(componentData: componentData);
+      case 'job':
+        return JobComponentBody(componentData: componentData);
+      case 'group':
+        return GroupComponentBody(componentData: componentData);
       default:
         return TaskComponentBody(componentData: componentData);
     }

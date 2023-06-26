@@ -36,6 +36,11 @@ class SidebarMenu extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               SidebarMenuButton(
+                menuName: MenuTypes.jobFlow,
+                isSelected: currentMenu == MenuTypes.jobFlow,
+              ),
+              const SizedBox(height: 10),
+              SidebarMenuButton(
                 menuName: MenuTypes.planner,
                 isSelected: currentMenu == MenuTypes.planner,
               ),

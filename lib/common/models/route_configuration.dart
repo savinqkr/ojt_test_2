@@ -3,6 +3,7 @@ import 'package:ojt_test_2/approval/screens/approval_screen.dart';
 import 'package:ojt_test_2/common/models/path.dart';
 import 'package:ojt_test_2/common/screens/preparing_screen.dart';
 import 'package:ojt_test_2/editor/screens/editor_screen.dart';
+import 'package:ojt_test_2/editor/screens/jobflow_screen.dart';
 import 'package:ojt_test_2/focusview/screens/focusview_screen.dart';
 import 'package:ojt_test_2/help/screens/help_screen.dart';
 import 'package:ojt_test_2/home/screens/home_screen.dart';
@@ -62,6 +63,10 @@ class RouteConfiguration {
     Path(
       r'^' + PreparingScreen.route,
       (context, match) => const PreparingScreen(),
+    ),
+    Path(
+      r'^' + JobFlowScreem.route,
+      (context, match) => const JobFlowScreem(),
     ),
   ];
 

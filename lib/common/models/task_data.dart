@@ -170,7 +170,7 @@ class TaskData {
           'connection': []
         },
       ],
-    }
+    },
   ];
 
   getTaskList(String jobId) {

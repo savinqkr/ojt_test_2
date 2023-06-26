@@ -173,7 +173,7 @@ class _MyTreeTileState extends State<MyTreeTile> {
       onTap: () {
         Get.find<TreeToTabController>()
             .getSelectedJobId(widget.entry.node.title);
-        print('select!!');
+        widget.entry.node.isGroup ? print("GROUP") : print("JOB");
       },
       onSecondaryTapDown: (details) {
         final RenderBox overlay =
