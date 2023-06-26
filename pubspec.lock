@@ -102,7 +102,7 @@ packages:
     description:
       path: "."
       ref: master
-      resolved-ref: "2386f5ae30f0c39fc0735c88a03102357892672f"
+      resolved-ref: c81c10564eb7185602a30305d403ebf2a3c43af3
       url: "https://github.com/kicu-xxo/flutter_diagram_editor.git"
     source: git
     version: "0.1.6"

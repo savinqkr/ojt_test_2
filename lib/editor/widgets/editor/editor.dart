@@ -137,9 +137,10 @@ class _EditorState extends State<Editor> {
                           tooltip: 'Align Horizontally',
                           onPressed: () {
                             myPolicySet.alignComponentsHorizontally();
-                            setState(() {
-                              myPolicySet.changeIsAlignHorizontallyState(false);
-                            });
+                            // 정렬 버튼 클릭 시 상태 바뀜 false
+                            // setState(() {
+                            //   myPolicySet.changeIsAlignHorizontallyState(false);
+                            // });
                             // print(myPolicySet.getIsAlignVertically());
                           }),
                       // 수직정렬
@@ -151,7 +152,8 @@ class _EditorState extends State<Editor> {
                         onPressed: () {
                           setState(() {
                             myPolicySet.alignComponentsVertically();
-                            myPolicySet.changeIsAlignHorizontallyState(true);
+                            // 정렬 버튼 클릭 시 상태 바뀜 true
+                            // myPolicySet.changeIsAlignHorizontallyState(true);
                             // print(myPolicySet.getIsAlignVertically());
                           });
                         },
