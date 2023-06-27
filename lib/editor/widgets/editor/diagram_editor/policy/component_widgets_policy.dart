@@ -137,7 +137,7 @@ mixin MyComponentWidgetsPolicy
                     shape: BoxShape.circle,
                   ),
                   TaskOptionIcon(
-                    iconData: Icons.rectangle,
+                    iconData: Icons.arrow_upward,
                     tooltip: 'Bring to front',
                     size: 30,
                     onPressed: () {
