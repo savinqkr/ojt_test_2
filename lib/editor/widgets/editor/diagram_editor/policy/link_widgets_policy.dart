@@ -1,7 +1,10 @@
 import 'package:diagram_editor/diagram_editor.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_material_symbols/flutter_material_symbols.dart';
+import 'package:get/get.dart';
 import 'package:ojt_test_2/config/palette.dart';
 import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/policy/custom_policy.dart';
+import 'package:ojt_test_2/getX/link_state_controller.dart';
 
 mixin MyLinkWidgetsPolicy implements LinkWidgetsPolicy, CustomStatePolicy {
   @override
@@ -38,6 +41,8 @@ mixin MyLinkWidgetsPolicy implements LinkWidgetsPolicy, CustomStatePolicy {
 
   Widget showLinkOptions(BuildContext context, LinkData linkData) {
     var nPos = canvasReader.state.toCanvasCoordinates(tapLinkPosition);
+    Get.put(LinkStateController());
+
     return Positioned(
       left: nPos.dx,
       top: nPos.dy,
@@ -74,6 +79,8 @@ mixin MyLinkWidgetsPolicy implements LinkWidgetsPolicy, CustomStatePolicy {
           //       child: const Center(child: Icon(Icons.edit, size: 20))),
           // ),
           const SizedBox(width: 8),
+          // ------------------------- ALL ( GREEN ) ------------------------- //
+
           GestureDetector(
             onTap: () {
               linkData.linkStyle.color = Palette.ok;
@@ -95,6 +102,7 @@ mixin MyLinkWidgetsPolicy implements LinkWidgetsPolicy, CustomStatePolicy {
                 )),
           ),
           const SizedBox(width: 8),
+          // ------------------------- ALL ( GREEN ) ------------------------- //
           GestureDetector(
             onTap: () {
               linkData.linkStyle.color = Palette.all;
@@ -115,6 +123,7 @@ mixin MyLinkWidgetsPolicy implements LinkWidgetsPolicy, CustomStatePolicy {
                     )),
           ),
           const SizedBox(width: 8),
+          // ------------------------- ERROR ( RED ) ------------------------- //
           GestureDetector(
             onTap: () {
               linkData.linkStyle.color = Palette.error;
@@ -133,6 +142,113 @@ mixin MyLinkWidgetsPolicy implements LinkWidgetsPolicy, CustomStatePolicy {
                   //   'Error',
                   //   style: TextStyle(color: Palette.white, fontSize: 12),
                   // ),
+                )),
+          ),
+          const SizedBox(width: 8),
+          // ------------------------- CURVED LINE ------------------------- //
+          GestureDetector(
+            onTap: () {
+              Offset sourceComponentPosition = canvasReader.model
+                  .getComponent(linkData.sourceComponentId)
+                  .position;
+              Offset targetComponentPosition = canvasReader.model
+                  .getComponent(linkData.targetComponentId)
+                  .position;
+              if (Get.find<LinkStateController>().isAlignVertically) {
+                linkData.setStart(Offset(sourceComponentPosition.dx + 35,
+                    sourceComponentPosition.dy + 70));
+                linkData.setEnd(Offset(targetComponentPosition.dx + 35,
+                    targetComponentPosition.dy));
+                linkData.insertMiddlePoint(
+                    Offset(
+                        sourceComponentPosition.dx + 35,
+                        (sourceComponentPosition.dy +
+                                70 +
+                                targetComponentPosition.dy) /
+                            2),
+                    1);
+                linkData.insertMiddlePoint(
+                    Offset(
+                        targetComponentPosition.dx + 35,
+                        (sourceComponentPosition.dy +
+                                70 +
+                                targetComponentPosition.dy) /
+                            2),
+                    2);
+              } else {
+                linkData.setStart(Offset(sourceComponentPosition.dx + 70,
+                    sourceComponentPosition.dy + 35));
+                linkData.setEnd(Offset(targetComponentPosition.dx,
+                    targetComponentPosition.dy + 35));
+                linkData.insertMiddlePoint(
+                    Offset(
+                        (sourceComponentPosition.dx +
+                                70 +
+                                targetComponentPosition.dx) /
+                            2,
+                        sourceComponentPosition.dy + 35),
+                    1);
+                linkData.insertMiddlePoint(
+                    Offset(
+                        (sourceComponentPosition.dx +
+                                70 +
+                                targetComponentPosition.dx) /
+                            2,
+                        targetComponentPosition.dy + 35),
+                    2);
+              }
+              linkData.hideJoints();
+            },
+            child: Container(
+                decoration: BoxDecoration(
+                  color: Palette.yellow.withOpacity(0.5),
+                  shape: BoxShape.circle,
+                ),
+                width: 32,
+                height: 32,
+                child: const Center(
+                  child: Icon(MaterialSymbols.moving, size: 20),
+                )),
+          ),
+          const SizedBox(width: 8),
+          // ------------------------- STRAIGHT LINE ------------------------- //
+          GestureDetector(
+            onTap: () {
+              Offset sourceComponentPosition = canvasReader.model
+                  .getComponent(linkData.sourceComponentId)
+                  .position;
+              Offset targetComponentPosition = canvasReader.model
+                  .getComponent(linkData.targetComponentId)
+                  .position;
+              if (Get.find<LinkStateController>().isAlignVertically) {
+                linkData.setStart(Offset(sourceComponentPosition.dx + 35,
+                    sourceComponentPosition.dy + 70));
+                linkData.setEnd(Offset(targetComponentPosition.dx + 35,
+                    targetComponentPosition.dy));
+              } else {
+                linkData.setStart(Offset(sourceComponentPosition.dx + 70,
+                    sourceComponentPosition.dy + 35));
+                linkData.setEnd(Offset(targetComponentPosition.dx,
+                    targetComponentPosition.dy + 35));
+              }
+
+              if (linkData.linkPoints.length > 3) {
+                // ignore: unused_local_variable
+                for (var element in linkData.linkPoints) {
+                  linkData.removeMiddlePoint(1);
+                }
+              }
+              linkData.hideJoints();
+            },
+            child: Container(
+                decoration: BoxDecoration(
+                  color: Palette.yellow.withOpacity(0.5),
+                  shape: BoxShape.circle,
+                ),
+                width: 32,
+                height: 32,
+                child: const Center(
+                  child: Icon(MaterialSymbols.straight, size: 20),
                 )),
           ),
         ],

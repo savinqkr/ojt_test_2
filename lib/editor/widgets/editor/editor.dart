@@ -1,10 +1,13 @@
 import 'package:diagram_editor/diagram_editor.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_material_symbols/flutter_material_symbols.dart';
+import 'package:get/get.dart';
 import 'package:ojt_test_2/config/palette.dart';
 import 'package:ojt_test_2/editor/widgets/editor/canvas_option_icon.dart';
 import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/policy/minimap_policy.dart';
 import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/policy/my_policy_set.dart';
 import 'package:ojt_test_2/editor/widgets/task_menu/task_menu.dart';
+import 'package:ojt_test_2/getX/link_state_controller.dart';
 
 class Editor extends StatefulWidget {
   const Editor({super.key});
@@ -36,8 +39,10 @@ class _EditorState extends State<Editor> {
 
   @override
   Widget build(BuildContext context) {
-    // diagram_editor LinkAlignController 가져옴
+    // diagram_editor LinkAlignController 가져옴 ---> 제거 필요
     myPolicySet.getPutLinkAlignController();
+
+    Get.put(LinkStateController());
 
     //  DIAGRAM EDITOR  //
     return SafeArea(
@@ -98,7 +103,18 @@ class _EditorState extends State<Editor> {
                           print('save');
                         },
                       ),
-                      // 그리드
+                      // ---------------------- 뷰 초기화
+                      CanvasOptionIcon(
+                        size: 32,
+                        icon: const Icon(
+                          Icons.replay,
+                          size: 20,
+                          color: Palette.darkGrey,
+                        ),
+                        tooltip: 'Reset view',
+                        onPressed: () => myPolicySet.resetView(),
+                      ),
+                      // ---------------------- 그리드
                       CanvasOptionIcon(
                         size: 32,
                         icon: Icon(
@@ -118,47 +134,63 @@ class _EditorState extends State<Editor> {
                           });
                         },
                       ),
-                      // 뷰 초기화
+
+                      // ---------------------- 직선
                       CanvasOptionIcon(
                         size: 32,
-                        icon: const Icon(
-                          Icons.replay,
-                          size: 20,
-                          color: Palette.darkGrey,
-                        ),
-                        tooltip: 'Reset view',
-                        onPressed: () => myPolicySet.resetView(),
+                        icon: const Icon(MaterialSymbols.straight,
+                            size: 20, color: Palette.darkGrey),
+                        tooltip: 'Straight Line',
+                        onPressed: () {
+                          myPolicySet.allStraightLine(
+                              Get.find<LinkStateController>()
+                                  .isAlignVertically);
+                          Get.find<LinkStateController>()
+                              .changeIsStraightLine(true);
+                        },
                       ),
-                      // 수평정렬
+                      // ---------------------- 꺾은선
+                      CanvasOptionIcon(
+                        size: 32,
+                        icon: const Icon(MaterialSymbols.moving,
+                            size: 20, color: Palette.darkGrey),
+                        tooltip: 'Curved Line',
+                        onPressed: () {
+                          myPolicySet.allCurvedLine(
+                              Get.find<LinkStateController>()
+                                  .isAlignVertically);
+                          Get.find<LinkStateController>()
+                              .changeIsStraightLine(false);
+                        },
+                      ),
+                      // ---------------------- 수평정렬
                       CanvasOptionIcon(
                           size: 32,
-                          icon: const Icon(Icons.align_horizontal_center,
+                          icon: const Icon(Icons.align_vertical_center,
                               size: 20, color: Palette.darkGrey),
                           tooltip: 'Align Horizontally',
                           onPressed: () {
-                            myPolicySet.alignComponentsHorizontally();
-                            // 정렬 버튼 클릭 시 상태 바뀜 false
-                            // setState(() {
-                            //   myPolicySet.changeIsAlignHorizontallyState(false);
-                            // });
-                            // print(myPolicySet.getIsAlignVertically());
+                            myPolicySet.alignComponentsHorizontally(
+                                Get.find<LinkStateController>().isStraightLine);
+
+                            Get.find<LinkStateController>()
+                                .changeIsAlignHorizontally(false);
                           }),
-                      // 수직정렬
+                      // ---------------------- 수직정렬
                       CanvasOptionIcon(
                         size: 32,
-                        icon: const Icon(Icons.align_vertical_center,
+                        icon: const Icon(Icons.align_horizontal_center,
                             size: 20, color: Palette.darkGrey),
                         tooltip: 'Align Vertically',
                         onPressed: () {
-                          setState(() {
-                            myPolicySet.alignComponentsVertically();
-                            // 정렬 버튼 클릭 시 상태 바뀜 true
-                            // myPolicySet.changeIsAlignHorizontallyState(true);
-                            // print(myPolicySet.getIsAlignVertically());
-                          });
+                          myPolicySet.alignComponentsVertically(
+                              Get.find<LinkStateController>().isStraightLine);
+
+                          Get.find<LinkStateController>()
+                              .changeIsAlignHorizontally(true);
                         },
                       ),
-                      // 전체 삭제
+                      // ---------------------- 전체 삭제
                       CanvasOptionIcon(
                         size: 32,
                         icon: const Icon(Icons.delete_forever,
@@ -167,7 +199,7 @@ class _EditorState extends State<Editor> {
                         onPressed: () => myPolicySet.removeAll(),
                       ),
 
-                      // 다중 선택
+                      // ---------------------- 다중 선택
                       CanvasOptionIcon(
                         size: 32,
                         icon: Icon(

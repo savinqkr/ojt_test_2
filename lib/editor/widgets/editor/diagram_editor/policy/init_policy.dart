@@ -152,6 +152,7 @@ mixin MyInitPolicy implements InitPolicy {
 
 getTaskData(Offset position, String type) {
   return ComponentData(
+    size: const Size(70, 70),
     type: type,
     position: position,
     data: MyComponentData(),

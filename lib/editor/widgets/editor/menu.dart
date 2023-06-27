@@ -68,10 +68,6 @@ class DraggableMenu extends StatelessWidget {
         );
       default:
         return ComponentData(
-          // size: const Size(120, 72),
-          // minSize: const Size(80, 64),
-          size: const Size(80, 80),
-          minSize: const Size(80, 80),
           data: MyComponentData(
             color: Colors.white,
             borderColor: Colors.black,
