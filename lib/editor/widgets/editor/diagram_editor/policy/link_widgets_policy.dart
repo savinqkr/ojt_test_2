@@ -48,6 +48,9 @@ mixin MyLinkWidgetsPolicy implements LinkWidgetsPolicy, CustomStatePolicy {
       top: nPos.dy,
       child: Row(
         children: [
+          // =====================================================================
+          //   REMOVE LINK
+          // =====================================================================
           GestureDetector(
             onTap: () {
               canvasWriter.model.removeLink(linkData.id);
@@ -79,8 +82,9 @@ mixin MyLinkWidgetsPolicy implements LinkWidgetsPolicy, CustomStatePolicy {
           //       child: const Center(child: Icon(Icons.edit, size: 20))),
           // ),
           const SizedBox(width: 8),
-          // ------------------------- ALL ( GREEN ) ------------------------- //
-
+          // =====================================================================
+          //   OK ( BLUE )
+          // =====================================================================
           GestureDetector(
             onTap: () {
               linkData.linkStyle.color = Palette.ok;
@@ -102,7 +106,9 @@ mixin MyLinkWidgetsPolicy implements LinkWidgetsPolicy, CustomStatePolicy {
                 )),
           ),
           const SizedBox(width: 8),
-          // ------------------------- ALL ( GREEN ) ------------------------- //
+          // =====================================================================
+          //   ALL ( GREEN )
+          // =====================================================================
           GestureDetector(
             onTap: () {
               linkData.linkStyle.color = Palette.all;
@@ -123,7 +129,9 @@ mixin MyLinkWidgetsPolicy implements LinkWidgetsPolicy, CustomStatePolicy {
                     )),
           ),
           const SizedBox(width: 8),
-          // ------------------------- ERROR ( RED ) ------------------------- //
+          // =====================================================================
+          //   ERROR ( RED )
+          // =====================================================================
           GestureDetector(
             onTap: () {
               linkData.linkStyle.color = Palette.error;
@@ -145,7 +153,9 @@ mixin MyLinkWidgetsPolicy implements LinkWidgetsPolicy, CustomStatePolicy {
                 )),
           ),
           const SizedBox(width: 8),
-          // ------------------------- CURVED LINE ------------------------- //
+          // =====================================================================
+          //   CURVED LINE
+          // =====================================================================
           GestureDetector(
             onTap: () {
               Offset sourceComponentPosition = canvasReader.model
@@ -211,7 +221,9 @@ mixin MyLinkWidgetsPolicy implements LinkWidgetsPolicy, CustomStatePolicy {
                 )),
           ),
           const SizedBox(width: 8),
-          // ------------------------- STRAIGHT LINE ------------------------- //
+          // =====================================================================
+          //   STRAIGHT LINE
+          // =====================================================================
           GestureDetector(
             onTap: () {
               Offset sourceComponentPosition = canvasReader.model
