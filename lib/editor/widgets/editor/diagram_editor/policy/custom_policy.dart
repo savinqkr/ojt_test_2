@@ -537,6 +537,83 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
                 (sourceComponentPosition.dy + 70 + targetComponentPosition.dy) /
                     2),
             2);
+
+        // =====================================================================
+        //   JOINT 추가
+        // =====================================================================
+        // value.insertMiddlePoint(
+        //     Offset(
+        //         sourceComponentPosition.dx + 35,
+        //         (sourceComponentPosition.dy + 70 + targetComponentPosition.dy) /
+        //                 2 -
+        //             30),
+        //     1);
+        // if (sourceComponentPosition.dx > targetComponentPosition.dx) {
+        //   for (int i = 0; i < 5; i++) {
+        //     value.insertMiddlePoint(
+        //         Offset(
+        //             sourceComponentPosition.dx + 35 - 2 * (i + 1),
+        //             (sourceComponentPosition.dy +
+        //                         70 +
+        //                         targetComponentPosition.dy) /
+        //                     2 +
+        //                 1 * (i + 1)),
+        //         2 + i);
+        //   }
+        //   for (int i = 0; i < 5; i++) {
+        //     value.insertMiddlePoint(
+        //         Offset(
+        //             targetComponentPosition.dx + 45 - 2 * (i + 1),
+        //             (sourceComponentPosition.dy +
+        //                         70 +
+        //                         targetComponentPosition.dy) /
+        //                     2 +
+        //                 1 * (i + 1)),
+        //         7 + i);
+        //   }
+        // } else if (sourceComponentPosition.dx < targetComponentPosition.dx) {
+        //   for (int i = 0; i < 5; i++) {
+        //     value.insertMiddlePoint(
+        //         Offset(
+        //             sourceComponentPosition.dx + 35 + 2 * (i + 1),
+        //             (sourceComponentPosition.dy +
+        //                         70 +
+        //                         targetComponentPosition.dy) /
+        //                     2 +
+        //                 1 * (i + 1)),
+        //         2 + i);
+        //   }
+        //   for (int i = 0; i < 5; i++) {
+        //     value.insertMiddlePoint(
+        //         Offset(
+        //             targetComponentPosition.dx + 25 + 2 * (i + 1),
+        //             (sourceComponentPosition.dy +
+        //                         70 +
+        //                         targetComponentPosition.dy) /
+        //                     2 +
+        //                 1 * (i + 1)),
+        //         7 + i);
+        //   }
+        // } else {
+        //   for (int i = 0; i < 10; i++) {
+        //     value.insertMiddlePoint(
+        //         Offset(
+        //             sourceComponentPosition.dx + 35,
+        //             (sourceComponentPosition.dy +
+        //                         70 +
+        //                         targetComponentPosition.dy) /
+        //                     2 +
+        //                 2 * (i + 1)),
+        //         2 + i);
+        //   }
+        // }
+        // value.insertMiddlePoint(
+        //     Offset(
+        //         targetComponentPosition.dx + 35,
+        //         (sourceComponentPosition.dy + 70 + targetComponentPosition.dy) /
+        //                 2 +
+        //             20),
+        //     12);
       } else {
         value.setStart(Offset(
             sourceComponentPosition.dx + 70, sourceComponentPosition.dy + 35));
