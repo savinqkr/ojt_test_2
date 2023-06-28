@@ -36,6 +36,9 @@ class _JobFlowState extends State<JobFlow> {
 
   @override
   Widget build(BuildContext context) {
+    // diagram_editor LinkAlignController 가져옴 ---> 제거 필요
+    myPolicySet.getPutLinkAlignController();
+
     return SafeArea(
       child: Stack(
         children: [

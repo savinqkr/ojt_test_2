@@ -1,13 +1,12 @@
 // ignore_for_file: avoid_web_libraries_in_flutter
 
-import 'dart:html';
-
 import 'package:diagram_editor/diagram_editor.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ojt_test_2/common/models/task_data.dart';
 import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/data/custom_component_data.dart';
 import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/data/custom_link_data.dart';
+import 'package:ojt_test_2/getX/jobflow_controller.dart';
 import 'package:ojt_test_2/getX/viewing_jobId.controller.dart';
 
 mixin MyInitPolicy implements InitPolicy {
@@ -16,11 +15,12 @@ mixin MyInitPolicy implements InitPolicy {
   @override
   initializeDiagramEditor() {
     Get.put(ViewingJobIdController());
+    Get.put(JobFlowController());
 
     // Initialize the diagram editor with the default value
-    viewingJobId = window.location.hash.substring(2) == 'editor'
-        ? Get.find<ViewingJobIdController>().viewingJobId.value
-        : 'jobflow';
+    viewingJobId = Get.find<JobFlowController>().isJobFlow
+        ? 'jobflow'
+        : Get.find<ViewingJobIdController>().viewingJobId.value;
     initializeEditorWithJobId(viewingJobId);
 
     // Listen to changes in viewingJobId using `ever`
