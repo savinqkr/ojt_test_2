@@ -506,11 +506,17 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
             targetComponentPosition.dx, targetComponentPosition.dy + 35));
       }
 
-      if (value.linkPoints.length > 3) {
-        for (var element in value.linkPoints) {
-          value.removeMiddlePoint(1);
+      if (value.linkPoints.length > 2) {
+        var indexesToRemove =
+            List<int>.generate(value.linkPoints.length - 2, (i) => i + 1);
+        indexesToRemove
+            .sort((a, b) => b.compareTo(a)); // Reverse sort the indexes
+
+        for (var index in indexesToRemove) {
+          value.removeMiddlePoint(index);
         }
       }
+
       value.hideJoints();
     }
   }
