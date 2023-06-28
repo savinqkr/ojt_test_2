@@ -484,7 +484,11 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
 
   // 직선
   allStraightLine(bool isAlignVertically) {
-    canvasReader.model.getAllLinks().forEach((key, value) {
+    List<MapEntry<String, LinkData>> links =
+        List.from(canvasReader.model.getAllLinks().entries);
+
+    for (var entry in links) {
+      LinkData value = entry.value;
       Offset sourceComponentPosition =
           canvasReader.model.getComponent(value.sourceComponentId).position;
       Offset targetComponentPosition =
@@ -503,13 +507,12 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
       }
 
       if (value.linkPoints.length > 3) {
-        // ignore: unused_local_variable
         for (var element in value.linkPoints) {
           value.removeMiddlePoint(1);
         }
       }
       value.hideJoints();
-    });
+    }
   }
 
   // 꺾은선
