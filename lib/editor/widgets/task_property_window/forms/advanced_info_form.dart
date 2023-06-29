@@ -14,7 +14,7 @@ class AdvancedInfoForm extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.put(TaskPropertyController());
 
-    TextEditingController precedingProgram = TextEditingController();
+    // TextEditingController precedingProgram = TextEditingController();
     TextEditingController preferences = TextEditingController();
 
     return Container(
