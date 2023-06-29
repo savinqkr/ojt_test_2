@@ -154,6 +154,20 @@ class _EditorState extends State<Editor> {
                         size: 32,
                         icon: const Icon(MaterialSymbols.moving,
                             size: 20, color: Palette.darkGrey),
+                        tooltip: 'Broken Line',
+                        onPressed: () {
+                          myPolicySet.allCurvedLine(
+                              Get.find<LinkStateController>()
+                                  .isAlignVertically);
+                          Get.find<LinkStateController>()
+                              .changeIsStraightLine(false);
+                        },
+                      ),
+                      // ---------------------- 곡선
+                      CanvasOptionIcon(
+                        size: 32,
+                        icon: const Icon(MaterialSymbols.airline_stops,
+                            size: 20, color: Palette.darkGrey),
                         tooltip: 'Curved Line',
                         onPressed: () {
                           myPolicySet.allCurvedLine(
