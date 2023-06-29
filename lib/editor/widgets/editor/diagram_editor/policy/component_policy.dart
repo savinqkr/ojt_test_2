@@ -1,5 +1,6 @@
 import 'package:diagram_editor/diagram_editor.dart';
 import 'package:flutter/material.dart';
+import 'package:ojt_test_2/config/palette.dart';
 import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/data/custom_link_data.dart';
 import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/policy/custom_policy.dart';
 
@@ -99,8 +100,9 @@ mixin MyComponentPolicy implements ComponentPolicy, CustomStatePolicy {
       targetComponentId: targetComponentId,
       linkStyle: LinkStyle(
         arrowType: ArrowType.pointedArrow,
-        lineWidth: 1.5,
-        backArrowType: ArrowType.centerCircle,
+        lineWidth: 1.0,
+        backArrowType: ArrowType.none,
+        color: Palette.mint,
       ),
       data: MyLinkData(),
     );

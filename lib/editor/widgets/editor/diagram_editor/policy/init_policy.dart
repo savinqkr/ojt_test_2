@@ -4,6 +4,7 @@ import 'package:diagram_editor/diagram_editor.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ojt_test_2/common/models/task_data.dart';
+import 'package:ojt_test_2/config/palette.dart';
 import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/data/custom_component_data.dart';
 import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/data/custom_link_data.dart';
 import 'package:ojt_test_2/getX/jobflow_controller.dart';
@@ -64,6 +65,7 @@ mixin MyInitPolicy implements InitPolicy {
                   arrowType: ArrowType.pointedArrow,
                   lineWidth: 1.0,
                   backArrowType: ArrowType.none,
+                  color: Palette.mint,
                 ),
                 data: MyLinkData(),
               );
@@ -123,6 +125,7 @@ mixin MyInitPolicy implements InitPolicy {
           arrowType: ArrowType.pointedArrow,
           lineWidth: 1.0,
           backArrowType: ArrowType.none,
+          color: Palette.mint,
         ),
         data: MyLinkData(),
       );
@@ -133,6 +136,7 @@ mixin MyInitPolicy implements InitPolicy {
           arrowType: ArrowType.pointedArrow,
           lineWidth: 1.0,
           backArrowType: ArrowType.none,
+          color: Palette.mint,
         ),
         data: MyLinkData(),
       );
@@ -143,6 +147,7 @@ mixin MyInitPolicy implements InitPolicy {
           arrowType: ArrowType.pointedArrow,
           lineWidth: 1.0,
           backArrowType: ArrowType.none,
+          color: Palette.mint,
         ),
         data: MyLinkData(),
       );
