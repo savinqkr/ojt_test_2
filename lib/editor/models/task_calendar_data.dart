@@ -19,7 +19,7 @@ class TaskCalendarData {
       "name": '영업일',
       "range": '전역',
       "exception": false,
-      "isFavorite": false,
+      "isFavorite": true,
     },
     {
       "type": '작업캘린더',
@@ -35,6 +35,9 @@ class TaskCalendarData {
       "name": '매주 화요일',
       "exception": false,
     },
+  ];
+  static final List<Map> searchedTaskCalendarDataList = [
+    ...taskCalendarDataList
   ];
 
   // ======= ADD ======= //

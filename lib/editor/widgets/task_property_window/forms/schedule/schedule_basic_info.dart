@@ -152,7 +152,7 @@ class _ScheduleBasicInfoState extends State<ScheduleBasicInfo> {
                 },
                 dialogTitle: '전역설정 작업캘린더',
                 dialogContent: TaskCalendar(
-                  data: TaskCalendarData.taskCalendarDataList,
+                  data: TaskCalendarData.searchedTaskCalendarDataList,
                   columnTitle: const ['번호', '타입', '변수명', '범위'],
                 ),
                 dialogOnPressed: () {

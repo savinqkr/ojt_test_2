@@ -89,6 +89,7 @@ class _JobStatusBasicInfoState extends State<JobStatusBasicInfo> {
               const SizedBox(height: 12),
               const DropDownWithLabel(
                 label: '대기시간',
+                isLabelVisible: true,
                 dropdownOptions: [
                   {'name': '무한대기', 'value': '무한대기'},
                   {'name': '지정일시', 'value': '지정일시'},

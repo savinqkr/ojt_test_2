@@ -91,6 +91,7 @@ class _RunProgramErrorInfoState extends State<RunProgramErrorInfo> {
               const SizedBox(height: 12),
               const DropDownWithLabel(
                 label: '구분',
+                isLabelVisible: true,
                 dropdownOptions: [
                   {'name': '오류조건', 'value': '오류조건'},
                   {'name': '정상조건', 'value': '정상조건'},
@@ -99,6 +100,7 @@ class _RunProgramErrorInfoState extends State<RunProgramErrorInfo> {
               const SizedBox(height: 12),
               const DropDownWithLabel(
                 label: '연산',
+                isLabelVisible: true,
                 dropdownOptions: [
                   {'name': 'AND', 'value': 'AND'},
                   {'name': 'OR', 'value': 'OR'},

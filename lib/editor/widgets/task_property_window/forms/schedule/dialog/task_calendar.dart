@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_material_symbols/flutter_material_symbols.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ojt_test_2/common/widgets/dropdown_with_label.dart';
 import 'package:ojt_test_2/config/palette.dart';
 import 'package:ojt_test_2/editor/models/task_calendar_data.dart';
 
@@ -32,6 +34,51 @@ class _TaskCalendarState extends State<TaskCalendar> {
     });
   }
 
+  // 셀렉터
+  String selectorValue = '';
+  void selectorValueOnChange(String value) {
+    setState(() {
+      selectorValue = value;
+    });
+  }
+
+  // 검색어
+  TextEditingController searchValue = TextEditingController();
+  List<Map> filteredData = [];
+  void filterData(String keyword) {
+    String searchKeyword = keyword.toLowerCase();
+    bool isFavorite = selectorValue == 'all' ? false : true;
+
+    if (searchKeyword.isEmpty) {
+      if (isFavorite == false) {
+        filteredData = List.from(widget.data);
+      } else {
+        filteredData = widget.data.where((item) {
+          return item['isFavorite'] == isFavorite;
+        }).toList();
+      }
+    } else {
+      if (isFavorite == false) {
+        filteredData = widget.data.where((item) {
+          return item['name'].toLowerCase().contains(searchKeyword);
+        }).toList();
+      } else {
+        filteredData = widget.data.where((item) {
+          return item['name'].toLowerCase().contains(searchKeyword) &&
+              item['isFavorite'] == isFavorite;
+        }).toList();
+      }
+    }
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    filteredData = widget.data;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     // Decides columnWidths
@@ -50,15 +97,66 @@ class _TaskCalendarState extends State<TaskCalendar> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Row(
+          const SizedBox(height: 20),
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("selector"),
+              DropDownWithLabel(
+                label: '',
+                width: 100,
+                isLabelVisible: false,
+                onChangeValue: selectorValueOnChange,
+                dropdownOptions: const [
+                  {'name': '전체', 'value': 'all'},
+                  {'name': '즐겨찾기', 'value': 'favorite'},
+                ],
+              ),
               Row(
                 children: [
-                  Text("searchbar"),
-                  SizedBox(width: 10),
-                  Text("Icon"),
+                  SizedBox(
+                    width: 340,
+                    height: 32,
+                    child: TextField(
+                      controller: searchValue,
+                      style: GoogleFonts.nanumGothic(
+                          fontSize: 14, color: Palette.black),
+                      cursorColor: Palette.mint,
+                      decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.all(8.0),
+                        filled: true,
+                        fillColor: Colors.grey[200],
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4.0),
+                          borderSide: BorderSide.none,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  GestureDetector(
+                    onTap: () {
+                      filterData(searchValue.text);
+                    },
+                    child: Container(
+                      width: 32,
+                      height: 32,
+                      decoration: BoxDecoration(
+                        color: Palette.white,
+                        border: Border.all(
+                            color: const Color.fromARGB(255, 226, 226, 226),
+                            width: 1.5),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(4.0)),
+                      ),
+                      child: const Center(
+                        child: Icon(
+                          MaterialSymbols.search,
+                          size: 24,
+                          color: Palette.darkGrey,
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ],
@@ -95,7 +193,7 @@ class _TaskCalendarState extends State<TaskCalendar> {
                       .toList(),
                 ),
                 // ----------------- DATA ----------------- //
-                ...widget.data.map(
+                ...filteredData.map(
                   (item) {
                     final index = widget.data.indexOf(item);
                     final isSelected = selectedRow == index;
