@@ -9,8 +9,8 @@ class TaskData {
       "task": [
         // ROOT
         {
-          'type': 'starter',
-          'taskId': 'starter1',
+          'type': 'schedule',
+          'taskId': 'schedule1',
           'componentId': '',
           'position': const Offset(550.0, 100.0),
           'connection': ['runProgram1', 'runProgram2']

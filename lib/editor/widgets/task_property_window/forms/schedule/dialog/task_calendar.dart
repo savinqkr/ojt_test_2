@@ -110,10 +110,13 @@ class _TaskCalendarState extends State<TaskCalendar> {
                         GestureDetector(
                           onTap: () => onRowTap(index),
                           child: Center(
-                              child: Text(
-                            '${index + 1}',
-                            style: GoogleFonts.nanumGothic(
-                                fontSize: 12, color: Palette.darkGrey),
+                              child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                            child: Text(
+                              '${index + 1}',
+                              style: GoogleFonts.nanumGothic(
+                                  fontSize: 12, color: Palette.darkGrey),
+                            ),
                           )),
                         ),
                         GestureDetector(
