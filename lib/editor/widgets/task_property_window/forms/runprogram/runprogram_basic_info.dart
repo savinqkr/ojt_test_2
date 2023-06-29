@@ -133,6 +133,7 @@ class _RunProgramBasicInfoState extends State<RunProgramBasicInfo> {
               const SizedBox(height: 12),
               const DropDownWithLabel(
                 label: '쉘타입',
+                isLabelVisible: true,
                 dropdownOptions: [
                   {
                     'name': 'Bourne Shell or Window NT',

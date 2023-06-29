@@ -53,6 +53,7 @@ class ExecuteJobDetailInfo extends StatelessWidget {
                   // const SizedBox(height: 12),
                   const DropDownWithLabel(
                     label: '',
+                    isLabelVisible: false,
                     dropdownOptions: [
                       {'name': '대상작업 실행결과 대기', 'value': '대상작업 실행결과 대기'},
                       {
