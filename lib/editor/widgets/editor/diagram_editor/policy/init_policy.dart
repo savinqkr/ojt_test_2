@@ -62,8 +62,8 @@ mixin MyInitPolicy implements InitPolicy {
                 targetComponentId: target['componentId'],
                 linkStyle: LinkStyle(
                   arrowType: ArrowType.pointedArrow,
-                  lineWidth: 1.5,
-                  backArrowType: ArrowType.centerCircle,
+                  lineWidth: 1.0,
+                  backArrowType: ArrowType.none,
                 ),
                 data: MyLinkData(),
               );
@@ -121,8 +121,8 @@ mixin MyInitPolicy implements InitPolicy {
         targetComponentId: jb2.id,
         linkStyle: LinkStyle(
           arrowType: ArrowType.pointedArrow,
-          lineWidth: 1.5,
-          backArrowType: ArrowType.centerCircle,
+          lineWidth: 1.0,
+          backArrowType: ArrowType.none,
         ),
         data: MyLinkData(),
       );
@@ -131,8 +131,8 @@ mixin MyInitPolicy implements InitPolicy {
         targetComponentId: jb4.id,
         linkStyle: LinkStyle(
           arrowType: ArrowType.pointedArrow,
-          lineWidth: 1.5,
-          backArrowType: ArrowType.centerCircle,
+          lineWidth: 1.0,
+          backArrowType: ArrowType.none,
         ),
         data: MyLinkData(),
       );
@@ -141,8 +141,8 @@ mixin MyInitPolicy implements InitPolicy {
         targetComponentId: jb5.id,
         linkStyle: LinkStyle(
           arrowType: ArrowType.pointedArrow,
-          lineWidth: 1.5,
-          backArrowType: ArrowType.centerCircle,
+          lineWidth: 1.0,
+          backArrowType: ArrowType.none,
         ),
         data: MyLinkData(),
       );
