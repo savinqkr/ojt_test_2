@@ -14,11 +14,12 @@ mixin MyCanvasWidgetsPolicy implements CanvasWidgetsPolicy, CustomStatePolicy {
           painter: GridPainter(
             offset: canvasReader.state.position / canvasReader.state.scale,
             scale: canvasReader.state.scale,
-            lineWidth: (canvasReader.state.scale < 1.0)
-                ? canvasReader.state.scale
-                : 1.0,
+            lineWidth: 0.4,
+            // lineWidth: (canvasReader.state.scale < 1.0)
+            //     ? canvasReader.state.scale
+            //     : 1.0,
             matchParentSize: false,
-            lineColor: Colors.blue,
+            lineColor: const Color.fromARGB(255, 218, 218, 218),
           ),
         ),
       ),

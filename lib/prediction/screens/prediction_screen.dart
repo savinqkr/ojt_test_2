@@ -27,7 +27,7 @@ class PredictionScreen extends StatelessWidget {
       body: LayoutTemplate(
         menuWidget: const SidebarMenu(currentMenu: menuType),
         contentWidget: Container(
-          color: const Color.fromARGB(255, 135, 255, 199),
+          color: const Color.fromARGB(255, 255, 228, 201),
           child: const Center(child: Text("PREDICTION")),
         ),
       ),

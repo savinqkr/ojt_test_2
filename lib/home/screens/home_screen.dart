@@ -27,7 +27,7 @@ class HomeScreen extends StatelessWidget {
       body: LayoutTemplate(
         menuWidget: const SidebarMenu(currentMenu: menuType),
         contentWidget: Container(
-          color: const Color.fromARGB(255, 255, 188, 64),
+          color: const Color.fromARGB(255, 255, 236, 199),
           child: const Center(child: Text("HOME")),
         ),
       ),
