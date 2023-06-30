@@ -27,7 +27,7 @@ class FocusviewScreen extends StatelessWidget {
       body: LayoutTemplate(
         menuWidget: const SidebarMenu(currentMenu: menuType),
         contentWidget: Container(
-          color: const Color.fromARGB(255, 214, 179, 255),
+          color: const Color.fromARGB(255, 238, 223, 255),
           child: const Center(child: Text("FOCUSVIEW")),
         ),
       ),
