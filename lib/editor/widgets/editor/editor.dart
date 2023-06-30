@@ -41,7 +41,7 @@ class _EditorState extends State<Editor> {
   Widget build(BuildContext context) {
     // diagram_editor LinkAlignController 가져옴 ---> 제거 필요
     myPolicySet.getPutLinkAlignController();
-
+    myPolicySet.getPutLinkCurvedController();
     Get.put(LinkStateController());
 
     //  DIAGRAM EDITOR  //
@@ -159,6 +159,7 @@ class _EditorState extends State<Editor> {
                           myPolicySet.allCurvedLine(
                               Get.find<LinkStateController>()
                                   .isAlignVertically);
+                          myPolicySet.changeIsCurved(false);
                           Get.find<LinkStateController>()
                               .changeIsStraightLine(false);
                         },
@@ -173,6 +174,7 @@ class _EditorState extends State<Editor> {
                           myPolicySet.allCurvedLine(
                               Get.find<LinkStateController>()
                                   .isAlignVertically);
+                          myPolicySet.changeIsCurved(true);
                           Get.find<LinkStateController>()
                               .changeIsStraightLine(false);
                         },
@@ -186,7 +188,7 @@ class _EditorState extends State<Editor> {
                           onPressed: () {
                             myPolicySet.alignComponentsHorizontally(
                                 Get.find<LinkStateController>().isStraightLine);
-
+                            myPolicySet.changeIsAlignVertically(false);
                             Get.find<LinkStateController>()
                                 .changeIsAlignHorizontally(false);
                           }),
@@ -199,7 +201,7 @@ class _EditorState extends State<Editor> {
                         onPressed: () {
                           myPolicySet.alignComponentsVertically(
                               Get.find<LinkStateController>().isStraightLine);
-
+                          myPolicySet.changeIsAlignVertically(true);
                           Get.find<LinkStateController>()
                               .changeIsAlignHorizontally(true);
                         },

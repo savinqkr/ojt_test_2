@@ -523,6 +523,7 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
 
   // 꺾은선
   allCurvedLine(bool isAlignVertically) {
+    allStraightLine(isAlignVertically);
     canvasReader.model.getAllLinks().forEach((key, value) {
       Offset sourceComponentPosition =
           canvasReader.model.getComponent(value.sourceComponentId).position;
