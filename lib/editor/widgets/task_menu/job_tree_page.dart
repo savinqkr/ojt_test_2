@@ -105,9 +105,8 @@ class _MyTreeViewState extends State<MyTreeView> {
   addNode(MyNode parentNode, bool isGroup, String title) {
     setState(() {
       int totalGroupCount =
-          _MyTreeTileState().countGroupNodes(rootNode.children, true);
-      int totalJobCount =
-          _MyTreeTileState().countGroupNodes(rootNode.children, false) + 4;
+          _MyTreeTileState().countGroupNodes(rootNode.children);
+      int totalJobCount = _MyTreeTileState().countJobNodes(rootNode.children);
 
       MyNode newChildNode = MyNode(
         title:
@@ -152,14 +151,39 @@ class MyTreeTile extends StatefulWidget {
 }
 
 class _MyTreeTileState extends State<MyTreeTile> {
-  int countGroupNodes(List<MyNode> nodes, bool state) {
+  // group count method
+  int countGroupNodes(List<MyNode> nodes) {
     int count = 0;
     for (var node in nodes) {
-      if (node.isGroup == state) {
-        // true면 그룹, false면 작업
+      // print(node);
+      if (node.isGroup) {
         count++;
-        count +=
-            countGroupNodes(node.children, state); // 재귀적으로 자식 노드에서 그룹 노드 개수 계산
+        count += countGroupNodes(node.children); // 재귀적으로 자식 노드에서 그룹 노드 개수 계산
+      }
+    }
+    return count;
+  }
+
+// job count method
+  int countJobNodes(List<MyNode> nodes) {
+    int count = 0;
+    for (var node in nodes) {
+      if (!node.isGroup) {
+        count++;
+      } else {
+        count += findJobNode(node.children);
+      }
+    }
+    return count;
+  }
+
+  int findJobNode(List<MyNode> nodes) {
+    int count = 0;
+    for (var node in nodes) {
+      if (!node.isGroup) {
+        count++;
+      } else {
+        count += findJobNode(node.children);
       }
     }
     return count;
