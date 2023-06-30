@@ -12,7 +12,7 @@ class TaskData {
           'type': 'schedule',
           'taskId': 'schedule1',
           'componentId': '',
-          'position': const Offset(550.0, 100.0),
+          'position': const Offset(550.0, 40.0),
           'connection': ['runProgram1', 'runProgram2']
         },
         // DEPTH 1
@@ -114,14 +114,14 @@ class TaskData {
           'type': 'runProgram',
           'taskId': 'runProgram21',
           'componentId': '',
-          'position': const Offset(350.0, 250.0),
+          'position': const Offset(380.0, 250.0),
           'connection': ['and21']
         },
         {
           'type': 'runProgram',
           'taskId': 'runProgram22',
           'componentId': '',
-          'position': const Offset(650.0, 250.0),
+          'position': const Offset(620.0, 250.0),
           'connection': ['and21']
         },
         // DEPTH 3
