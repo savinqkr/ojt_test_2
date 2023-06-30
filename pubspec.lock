@@ -325,7 +325,7 @@ packages:
     source: hosted
     version: "1.0.1"
   path_provider:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: path_provider
       sha256: "3087813781ab814e4157b172f1a11c46be20179fcc9bea043e0fba36bc0acaa2"
@@ -412,14 +412,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.5"
-  resizable_widget:
-    dependency: "direct main"
-    description:
-      name: resizable_widget
-      sha256: db2919754b93f386b9b3fb15e9f48f6c9d6d41f00a24397629133c99df86606a
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.5"
   scroll_to_index:
     dependency: transitive
     description:

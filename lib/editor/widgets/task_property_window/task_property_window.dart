@@ -60,7 +60,7 @@ class TaskPropertyWindow extends StatelessWidget {
                   ),
                   SizedBox(
                     width: 300,
-                    height: 854, // 880
+                    height: 910, // 880
                     child: TabBarView(
                       children: getTabBarView(controller.taskType).toList(),
                     ),
