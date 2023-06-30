@@ -3,19 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:ojt_test_2/config/palette.dart';
 import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/component/base_job_body.dart';
 
-class JobComponentBody extends StatelessWidget {
+class JobComponentBody extends StatefulWidget {
   final ComponentData componentData;
 
   const JobComponentBody({super.key, required this.componentData});
 
   @override
+  State<JobComponentBody> createState() => _JobComponentBodyState();
+}
+
+class _JobComponentBodyState extends State<JobComponentBody> {
+  @override
   Widget build(BuildContext context) {
     return BaseJobBody(
-      componentData: componentData,
+      componentData: widget.componentData,
       componentPainter: TaskPainter(
-        color: componentData.data.color,
-        borderColor: componentData.data.borderColor,
-        borderWidth: componentData.data.borderWidth,
+        color: widget.componentData.data.color,
+        borderColor: widget.componentData.data.borderColor,
+        borderWidth: widget.componentData.data.borderWidth,
       ),
     );
   }
