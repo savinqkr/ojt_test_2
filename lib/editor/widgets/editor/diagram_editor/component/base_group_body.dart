@@ -49,13 +49,13 @@ class _BaseGroupBodyState extends State<BaseGroupBody> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        setIsOpen();
-                      },
-                      child:
-                          Icon(!isOpen ? Icons.expand_less : Icons.expand_more),
-                    ),
+                    // GestureDetector(
+                    //   onTap: () {
+                    //     setIsOpen();
+                    //   },
+                    //   child:
+                    //       Icon(!isOpen ? Icons.expand_less : Icons.expand_more),
+                    // ),
                     const SizedBox(width: 8),
                     Icon(
                       MaterialSymbols.folder,
@@ -90,9 +90,9 @@ class _BaseGroupBodyState extends State<BaseGroupBody> {
                       height: 140,
                       padding: const EdgeInsets.all(10),
                       color: Colors.white,
-                      child: Row(
+                      child: const Row(
                         children: [
-                          Text("isOpen : $isOpen"),
+                          // Text("isOpen : $isOpen"),
                         ],
                       ),
                     ),
