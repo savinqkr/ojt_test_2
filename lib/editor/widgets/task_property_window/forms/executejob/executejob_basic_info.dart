@@ -101,7 +101,8 @@ class _ExecuteJobBasicInfoState extends State<ExecuteJobBasicInfo> {
               ),
               const SizedBox(height: 12),
               const DropDownWithLabel(
-                label: '',
+                label: '중복실행',
+                isLabelVisible: true,
                 dropdownOptions: [
                   {'name': '혀용', 'value': '혀용'},
                   {'name': '불가', 'value': '불가'},

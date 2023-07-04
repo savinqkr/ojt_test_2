@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ojt_test_2/common/templates/layout_template.dart';
 import 'package:ojt_test_2/common/widgets/sidebar_menu/sidebar_menu.dart';
+import 'package:ojt_test_2/editor/widgets/jobflow.dart';
 import 'package:ojt_test_2/enums/menu.dart';
 
-class ManagementToolsScreen extends StatelessWidget {
-  static const String route = '/managementTools';
-  static const MenuTypes menuType = MenuTypes.managementTools;
+class JobFlowScreem extends StatelessWidget {
+  static const String route = '/jobflow';
+  static const MenuTypes menuType = MenuTypes.jobFlow;
 
-  const ManagementToolsScreen({super.key});
+  const JobFlowScreem({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +28,8 @@ class ManagementToolsScreen extends StatelessWidget {
       body: LayoutTemplate(
         menuWidget: const SidebarMenu(currentMenu: menuType),
         contentWidget: Container(
-          color: const Color.fromARGB(255, 216, 255, 209),
-          child: const Center(child: Text("MANAGEMENT TOOLS")),
+          color: const Color.fromARGB(255, 255, 188, 64),
+          child: const JobFlow(),
         ),
       ),
     );

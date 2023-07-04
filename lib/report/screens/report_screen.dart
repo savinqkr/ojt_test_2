@@ -27,7 +27,7 @@ class ReportScreen extends StatelessWidget {
       body: LayoutTemplate(
         menuWidget: const SidebarMenu(currentMenu: menuType),
         contentWidget: Container(
-          color: const Color.fromARGB(255, 135, 255, 199),
+          color: const Color.fromARGB(255, 202, 255, 252),
           child: const Center(child: Text("REPORT")),
         ),
       ),

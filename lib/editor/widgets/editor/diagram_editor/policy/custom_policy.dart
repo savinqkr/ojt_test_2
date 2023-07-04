@@ -127,7 +127,6 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
   }
 
   removeSelected() {
-    print(multipleSelected);
     for (var compId in multipleSelected) {
       canvasWriter.model.removeComponent(compId);
     }
@@ -159,7 +158,9 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
   }
 
   // ----- 수평정렬 ----- //
-  alignComponentsHorizontally() {
+  alignComponentsHorizontally(bool isStraightLine) {
+    allStraightLine(true);
+
     // -- 캔버스 위에 올린 전체 컴포넌트
     List<ComponentData> allComponentsOnCanvasList =
         canvasReader.model.getAllComponents().values.toList();
@@ -177,6 +178,7 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
 
     while (count < allComponentsOnCanvasList.length) {
       count += startPointList.length;
+
       // -- startPointList 안의 startPoint 컴포넌트와 연결된 컴포넌트 조회
       for (var startPoint in startPointList) {
         var connectedComponents =
@@ -208,10 +210,21 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
       }
       depth++;
     }
+    // 캔버스에 있는 링크들 연결점 다시 계산
+    // for (var link in allLinks) {
+    //   canvasWriter.model.moveComponentWithMiddleJoint(link);
+    // }
+    if (isStraightLine) {
+      allStraightLine(false);
+    } else {
+      allCurvedLine(false);
+    }
   }
 
   // 수직정렬
-  alignComponentsVertically() {
+  alignComponentsVertically(bool isStraightLine) {
+    allStraightLine(false);
+
     // -- 캔버스 위에 올린 전체 컴포넌트
     List<ComponentData> allComponentsOnCanvasList =
         canvasReader.model.getAllComponents().values.toList();
@@ -259,6 +272,11 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
         endPointList.clear();
       }
       depth++;
+    }
+    if (isStraightLine) {
+      allStraightLine(true);
+    } else {
+      allCurvedLine(true);
     }
   }
 
@@ -462,5 +480,169 @@ mixin CustomBehaviourPolicy implements PolicySet, CustomStatePolicy {
         );
       }
     }
+  }
+
+  // 직선
+  allStraightLine(bool isAlignVertically) {
+    List<MapEntry<String, LinkData>> links =
+        List.from(canvasReader.model.getAllLinks().entries);
+
+    for (var entry in links) {
+      LinkData value = entry.value;
+      Offset sourceComponentPosition =
+          canvasReader.model.getComponent(value.sourceComponentId).position;
+      Offset targetComponentPosition =
+          canvasReader.model.getComponent(value.targetComponentId).position;
+
+      if (isAlignVertically) {
+        value.setStart(Offset(
+            sourceComponentPosition.dx + 35, sourceComponentPosition.dy + 70));
+        value.setEnd(Offset(
+            targetComponentPosition.dx + 35, targetComponentPosition.dy));
+      } else {
+        value.setStart(Offset(
+            sourceComponentPosition.dx + 70, sourceComponentPosition.dy + 35));
+        value.setEnd(Offset(
+            targetComponentPosition.dx, targetComponentPosition.dy + 35));
+      }
+
+      if (value.linkPoints.length > 2) {
+        var indexesToRemove =
+            List<int>.generate(value.linkPoints.length - 2, (i) => i + 1);
+        indexesToRemove
+            .sort((a, b) => b.compareTo(a)); // Reverse sort the indexes
+
+        for (var index in indexesToRemove) {
+          value.removeMiddlePoint(index);
+        }
+      }
+
+      value.hideJoints();
+    }
+  }
+
+  // 꺾은선
+  allCurvedLine(bool isAlignVertically) {
+    allStraightLine(isAlignVertically);
+    canvasReader.model.getAllLinks().forEach((key, value) {
+      Offset sourceComponentPosition =
+          canvasReader.model.getComponent(value.sourceComponentId).position;
+      Offset targetComponentPosition =
+          canvasReader.model.getComponent(value.targetComponentId).position;
+
+      if (isAlignVertically) {
+        value.setStart(Offset(
+            sourceComponentPosition.dx + 35, sourceComponentPosition.dy + 70));
+        value.setEnd(Offset(
+            targetComponentPosition.dx + 35, targetComponentPosition.dy));
+        value.insertMiddlePoint(
+            Offset(
+                sourceComponentPosition.dx + 35,
+                (sourceComponentPosition.dy + 70 + targetComponentPosition.dy) /
+                    2),
+            1);
+        value.insertMiddlePoint(
+            Offset(
+                targetComponentPosition.dx + 35,
+                (sourceComponentPosition.dy + 70 + targetComponentPosition.dy) /
+                    2),
+            2);
+
+        // =====================================================================
+        //   JOINT 추가
+        // =====================================================================
+        // value.insertMiddlePoint(
+        //     Offset(
+        //         sourceComponentPosition.dx + 35,
+        //         (sourceComponentPosition.dy + 70 + targetComponentPosition.dy) /
+        //                 2 -
+        //             30),
+        //     1);
+        // if (sourceComponentPosition.dx > targetComponentPosition.dx) {
+        //   for (int i = 0; i < 5; i++) {
+        //     value.insertMiddlePoint(
+        //         Offset(
+        //             sourceComponentPosition.dx + 35 - 2 * (i + 1),
+        //             (sourceComponentPosition.dy +
+        //                         70 +
+        //                         targetComponentPosition.dy) /
+        //                     2 +
+        //                 1 * (i + 1)),
+        //         2 + i);
+        //   }
+        //   for (int i = 0; i < 5; i++) {
+        //     value.insertMiddlePoint(
+        //         Offset(
+        //             targetComponentPosition.dx + 45 - 2 * (i + 1),
+        //             (sourceComponentPosition.dy +
+        //                         70 +
+        //                         targetComponentPosition.dy) /
+        //                     2 +
+        //                 1 * (i + 1)),
+        //         7 + i);
+        //   }
+        // } else if (sourceComponentPosition.dx < targetComponentPosition.dx) {
+        //   for (int i = 0; i < 5; i++) {
+        //     value.insertMiddlePoint(
+        //         Offset(
+        //             sourceComponentPosition.dx + 35 + 2 * (i + 1),
+        //             (sourceComponentPosition.dy +
+        //                         70 +
+        //                         targetComponentPosition.dy) /
+        //                     2 +
+        //                 1 * (i + 1)),
+        //         2 + i);
+        //   }
+        //   for (int i = 0; i < 5; i++) {
+        //     value.insertMiddlePoint(
+        //         Offset(
+        //             targetComponentPosition.dx + 25 + 2 * (i + 1),
+        //             (sourceComponentPosition.dy +
+        //                         70 +
+        //                         targetComponentPosition.dy) /
+        //                     2 +
+        //                 1 * (i + 1)),
+        //         7 + i);
+        //   }
+        // } else {
+        //   for (int i = 0; i < 10; i++) {
+        //     value.insertMiddlePoint(
+        //         Offset(
+        //             sourceComponentPosition.dx + 35,
+        //             (sourceComponentPosition.dy +
+        //                         70 +
+        //                         targetComponentPosition.dy) /
+        //                     2 +
+        //                 2 * (i + 1)),
+        //         2 + i);
+        //   }
+        // }
+        // value.insertMiddlePoint(
+        //     Offset(
+        //         targetComponentPosition.dx + 35,
+        //         (sourceComponentPosition.dy + 70 + targetComponentPosition.dy) /
+        //                 2 +
+        //             20),
+        //     12);
+      } else {
+        value.setStart(Offset(
+            sourceComponentPosition.dx + 70, sourceComponentPosition.dy + 35));
+        value.setEnd(Offset(
+            targetComponentPosition.dx, targetComponentPosition.dy + 35));
+        value.insertMiddlePoint(
+            Offset(
+                (sourceComponentPosition.dx + 70 + targetComponentPosition.dx) /
+                    2,
+                sourceComponentPosition.dy + 35),
+            1);
+        value.insertMiddlePoint(
+            Offset(
+                (sourceComponentPosition.dx + 70 + targetComponentPosition.dx) /
+                    2,
+                targetComponentPosition.dy + 35),
+            2);
+      }
+      value.hideJoints();
+    });
   }
 }

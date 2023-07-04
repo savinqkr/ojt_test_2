@@ -1,5 +1,6 @@
 import 'package:diagram_editor/diagram_editor.dart';
 import 'package:flutter/material.dart';
+import 'package:ojt_test_2/config/palette.dart';
 import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/data/custom_link_data.dart';
 import 'package:ojt_test_2/editor/widgets/editor/diagram_editor/policy/custom_policy.dart';
 
@@ -73,14 +74,25 @@ mixin MyComponentPolicy implements ComponentPolicy, CustomStatePolicy {
         }
       }
     } else {
-      canvasWriter.model.moveComponent(componentId, positionDelta);
+      lastFocalPoint = details.localFocalPoint;
+      canvasWriter.model.moveComponentWithChildren(componentId, positionDelta);
+
+      // ------------- 컴포넌트 이동 시 middle joint 같이 움직이게함 --------------
+      // 연결점이 2개인 직선이 아니면 중간 연결점들의 위치를 다시 계산해서 부여함
+
       var componentData = canvasReader.model.getComponent(componentId);
       for (var connection in componentData.connections) {
-        canvasWriter.model.moveComponentWithMiddleJoint(
-            componentId, connection.otherComponentId, connection.connectionId);
+        if (canvasReader.model
+                .getLink(connection.connectionId)
+                .linkPoints
+                .length !=
+            2) {
+          canvasWriter.model
+              .moveComponentWithMiddleJoint(connection.connectionId);
+        }
       }
+      // -----------------------------------------------------------------------
     }
-    lastFocalPoint = details.localFocalPoint;
   }
 
 // ----------------------컴포넌트 연결 가능 여부 확인--------------------------
@@ -105,8 +117,9 @@ mixin MyComponentPolicy implements ComponentPolicy, CustomStatePolicy {
       targetComponentId: targetComponentId,
       linkStyle: LinkStyle(
         arrowType: ArrowType.pointedArrow,
-        lineWidth: 1.5,
-        backArrowType: ArrowType.centerCircle,
+        lineWidth: 1.0,
+        backArrowType: ArrowType.none,
+        color: Palette.mint,
       ),
       data: MyLinkData(),
     );

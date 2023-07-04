@@ -137,7 +137,7 @@ mixin MyComponentWidgetsPolicy
                     shape: BoxShape.circle,
                   ),
                   TaskOptionIcon(
-                    iconData: Icons.rectangle,
+                    iconData: Icons.arrow_upward,
                     tooltip: 'Bring to front',
                     size: 30,
                     onPressed: () {
@@ -165,8 +165,8 @@ mixin MyComponentWidgetsPolicy
                     tooltip: 'Add parent',
                     size: 30,
                     onPressed: () {
-                      // isReadyToAddParent = true;
-                      // componentData.updateComponent();
+                      isReadyToAddParent = true;
+                      componentData.updateComponent();
                       print('Add parent');
                     },
                     iconColor: Palette.darkGrey,
@@ -178,6 +178,9 @@ mixin MyComponentWidgetsPolicy
                     tooltip: 'Remove parent',
                     size: 30,
                     onPressed: () {
+                      canvasWriter.model
+                          .removeComponentParent(componentData.id);
+                      componentData.updateComponent();
                       print('Remove parent');
                     },
                     iconColor: Palette.darkGrey,

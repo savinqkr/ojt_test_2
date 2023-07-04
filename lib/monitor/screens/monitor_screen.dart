@@ -27,7 +27,7 @@ class MonitorScreen extends StatelessWidget {
       body: LayoutTemplate(
         menuWidget: const SidebarMenu(currentMenu: menuType),
         contentWidget: Container(
-          color: const Color.fromARGB(255, 70, 187, 255),
+          color: const Color.fromARGB(255, 198, 234, 255),
           child: const Center(child: Text("MONITOR")),
         ),
       ),

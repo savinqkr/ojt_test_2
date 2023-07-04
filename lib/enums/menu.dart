@@ -10,5 +10,6 @@ enum MenuTypes {
   approval,
   notice,
   help,
+  jobFlow,
   preparing,
 }

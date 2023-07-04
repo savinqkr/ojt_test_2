@@ -100,11 +100,20 @@ packages:
   diagram_editor:
     dependency: "direct main"
     description:
-      name: diagram_editor
-      sha256: "750aa0c76a4d934422fc1f976e3db9bcb01373f50cc49cb432ee0b987336252e"
+      path: "."
+      ref: master
+      resolved-ref: "4378811105d2d788a5af2303555fdb6892d4b01e"
+      url: "https://github.com/kicu-xxo/flutter_diagram_editor.git"
+    source: git
+    version: "0.1.6"
+  dotted_border:
+    dependency: "direct main"
+    description:
+      name: dotted_border
+      sha256: "07a5c5e8d4e6e992279e190e0352be8faa5b8f96d81c77a78b2d42f060279840"
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.6"
+    version: "2.0.0+3"
   expandable_menu:
     dependency: "direct main"
     description:
@@ -162,10 +171,10 @@ packages:
     dependency: "direct dev"
     description:
       name: flutter_lints
-      sha256: aeb0b80a8b3709709c9cc496cdc027c5b3216796bc0af0ce1007eaf24464fd4c
+      sha256: "2118df84ef0c3ca93f96123a616ae8540879991b8b57af2f81b76a7ada49b2a4"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.1"
+    version: "2.0.2"
   flutter_material_symbols:
     dependency: "direct main"
     description:
@@ -199,10 +208,10 @@ packages:
     dependency: transitive
     description:
       name: http
-      sha256: "4c3f04bfb64d3efd508d06b41b825542f08122d30bda4933fb95c069d22a4fa3"
+      sha256: "759d1a329847dd0f39226c688d3e06a6b8679668e350e2891a6474f8b4bb8525"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.0"
+    version: "1.1.0"
   http_parser:
     dependency: transitive
     description:
@@ -239,18 +248,18 @@ packages:
     dependency: transitive
     description:
       name: lints
-      sha256: "6b0206b0bf4f04961fc5438198ccb3a885685cd67d4d4a32cc20ad7f8adbe015"
+      sha256: "0a217c6c989d21039f1498c3ed9f3ed71b354e69873f13a8dfc3c9fe76f1b452"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.1"
   lottie:
     dependency: "direct main"
     description:
       name: lottie
-      sha256: "23522951540d20a57a60202ed7022e6376bed206a4eee1c347a91f58bd57eb9f"
+      sha256: f461105d3a35887b27089abf9c292334478dd292f7b47ecdccb6ae5c37a22c80
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.2"
+    version: "2.4.0"
   matcher:
     dependency: transitive
     description:
@@ -299,8 +308,24 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.3"
-  path_provider:
+  path_drawing:
     dependency: transitive
+    description:
+      name: path_drawing
+      sha256: bbb1934c0cbb03091af082a6389ca2080345291ef07a5fa6d6e078ba8682f977
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
+  path_parsing:
+    dependency: transitive
+    description:
+      name: path_parsing
+      sha256: e3e67b1629e6f7e8100b367d3db6ba6af4b1f0bb80f64db18ef1fbabd2fa9ccf
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
+  path_provider:
+    dependency: "direct main"
     description:
       name: path_provider
       sha256: "3087813781ab814e4157b172f1a11c46be20179fcc9bea043e0fba36bc0acaa2"
@@ -343,10 +368,10 @@ packages:
     dependency: transitive
     description:
       name: path_provider_windows
-      sha256: d3f80b32e83ec208ac95253e0cd4d298e104fbc63cb29c5c69edaed43b0c69d6
+      sha256: "1cb68ba4cd3a795033de62ba1b7b4564dace301f952de6bfb3cd91b202b6ee96"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.6"
+    version: "2.1.7"
   platform:
     dependency: transitive
     description:
@@ -387,14 +412,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.5"
-  resizable_widget:
-    dependency: "direct main"
-    description:
-      name: resizable_widget
-      sha256: db2919754b93f386b9b3fb15e9f48f6c9d6d41f00a24397629133c99df86606a
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.5"
   scroll_to_index:
     dependency: transitive
     description:
@@ -472,6 +489,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.2"
+  universal_io:
+    dependency: "direct main"
+    description:
+      name: universal_io
+      sha256: "1722b2dcc462b4b2f3ee7d188dad008b6eb4c40bbd03a3de451d82c78bba9aad"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.2"
   uuid:
     dependency: transitive
     description:
@@ -492,10 +517,10 @@ packages:
     dependency: transitive
     description:
       name: win32
-      sha256: "5a751eddf9db89b3e5f9d50c20ab8612296e4e8db69009788d6c8b060a84191c"
+      sha256: dfdf0136e0aa7a1b474ea133e67cb0154a0acd2599c4f3ada3b49d38d38793ee
       url: "https://pub.dev"
     source: hosted
-    version: "4.1.4"
+    version: "5.0.5"
   xdg_directories:
     dependency: transitive
     description:
@@ -506,4 +531,4 @@ packages:
     version: "1.0.0"
 sdks:
   dart: ">=3.0.0 <4.0.0"
-  flutter: ">=3.3.0"
+  flutter: ">=3.10.0"

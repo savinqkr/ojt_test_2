@@ -27,7 +27,7 @@ class PlannerScreen extends StatelessWidget {
       body: LayoutTemplate(
         menuWidget: const SidebarMenu(currentMenu: menuType),
         contentWidget: Container(
-          color: const Color.fromARGB(255, 135, 255, 199),
+          color: const Color.fromARGB(255, 199, 255, 229),
           child: const Center(child: Text("PLANNER")),
         ),
       ),

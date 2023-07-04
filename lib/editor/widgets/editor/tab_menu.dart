@@ -24,7 +24,7 @@ class _TabMenuPageState extends State<TabMenuPage> {
   void initState() {
     super.initState();
 
-    Get.find<TabTabsItemController>().addItemsToTabsList();
+    // Get.find<TabTabsItemController>().addItemsToTabsList();
 
     // controller = TabbedViewController(tabController);
 

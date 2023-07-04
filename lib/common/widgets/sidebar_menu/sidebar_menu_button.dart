@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_material_symbols/flutter_material_symbols.dart';
+import 'package:get/get.dart';
 import 'package:ojt_test_2/common/screens/preparing_screen.dart';
+import 'package:ojt_test_2/editor/screens/jobflow_screen.dart';
 import 'package:ojt_test_2/enums/menu.dart';
 import 'package:ojt_test_2/config/palette.dart';
+import 'package:ojt_test_2/getX/jobflow_controller.dart';
 import 'package:ojt_test_2/home/screens/home_screen.dart';
 import 'package:ojt_test_2/editor/screens/editor_screen.dart';
 import 'package:ojt_test_2/planner/screens/planner_screen.dart';
@@ -29,6 +32,8 @@ class SidebarMenuButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(JobFlowController());
+
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: IconButton(
@@ -38,6 +43,9 @@ class SidebarMenuButton extends StatelessWidget {
           if (setIsJobTreeVisible != null && menuName == MenuTypes.editor) {
             setIsJobTreeVisible!();
           } else {
+            menuName == MenuTypes.jobFlow
+                ? Get.find<JobFlowController>().setIsJobFlow(true)
+                : Get.find<JobFlowController>().setIsJobFlow(false);
             Navigator.pushNamed(context, getRoute(menuName));
           }
           // ----------------------------- animation 제거안됨
@@ -124,6 +132,12 @@ class SidebarMenuButton extends StatelessWidget {
           size: 24,
           color: isSelected ? Palette.mint : Palette.black,
         );
+      case MenuTypes.jobFlow:
+        return Icon(
+          MaterialSymbols.flowsheet,
+          size: 24,
+          color: isSelected ? Palette.mint : Palette.black,
+        );
       case MenuTypes.notice:
         return Container(
           width: 22,
@@ -172,6 +186,7 @@ class SidebarMenuButton extends StatelessWidget {
             color: isSelected ? Palette.mint : Palette.black,
           ),
         );
+
       default:
         return const Text('No content available');
     }
@@ -201,6 +216,8 @@ class SidebarMenuButton extends StatelessWidget {
         return NoticeScreen.route;
       case MenuTypes.help:
         return HelpScreen.route;
+      case MenuTypes.jobFlow:
+        return JobFlowScreem.route;
       case MenuTypes.preparing:
         return PreparingScreen.route;
       default:
@@ -232,6 +249,8 @@ class SidebarMenuButton extends StatelessWidget {
         return const NoticeScreen();
       case MenuTypes.help:
         return const HelpScreen();
+      case MenuTypes.jobFlow:
+        return const JobFlowScreem();
       case MenuTypes.preparing:
         return const PreparingScreen();
       default:
